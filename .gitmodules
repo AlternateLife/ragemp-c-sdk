@@ -1,0 +1,3 @@
+[submodule "thirdparty/ragemp-cppsdk"]
+	path = thirdparty/ragemp-cppsdk
+	url = https://github.com/ragemultiplayer/ragemp-cppsdk.git
