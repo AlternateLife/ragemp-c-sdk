@@ -2,6 +2,8 @@ project(RageMP_C_Tests LANGUAGES C)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-add_executable(wrapper_test main.c)
+add_executable(test_executable main.c)
+add_library(test_plugin SHARED plugin.c)
 
-target_link_libraries(wrapper_test ragemp_wrapper)
+target_link_libraries(test_executable ragemp_wrapper)
+target_link_libraries(test_plugin ragemp_wrapper)

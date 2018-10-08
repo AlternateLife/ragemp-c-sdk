@@ -33,9 +33,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+struct multiplayer {
+    void *obj;
+};
+
 struct plugin {
     void *obj;
 };
+
+RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
+    multiplayer_t *m = (multiplayer_t *)malloc(sizeof(multiplayer_t));
+    m->obj = mp;
+
+    plugin_t *t = initializePlugin(m);
+    rage::IPlugin *plugin = static_cast<rage::IPlugin *>(t->obj);
+
+    return plugin;
+}
 
 plugin_t *newPlugin() {
     plugin_t *m = (plugin_t *)malloc(sizeof(*m));

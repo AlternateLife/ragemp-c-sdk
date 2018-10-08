@@ -1,5 +1,5 @@
 /*
- * File: rage.h
+ * File: multiplayer.cpp
  * Author: MarkAtk
  * Date: 08.10.2018
  *
@@ -26,17 +26,8 @@
  * SOFTWARE.
  */
 
-#pragma once
-
 #include "multiplayer.h"
-#include "plugin.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-plugin_t *initializePlugin(multiplayer_t *multiplayer);
-
-#ifdef __cplusplus
-}
-#endif
+struct multiplayer {
+    void *obj;
+};

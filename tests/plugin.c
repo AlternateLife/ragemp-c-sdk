@@ -1,5 +1,5 @@
 /*
- * File: rage.h
+ * File: plugin.c
  * Author: MarkAtk
  * Date: 08.10.2018
  *
@@ -26,17 +26,14 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "rage.h"
 
-#include "multiplayer.h"
-#include "plugin.h"
+#include <stdio.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+plugin_t *initializePlugin(multiplayer_t *multiplayer) {
+    plugin_t *plugin = newPlugin();
 
-plugin_t *initializePlugin(multiplayer_t *multiplayer);
+    printf("Hello World! %d", Plugin_GetVersion(plugin));
 
-#ifdef __cplusplus
+    return plugin;
 }
-#endif
