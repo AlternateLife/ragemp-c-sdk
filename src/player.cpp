@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: player.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -26,4 +26,16 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "player.h"
+
+#include <ragemp-cppsdk/rage.hpp>
+
+int Player_GetId(rage::IPlayer *player) {
+    return player->GetId();
+}
+
+void Player_Kick(rage::IPlayer *player, const char *reason) {
+    printf("Kick reason: %s\n", reason);
+
+    player->Kick(reason);
+}

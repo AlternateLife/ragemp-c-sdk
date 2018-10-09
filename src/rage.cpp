@@ -33,6 +33,7 @@
 
 #include <stdio.h>
 
+#include "eventHandler.h"
 #include "multiplayer.h"
 #include "plugin.h"
 
@@ -87,7 +88,7 @@ wchar_t *getTrustedPlatformAssemblies() {
     return assemblies;
 }
 
-void loadCoreClrRuntime() {
+void loadCoreClrRuntime(EventHandler *eventHandler) {
     printf("Loading CoreCLR...\n");
 
     // get core clr dll
@@ -200,11 +201,31 @@ void loadCoreClrRuntime() {
 
     printf("App domain %d created\n", domainId);
 
+//    TickMethod *tickDelegate = NULL;
+//    hr = runtimeHost->CreateDelegate(domainId, L"RageMP-Wrapper", L"AlternateLife.PluginWrapper", L"OnTick", (INT_PTR *)&tickDelegate);
+//    if (FAILED(hr)) {
+//        printf("Unable to find tick delegate\n");
+//
+//        return;
+//    }
+//
+//    eventHandler->setTickDelegate(tickDelegate);
+//
+//    PlayerJoinMethod *playerJoinDelegate = NULL;
+//    hr = runtimeHost->CreateDelegate(domainId, L"RageMP-Wrapper", L"AlternateLife.PluginWrapper", L"OnPlayerJoin", (INT_PTR *)&playerJoinDelegate);
+//    if (FAILED(hr)) {
+//        printf("Unable to find player join delegate\n");
+//
+//        return;
+//    }
+//
+//    eventHandler->setPlayerJoinDelegate(playerJoinDelegate);
+
     void *pfnDelegate = NULL;
     hr = runtimeHost->CreateDelegate(
         domainId,
         L"RageMP-Wrapper",
-        L"RageMP_Wrapper.Class1",
+        L"AlternateLife.PluginWrapper",
         L"Main",
         (INT_PTR *)&pfnDelegate
     );
@@ -222,18 +243,18 @@ void loadCoreClrRuntime() {
     printf("Ok\n");
 
     // cleanup
-    runtimeHost->UnloadAppDomain(domainId, true);
+    /*runtimeHost->UnloadAppDomain(domainId, true);
     runtimeHost->Stop();
-    runtimeHost->Release();
+    runtimeHost->Release();*/
 
     printf("Cleaned up runtime host\n");
 }
 
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    multiplayer_t *m = (multiplayer_t *)malloc(sizeof(multiplayer_t));
-    m->obj = mp;
+    EventHandler *eventHandler = new EventHandler();
+    mp->AddEventHandler(eventHandler);
 
-    loadCoreClrRuntime();
+    loadCoreClrRuntime(eventHandler);
 
     plugin_t *t = newPlugin();
     rage::IPlugin *plugin = static_cast<rage::IPlugin *>(t->obj);
