@@ -1,7 +1,7 @@
 /*
- * File: multiplayer.h
+ * File: wrapper.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -28,13 +28,13 @@
 
 #pragma once
 
-#include "wrapper.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct wrapper multiplayer_t;
+struct wrapper {
+    void *obj;
+};
 
 #ifdef __cplusplus
 }

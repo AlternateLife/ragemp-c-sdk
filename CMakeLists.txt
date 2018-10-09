@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(RageMP_C VERSION 0.1.0 LANGUAGES CXX)
+project(Rage-MP-C-SDK VERSION 0.1.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 

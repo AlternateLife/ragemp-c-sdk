@@ -29,11 +29,3 @@
 #include "rage.h"
 
 #include <stdio.h>
-
-plugin_t *initializePlugin(multiplayer_t *multiplayer) {
-    plugin_t *plugin = newPlugin();
-
-    printf("Hello World! %d", Plugin_GetVersion(plugin));
-
-    return plugin;
-}

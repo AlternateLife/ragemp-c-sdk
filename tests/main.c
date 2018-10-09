@@ -26,14 +26,10 @@
  * SOFTWARE.
  */
 
-#include "rage.h"
+#include "plugin.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-
-plugin_t *initializePlugin(multiplayer_t *multiplayer) {
-    return newPlugin();
-}
 
 int main(int argc, char **argv) {
     plugin_t *plugin = newPlugin();

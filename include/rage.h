@@ -28,14 +28,9 @@
 
 #pragma once
 
-#include "multiplayer.h"
-#include "plugin.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-plugin_t *initializePlugin(multiplayer_t *multiplayer);
 
 #ifdef __cplusplus
 }

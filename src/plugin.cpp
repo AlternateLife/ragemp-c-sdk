@@ -1,7 +1,7 @@
 /*
- * File: multiplayer.h
+ * File: plugin.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -26,16 +26,35 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "plugin.h"
 
-#include "wrapper.h"
+#include <ragemp-cppsdk/rage.hpp>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stdlib.h>
 
-typedef struct wrapper multiplayer_t;
+plugin_t *newPlugin() {
+    plugin_t *m = (plugin_t *)malloc(sizeof(*m));
 
-#ifdef __cplusplus
+    rage::IPlugin *obj = new rage::IPlugin();
+    m->obj = obj;
+
+    return m;
 }
-#endif
+
+void deletePlugin(plugin_t *plugin) {
+    delete static_cast<rage::IPlugin *>(plugin->obj);
+
+    free(plugin);
+}
+
+uint32_t Plugin_GetVersion(plugin_t *plugin) {
+    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
+
+    return obj->GetVersion();
+}
+
+void Plugin_Unload(plugin_t *plugin) {
+    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
+
+    obj->Unload();
+}

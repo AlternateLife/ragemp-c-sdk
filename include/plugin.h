@@ -30,11 +30,13 @@
 
 #include <stdint.h>
 
+#include "wrapper.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct plugin plugin_t;
+typedef struct wrapper plugin_t;
 
 plugin_t *newPlugin();
 void deletePlugin(plugin_t *plugin);

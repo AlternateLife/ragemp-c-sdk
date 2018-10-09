@@ -29,51 +29,214 @@
 #include "rage.h"
 
 #include <ragemp-cppsdk/rage.hpp>
+#include <coreclr/mscoree.h>
 
-#include <stdlib.h>
 #include <stdio.h>
 
-struct multiplayer {
-    void *obj;
-};
+#include "multiplayer.h"
+#include "plugin.h"
 
-struct plugin {
-    void *obj;
-};
+typedef void (STDMETHODCALLTYPE MainMethodFp)(LPWSTR* args);
+
+wchar_t *getTrustedPlatformAssemblies() {
+    int tpaSize = 100 * MAX_PATH;
+    wchar_t *assemblies = new wchar_t[tpaSize];
+
+    wcscpy_s(assemblies, tpaSize, L"");
+
+    wchar_t rootPath[MAX_PATH];
+    GetFullPathNameW(L".", MAX_PATH, rootPath, NULL);
+
+    wchar_t *tpaExtensions[] = { L"*.dll", L"*.exe", L"*.winmd" };
+
+    for (int i = 0; i < _countof(tpaExtensions); i++) {
+        wchar_t searchPath[MAX_PATH];
+        wcscpy_s(searchPath, MAX_PATH, rootPath);
+        wcscat_s(searchPath, MAX_PATH, L"\\bridge\\runtime\\");
+        wcscat_s(searchPath, MAX_PATH, tpaExtensions[i]);
+
+        WIN32_FIND_DATAW findData;
+        HANDLE fileHandle = FindFirstFileW(searchPath, &findData);
+
+        if (fileHandle == INVALID_HANDLE_VALUE) {
+            continue;
+        }
+
+        do {
+            // get full path
+            wchar_t fullPath[MAX_PATH];
+            wcscpy_s(fullPath, MAX_PATH, rootPath);
+            wcscat_s(fullPath, MAX_PATH, L"\\bridge\\runtime\\");
+            wcscat_s(fullPath, MAX_PATH, findData.cFileName);
+
+            if (wcslen(fullPath) + (3) + wcslen(assemblies) >= tpaSize) {
+                // extend tpa list size
+                tpaSize *= 2;
+                wchar_t *newAssemblies = new wchar_t[tpaSize];
+                wcscpy_s(newAssemblies, tpaSize, assemblies);
+                assemblies = newAssemblies;
+            }
+
+            wcscat_s(assemblies, tpaSize, fullPath);
+            wcscat_s(assemblies, tpaSize, L";");
+        } while (FindNextFileW(fileHandle, &findData));
+
+        FindClose(fileHandle);
+    }
+
+    return assemblies;
+}
+
+void loadCoreClrRuntime() {
+    printf("Loading CoreCLR...\n");
+
+    // get core clr dll
+    HMODULE coreClrModule = LoadLibraryEx("./bridge/runtime/coreclr.dll", NULL, 0);
+    if (coreClrModule == NULL) {
+        printf("CoreCLR not found\n");
+
+        return;
+    }
+
+    // get runtime host
+    ICLRRuntimeHost2 *runtimeHost;
+
+    FnGetCLRRuntimeHost pfnGetCLRRuntimeHost = (FnGetCLRRuntimeHost)::GetProcAddress(coreClrModule, "GetCLRRuntimeHost");
+    if (pfnGetCLRRuntimeHost == NULL) {
+        printf("Runtime host entry not found\n");
+
+        return;
+    }
+
+    HRESULT hr = pfnGetCLRRuntimeHost(IID_ICLRRuntimeHost2, (IUnknown **)&runtimeHost);
+    if (FAILED(hr)) {
+        printf("Failed to get runtime host instance\n");
+
+        return;
+    }
+
+    // setup startup flags
+    hr = runtimeHost->SetStartupFlags(static_cast<STARTUP_FLAGS>(
+            STARTUP_FLAGS::STARTUP_CONCURRENT_GC |
+            STARTUP_FLAGS::STARTUP_SINGLE_APPDOMAIN |
+            STARTUP_FLAGS::STARTUP_LOADER_OPTIMIZATION_SINGLE_DOMAIN
+        )
+    );
+
+    if (FAILED(hr)) {
+        printf("Failed to set start up flags\n");
+
+        return;
+    }
+
+    // start host environment
+    hr = runtimeHost->Start();
+    if (FAILED(hr)) {
+        printf("Failed to start host: %x\n", hr);
+
+        return;
+    }
+
+    printf("Runtime started\n");
+
+    // prepare app domain
+    int appDomainFlags = APPDOMAIN_ENABLE_PLATFORM_SPECIFIC_APPS | APPDOMAIN_ENABLE_PINVOKE_AND_CLASSIC_COMINTEROP | APPDOMAIN_DISABLE_TRANSPARENCY_ENFORCEMENT;
+
+    wchar_t *trustedAssemblies = getTrustedPlatformAssemblies();
+
+    wchar_t appPaths[50 * MAX_PATH];
+    GetFullPathNameW(L".\\test\\", 50 * MAX_PATH, appPaths, NULL);
+
+    wchar_t appNiPaths[50 * MAX_PATH];
+    wcscpy_s(appNiPaths, 50 * MAX_PATH, appPaths);
+
+    wchar_t nativeDllPaths[50 * MAX_PATH];
+    wcscpy_s(nativeDllPaths, 50 * MAX_PATH, L".\\test\\;.\\bridge\\runtime\\");
+
+    wchar_t platformResourceRoots[50 * MAX_PATH];
+    wcscpy_s(platformResourceRoots, 50 * MAX_PATH, appPaths);
+
+    wchar_t* appDomainCompatSwitch = L"UseLatestBehaviorWhenTFMNotSpecified";
+
+    // create app domain
+    DWORD domainId;
+
+    const wchar_t *propertyKeys[] = {
+        L"TRUSTED_PLATFORM_ASSEMBLIES",
+        L"APP_PATHS",
+        L"APP_NI_PATHS",
+        L"NATIVE_DLL_SEARCH_DIRECTORIES",
+        L"PLATFORM_RESOURCE_ROOTS",
+        L"AppDomainCompatSwitch"
+    };
+
+    const wchar_t *propertyValues[] = {
+        trustedAssemblies,
+        appPaths,
+        appNiPaths,
+        nativeDllPaths,
+        platformResourceRoots,
+        appDomainCompatSwitch
+    };
+
+    printf("Creating app domain...");
+
+    hr = runtimeHost->CreateAppDomainWithManager(
+        L"RageMP Host Domain",
+        appDomainFlags,
+        NULL,
+        NULL,
+        sizeof(propertyKeys) / sizeof(wchar_t *),
+        propertyKeys,
+        propertyValues,
+        &domainId
+    );
+
+    if (FAILED(hr)) {
+        printf("Unable to create app domain: %x\n", hr);
+
+        return;
+    }
+
+    printf("App domain %d created\n", domainId);
+
+    void *pfnDelegate = NULL;
+    hr = runtimeHost->CreateDelegate(
+        domainId,
+        L"RageMP-Wrapper",
+        L"RageMP_Wrapper.Class1",
+        L"Main",
+        (INT_PTR *)&pfnDelegate
+    );
+
+    if (FAILED(hr)) {
+        printf("Unable to find delegate method\n");
+
+        return;
+    }
+
+    printf("Calling delegate method...");
+
+    ((MainMethodFp *)pfnDelegate)(NULL);
+
+    printf("Ok\n");
+
+    // cleanup
+    runtimeHost->UnloadAppDomain(domainId, true);
+    runtimeHost->Stop();
+    runtimeHost->Release();
+
+    printf("Cleaned up runtime host\n");
+}
 
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
     multiplayer_t *m = (multiplayer_t *)malloc(sizeof(multiplayer_t));
     m->obj = mp;
 
-    plugin_t *t = initializePlugin(m);
+    loadCoreClrRuntime();
+
+    plugin_t *t = newPlugin();
     rage::IPlugin *plugin = static_cast<rage::IPlugin *>(t->obj);
 
     return plugin;
-}
-
-plugin_t *newPlugin() {
-    plugin_t *m = (plugin_t *)malloc(sizeof(*m));
-
-    rage::IPlugin *obj = new rage::IPlugin();
-    m->obj = obj;
-
-    return m;
-}
-
-void deletePlugin(plugin_t *plugin) {
-    delete static_cast<rage::IPlugin *>(plugin->obj);
-
-    free(plugin);
-}
-
-uint32_t Plugin_GetVersion(plugin_t *plugin) {
-    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
-
-    return obj->GetVersion();
-}
-
-void Plugin_Unload(plugin_t *plugin) {
-    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
-
-    obj->Unload();
 }
