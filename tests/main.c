@@ -32,11 +32,5 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-    plugin_t *plugin = newPlugin();
-
-    printf("Plugin Version %d", Plugin_GetVersion(plugin));
-
-    deletePlugin(plugin);
-
     return EXIT_SUCCESS;
 }
