@@ -1,7 +1,7 @@
 /*
- * File: rage.cpp
+ * File: clrHost.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -26,23 +26,32 @@
  * SOFTWARE.
  */
 
-#include "rage.h"
+#pragma once
 
-#include <ragemp-cppsdk/rage.hpp>
+#include <coreclr/mscoree.h>
 
-#include "eventHandler.h"
-#include "clrHost.h"
+typedef void (* MainMethod)();
 
-RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    auto clrHost = new ClrHost();
-    if (clrHost->load() == false) {
-        return nullptr;
-    }
+class ClrHost {
+private:
+    ICLRRuntimeHost2 *_runtimeHost;
+    DWORD _domainId;
 
-    auto eventHandler = new EventHandler();
-    mp->AddEventHandler(eventHandler);
+    MainMethod _mainCallback;
 
-    clrHost->mainCallback()();
+public:
+    ClrHost();
+    virtual ~ClrHost();
 
-    return new rage::IPlugin();
-}
+    bool load();
+    void unload();
+
+    MainMethod mainCallback() const;
+
+private:
+    bool getRuntime();
+    bool createAppDomain();
+    wchar_t *getTrustedAssemblies();
+
+    bool getDelegate(wchar_t *methodName, void **callback);
+};
