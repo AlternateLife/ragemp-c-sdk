@@ -1,7 +1,7 @@
 /*
- * File: multiplayer.h
+ * File: vehiclePool.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -28,11 +28,14 @@
 
 #pragma once
 
+#include <ragemp-cppsdk/rage.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
+RAGE_API rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 &position, float heading, const char *numberPlate,
+        uint32_t alpha, bool locked, bool engine, uint32_t dimension);
 
 #ifdef __cplusplus
 }
