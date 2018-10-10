@@ -28,6 +28,47 @@
 
 #include "multiplayer.h"
 
-struct multiplayer {
-    void *obj;
-};
+const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetPlayerPool();
+}
+
+const rage::IVehiclePool *Multiplayer_GetVehiclePool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetVehiclePool();
+}
+
+const rage::IColshapePool *Multiplayer_GetColshapePool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetColshapePool();
+}
+
+const rage::ICheckpointPool *Multiplayer_GetCheckpointPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetCheckpointPool();
+}
+
+const rage::IMarkerPool *Multiplayer_GetMarkerPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetMarkerPool();
+}
+
+const rage::IBlipPool *Multiplayer_GetBlipPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetBlipPool();
+}
+
+const rage::IPickupPool *Multiplayer_GetPickupPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetPickupPool();
+}
+
+const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetObjectPool();
+}
+
+const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetLabelPool();
+}
+
+const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetWorld();
+}
+
+const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer) {
+    return &multiplayer->GetConfig();
+}
+

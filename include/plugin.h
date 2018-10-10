@@ -30,19 +30,11 @@
 
 #include <stdint.h>
 
-#include "wrapper.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct wrapper plugin_t;
 
-plugin_t *newPlugin();
-void deletePlugin(plugin_t *plugin);
-
-uint32_t Plugin_GetVersion(plugin_t *plugin);
-void Plugin_Unload(plugin_t *plugin);
 
 #ifdef __cplusplus
 }

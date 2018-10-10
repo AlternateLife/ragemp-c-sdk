@@ -27,3 +27,10 @@
  */
 
 #pragma once
+
+#include "entity.h"
+#include "player.h"
+#include "multiplayer.h"
+#include "vehiclePool.h"
+#include "vehicle.h"
+#include "plugin.h"

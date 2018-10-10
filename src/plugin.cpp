@@ -27,34 +27,3 @@
  */
 
 #include "plugin.h"
-
-#include <ragemp-cppsdk/rage.hpp>
-
-#include <stdlib.h>
-
-plugin_t *newPlugin() {
-    plugin_t *m = (plugin_t *)malloc(sizeof(*m));
-
-    rage::IPlugin *obj = new rage::IPlugin();
-    m->obj = obj;
-
-    return m;
-}
-
-void deletePlugin(plugin_t *plugin) {
-    delete static_cast<rage::IPlugin *>(plugin->obj);
-
-    free(plugin);
-}
-
-uint32_t Plugin_GetVersion(plugin_t *plugin) {
-    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
-
-    return obj->GetVersion();
-}
-
-void Plugin_Unload(plugin_t *plugin) {
-    rage::IPlugin *obj = static_cast<rage::IPlugin *>(plugin->obj);
-
-    obj->Unload();
-}
