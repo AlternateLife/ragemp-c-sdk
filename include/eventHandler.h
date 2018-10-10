@@ -98,6 +98,10 @@ public:
     rage::IStreamerHandler *GetStreamerHandler() override;
     rage::ITickHandler *GetTickHandler() override;
 
+    void OnEntityCreated(rage::IEntity *entity) override;
+    void OnEntityDestroyed(rage::IEntity *entity) override;
+    void OnEntityModelChange(rage::IEntity *entity, rage::hash_t oldModel) override;
+
     void OnPlayerJoin(rage::IPlayer *player) override;
     void OnPlayerReady(rage::IPlayer *player) override;
     void OnPlayerQuit(rage::IPlayer *player, rage::exit_t type, const char *reason) override;

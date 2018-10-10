@@ -78,6 +78,18 @@ rage::ITickHandler* EventHandler::GetTickHandler() {
     return this;
 }
 
+void EventHandler::OnEntityCreated(rage::IEntity *entity) {
+    executeCallback(EVENT_TYPE_ENTITY_CREATED, entity);
+}
+
+void EventHandler::OnEntityDestroyed(rage::IEntity *entity) {
+    executeCallback(EVENT_TYPE_ENTITY_DESTROYED, entity);
+}
+
+void EventHandler::OnEntityModelChange(rage::IEntity *entity, rage::hash_t oldModel) {
+    executeCallback(EVENT_TYPE_ENTITY_MODEL_CHANGED, oldModel);
+}
+
 void EventHandler::OnPlayerJoin(rage::IPlayer *player) {
     executeCallback(EVENT_TYPE_PLAYER_JOIN, player);
 }
