@@ -66,11 +66,24 @@ void Player_StopAnimation(rage::IPlayer *player) {
     player->StopAnimation();
 }
 
-// GetClothes
+const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint32_t id) {
+    return &player->GetClothes(id);
+}
+
+void Player_SetClothes(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes) {
+    player->SetClothes(id, clothes);
+}
+
 // SetClothes
-// SetClothes
-// GetProp
-// SetProp
+
+const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id) {
+    return &player->GetProp(id);
+}
+
+void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &prop) {
+    player->SetProp(id, prop);
+}
+
 // SetProp
 // SetCustomization
 
@@ -132,7 +145,9 @@ void Player_SetArmor(rage::IPlayer *player, float armor) {
     player->SetArmour(armor);
 }
 
-//rage::vector3 &Player_GetAminingAt(rage::IPlayer *player)
+const rage::vector3 *Player_GetAminingAt(rage::IPlayer *player) {
+    return &player->GetAimingAt();
+}
 
 int Player_GetPing(rage::IPlayer *player) {
     return player->GetPing();
@@ -230,7 +245,10 @@ void Player_SetFaceFeature(rage::IPlayer *player, uint32_t id, float scale) {
     player->SetFaceFeature(id, scale);
 }
 
-// GetHeadBlend
+const rage::headBlend_t *Player_GetHeadBlend(rage::IPlayer *player) {
+    return &player->GetHeadBlend();
+}
+
 void Player_SetHeadBlend(rage::IPlayer *player, int shapeFirstId, int shapeSecondId, int shapeThirdId, int skinFirstId, int skinSecondId, int
 skinThirdId, float shapeMix, float skinMix, float thirdMix) {
     player->SetHeadBlend(shapeFirstId, shapeSecondId, shapeThirdId, skinFirstId, skinSecondId, skinThirdId, shapeMix, skinMix, thirdMix);
@@ -240,8 +258,13 @@ void Player_UpdateHeadBlend(rage::IPlayer *player, float shapeMix, float skinMix
     player->UpdateHeadBlend(shapeMix, skinMix, thirdMix);
 }
 
-// GetHeadOverlay
-// SetHeadOverlay
+const rage::headOverlay_t *Player_GetHeadOverlay(rage::IPlayer *player, uint32_t overlayId) {
+    return &player->GetHeadOverlay(overlayId);
+}
+
+void Player_SetHeadOverlay(rage::IPlayer *player, uint32_t overlayId, const rage::headOverlay_t &overlay) {
+    player->SetHeadOverlay(overlayId, overlay);
+}
 
 uint32_t Player_GetCurrentWeapon(rage::IPlayer *player) {
     return player->GetCurrentWeapon();
@@ -274,11 +297,13 @@ void Player_GiveWeapon(rage::IPlayer *player, uint32_t weapon, uint32_t ammo) {
 }
 
 // GiveWeapons
+
 void Player_RemoveWeapon(rage::IPlayer *player, uint32_t weapon) {
     player->RemoveWeapon(weapon);
 }
 
 // RemoveWeapons
+
 void Player_RemoveAllWeapons(rage::IPlayer *player) {
     player->RemoveAllWeapons();
 }
@@ -288,6 +313,7 @@ bool Player_IsStreamed(rage::IPlayer *player, rage::IPlayer *other) {
 }
 
 // GetStreamed
+
 const char *Player_GetSerial(rage::IPlayer *player) {
     return player->GetSerial().c_str();
 }
@@ -296,6 +322,9 @@ const char *Player_GetSocialClubName(rage::IPlayer *player) {
     return player->GetSocialClubName().c_str();
 }
 
-// RemoveObject
+void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius) {
+    player->RemoveObject(model, position, radius);
+}
+
 // Call
 // Invoke
