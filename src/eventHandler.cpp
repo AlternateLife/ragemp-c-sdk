@@ -29,6 +29,7 @@
 #include "eventHandler.h"
 
 #include <map>
+#include <iostream>
 
 std::map<eventType_t, void *> _callbacks;
 
@@ -90,11 +91,11 @@ void EventHandler::OnPlayerQuit(rage::IPlayer *player, rage::exit_t type, const 
 }
 
 void EventHandler::OnPlayerCommand(rage::IPlayer *player, const std::u16string &command) {
-    executeCallback(EVENT_TYPE_PLAYER_COMMAND, player, command);
+    executeCallback(EVENT_TYPE_PLAYER_COMMAND, player, command.c_str());
 }
 
 void EventHandler::OnPlayerChat(rage::IPlayer *player, const std::u16string &text) {
-    executeCallback(EVENT_TYPE_PLAYER_CHAT, player, text);
+    executeCallback(EVENT_TYPE_PLAYER_CHAT, player, text.c_str());
 }
 
 void EventHandler::OnPlayerDeath(rage::IPlayer *player, rage::hash_t reason, rage::IPlayer *killer) {
