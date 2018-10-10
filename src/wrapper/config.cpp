@@ -1,5 +1,5 @@
 /*
- * File: pool.cpp
+ * File: config.cpp
  * Author: MarkAtk
  * Date: 10.10.2018
  *
@@ -26,19 +26,12 @@
  * SOFTWARE.
  */
 
-#include "pool.h"
+#include "wrapper/config.h"
 
-rage::IEntity *Pool_GetAt(rage::IPool<rage::IEntity> *pool, uint32_t id) {
-    return pool->GetAt(id);
+int Config_GetInt(rage::IConfig *config, const char *key, int defaultValue) {
+    return config->GetInt(key, defaultValue);
 }
 
-uint32_t Pool_GetLength(rage::IPool<rage::IEntity> *pool) {
-    return pool->Length();
+const char *Config_GetString(rage::IConfig *config, const char *key, const char *defaultValue) {
+    return config->GetString(key, defaultValue).c_str();
 }
-
-uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool) {
-    return pool->Count();
-}
-
-// GetInRange
-// GetInDimension

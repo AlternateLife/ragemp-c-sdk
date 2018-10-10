@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "multiplayer.h"
+#include "wrapper/multiplayer.h"
 
 const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer) {
     return &multiplayer->GetPlayerPool();

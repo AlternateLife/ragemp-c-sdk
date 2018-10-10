@@ -2,7 +2,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 include_directories(${CMAKE_SOURCE_DIR}/thirdparty)
 
-add_library(ragemp_wrapper SHARED rage.cpp multiplayer.cpp plugin.cpp eventHandler.cpp player.cpp clrHost.cpp entity.cpp vehicle.cpp vehiclePool.cpp clrPlugin.cpp world.cpp pool.cpp config.cpp)
+add_library(ragemp_wrapper SHARED rage.cpp wrapper/multiplayer.cpp plugin.cpp eventHandler.cpp wrapper/player.cpp clrHost.cpp wrapper/entity.cpp wrapper/vehicle.cpp wrapper/vehiclePool.cpp clrPlugin.cpp wrapper/world.cpp wrapper/pool.cpp wrapper/config.cpp)
 
 set_target_properties(ragemp_wrapper PROPERTIES OUTPUT_NAME "dotnet-wrapper")
 

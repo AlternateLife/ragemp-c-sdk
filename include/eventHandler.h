@@ -32,7 +32,7 @@
 
 #include <stdio.h>
 
-#include "player.h"
+#include "wrapper/player.h"
 
 #ifdef __cplusplus
 extern "C" {

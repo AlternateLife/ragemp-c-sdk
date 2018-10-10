@@ -28,11 +28,11 @@
 
 #pragma once
 
-#include "entity.h"
-#include "player.h"
-#include "multiplayer.h"
-#include "vehiclePool.h"
-#include "vehicle.h"
+#include "wrapper/entity.h"
+#include "wrapper/player.h"
+#include "wrapper/multiplayer.h"
+#include "wrapper/vehiclePool.h"
+#include "wrapper/vehicle.h"
 #include "plugin.h"
-#include "pool.h"
-#include "config.h"
+#include "wrapper/pool.h"
+#include "wrapper/config.h"

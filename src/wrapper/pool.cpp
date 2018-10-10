@@ -1,5 +1,5 @@
 /*
- * File: world.cpp
+ * File: pool.cpp
  * Author: MarkAtk
  * Date: 10.10.2018
  *
@@ -26,50 +26,19 @@
  * SOFTWARE.
  */
 
-#include "world.h"
+#include "wrapper/pool.h"
 
-const rage::time_t *World_GetTime(rage::IWorld *world) {
-    return &world->GetTime();
+rage::IEntity *Pool_GetAt(rage::IPool<rage::IEntity> *pool, uint32_t id) {
+    return pool->GetAt(id);
 }
 
-void World_SetTime(rage::IWorld *world, const rage::time_t &time) {
-    world->SetTime(time);
+uint32_t Pool_GetLength(rage::IPool<rage::IEntity> *pool) {
+    return pool->Length();
 }
 
-const char *World_GetWeather(rage::IWorld *world) {
-    return world->GetWeather().c_str();
+uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool) {
+    return pool->Count();
 }
 
-void World_SetWeather(rage::IWorld *world, const char *weather) {
-    world->SetWeather(weather);
-}
-
-void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time) {
-    world->SetWeatherTransition(weather, time);
-}
-
-void World_RequestIpl(rage::IWorld *world, const char *ipl) {
-    world->RequestIpl(ipl);
-}
-
-void World_RemoveIpl(rage::IWorld *world, const char *ipl) {
-    world->RemoveIpl(ipl);
-}
-
-bool World_AreTrafficLightsLocked(rage::IWorld *world) {
-    return world->AreTrafficLightsLocked();
-}
-
-void World_LockTrafficLights(rage::IWorld *world, bool toggle) {
-    world->LockTrafficLights(toggle);
-}
-
-int World_GetTrafficLightsState(rage::IWorld *world) {
-    return world->GetTrafficLightsState();
-}
-
-void World_SetTrafficLightsState(rage::IWorld *world, int state) {
-    world->SetTrafficLightsState(state);
-}
-
-
+// GetInRange
+// GetInDimension
