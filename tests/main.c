@@ -26,8 +26,6 @@
  * SOFTWARE.
  */
 
-#include "plugin.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
