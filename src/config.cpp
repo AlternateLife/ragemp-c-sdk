@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: config.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,13 +26,12 @@
  * SOFTWARE.
  */
 
-#pragma once
-
-#include "entity.h"
-#include "player.h"
-#include "multiplayer.h"
-#include "vehiclePool.h"
-#include "vehicle.h"
-#include "plugin.h"
-#include "pool.h"
 #include "config.h"
+
+int Config_GetInt(rage::IConfig *config, const char *key, int defaultValue) {
+    return config->GetInt(key, defaultValue);
+}
+
+const char *Config_GetString(rage::IConfig *config, const char *key, const char *defaultValue) {
+    return config->GetString(key, defaultValue).c_str();
+}
