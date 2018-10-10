@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: checkpoint.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -28,15 +28,23 @@
 
 #pragma once
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+#include <ragemp-cppsdk/rage.hpp>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+//GetColor
+RAGE_API void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha);
+RAGE_API const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint);
+RAGE_API void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction);
+RAGE_API float Checkpoint_GetRadius(rage::ICheckpoint *checkpoint);
+RAGE_API void Checkpoint_SetRadius(rage::ICheckpoint *checkpoint, float radius);
+RAGE_API bool Checkpoint_IsVisible(rage::ICheckpoint *checkpoint);
+RAGE_API void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle);
+//ShowFor
+//HideFor
+
+#ifdef __cplusplus
+}
+#endif

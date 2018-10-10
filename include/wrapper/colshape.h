@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: colshape.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -28,15 +28,15 @@
 
 #pragma once
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+#include <ragemp-cppsdk/rage.hpp>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+RAGE_API bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position);
+RAGE_API uint32_t Colshape_GetShapeType(rage::IColshape *colshape);
+
+#ifdef __cplusplus
+}
+#endif

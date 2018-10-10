@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: blip.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -28,15 +28,29 @@
 
 #pragma once
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+#include <ragemp-cppsdk/rage.hpp>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+RAGE_API float Blip_GetDrawDistance(rage::IBlip *blip);
+RAGE_API void Blip_SetDrawDistance(rage::IBlip *blip, float distance);
+RAGE_API int32_t Blip_GetRotation(rage::IBlip *blip);
+RAGE_API void Blip_SetRotation(rage::IBlip *blip, int32_t rotation);
+RAGE_API bool Blip_IsShortRange(rage::IBlip *blip);
+RAGE_API void Blip_SetShortRange(rage::IBlip *blip, bool toggle);
+//RouteFor
+//UnrouteFor
+RAGE_API uint32_t Blip_GetColor(rage::IBlip *blip);
+RAGE_API void Blip_SetColor(rage::IBlip *blip, uint32_t color);
+//GetAlpha
+//SetAlpha
+RAGE_API float Blip_GetScale(rage::IBlip *blip);
+RAGE_API void Blip_SetScale(rage::IBlip *blip, float scale);
+RAGE_API const char *Blip_GetName(rage::IBlip *blip);
+RAGE_API void Blip_SetName(rage::IBlip *blip, const char *name);
+
+#ifdef __cplusplus
+}
+#endif

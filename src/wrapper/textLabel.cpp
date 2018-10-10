@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: textLabel.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,17 +26,41 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "wrapper/textLabel.h"
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+//GetColor
+//SetColor
+
+const char *TextLabel_GetText(rage::ITextLabel *textLabel) {
+    return textLabel->GetText().c_str();
+}
+
+void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text) {
+    textLabel->SetText(text);
+}
+
+bool TextLabel_GetLOS(rage::ITextLabel *textLabel) {
+    return textLabel->GetLOS();
+}
+
+void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle) {
+    textLabel->SetLOS(toggle);
+}
+
+float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel) {
+    return textLabel->GetDrawDistance();
+}
+
+void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance) {
+    textLabel->SetDrawDistance(distance);
+}
+
+uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel) {
+    return textLabel->GetFont();
+}
+
+void TextLabel_SetFont(rage::ITextLabel *textLabel, uint32_t font) {
+    textLabel->SetFont(font);
+}
+
+

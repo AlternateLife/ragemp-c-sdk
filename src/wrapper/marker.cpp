@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: marker.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,17 +26,37 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "wrapper/marker.h"
+ 
+//GetColor
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
+    marker->SetColour(red, green, blue, alpha);
+}
+
+const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
+    return &marker->GetDirection();
+}
+
+void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {
+    marker->SetDirection(direction);
+}
+
+float Marker_GetScale(rage::IMarker *marker) {
+    return marker->GetScale();
+}
+
+void Marker_SetScale(rage::IMarker *marker, float radius) {
+    marker->SetScale(radius);
+}
+
+bool Marker_IsVisible(rage::IMarker *marker) {
+    return marker->IsVisible();
+}
+
+void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
+    marker->SetVisible(toggle);
+}
+
+//ShowFor
+//HideFor

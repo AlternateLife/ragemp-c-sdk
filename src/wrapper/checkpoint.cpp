@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: checkpoint.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,17 +26,37 @@
  * SOFTWARE.
  */
 
-#pragma once
-
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
 #include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+
+//GetColor
+
+void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
+    checkpoint->SetColour(red, green, blue, alpha);
+}
+
+const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint) {
+    return &checkpoint->GetDirection();
+}
+
+void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction) {
+    checkpoint->SetDirection(direction);
+}
+
+float Checkpoint_GetRadius(rage::ICheckpoint *checkpoint) {
+    return checkpoint->GetRadius();
+}
+
+void Checkpoint_SetRadius(rage::ICheckpoint *checkpoint, float radius) {
+    checkpoint->SetRadius(radius);
+}
+
+bool Checkpoint_IsVisible(rage::ICheckpoint *checkpoint) {
+    return checkpoint->IsVisible();
+}
+
+void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle) {
+    checkpoint->SetVisible(toggle);
+}
+
+//ShowFor
+//HideFor

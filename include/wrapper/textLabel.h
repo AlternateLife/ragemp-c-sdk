@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: textLabel.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -28,15 +28,23 @@
 
 #pragma once
 
-#include "wrapper/entity.h"
-#include "wrapper/player.h"
-#include "wrapper/multiplayer.h"
-#include "wrapper/vehiclePool.h"
-#include "wrapper/vehicle.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/pool.h"
-#include "wrapper/config.h"
-#include "wrapper/marker.h"
-#include "wrapper/blip.h"
-#include "wrapper/marker.h"
+#include <ragemp-cppsdk/rage.hpp>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+//GetColor
+//SetColor
+RAGE_API const char *TextLabel_GetText(rage::ITextLabel *textLabel);
+RAGE_API void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text);
+RAGE_API bool TextLabel_GetLOS(rage::ITextLabel *textLabel);
+RAGE_API void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle);
+RAGE_API float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel);
+RAGE_API void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance);
+RAGE_API uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel);
+RAGE_API void TextLabel_SetFont(rage::ITextLabel *textLabel, uint32_t font);
+
+#ifdef __cplusplus
+}
+#endif
