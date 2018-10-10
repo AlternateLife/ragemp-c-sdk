@@ -40,11 +40,10 @@ RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
         return nullptr;
     }
 
-    auto eventHandler = new EventHandler();
-    mp->AddEventHandler(eventHandler);
-
     for (auto &plugin : clrHost->plugins()) {
-        if (plugin->mainCallback() != 0) {
+        mp->AddEventHandler(plugin->eventHandler());
+
+        if (plugin->mainCallback() != nullptr) {
             plugin->mainCallback()(mp);
         }
     }

@@ -34,20 +34,25 @@
 
 typedef void (* MainMethod)(rage::IMultiplayer *);
 
+class EventHandler;
+
 class ClrPlugin {
 private:
     std::wstring _filename;
     std::wstring _path;
 
     MainMethod _mainCallback;
+    EventHandler *_eventHandler;
 
 public:
     ClrPlugin(std::wstring &filename, std::wstring &path);
-    virtual ~ClrPlugin() = default;
+    virtual ~ClrPlugin();
 
     std::wstring filename() const;
     std::wstring path() const;
 
     void setMainCallback(MainMethod callback);
     MainMethod mainCallback() const;
+
+    EventHandler *eventHandler() const;
 };

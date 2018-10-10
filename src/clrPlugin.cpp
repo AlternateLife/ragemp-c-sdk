@@ -28,9 +28,18 @@
 
 #include "clrPlugin.h"
 
+#include "eventHandler.h"
+
 ClrPlugin::ClrPlugin(std::wstring &filename, std::wstring &path) {
     _filename = filename;
     _path = path;
+    _mainCallback = nullptr;
+
+    _eventHandler = new EventHandler();
+}
+
+ClrPlugin::~ClrPlugin() {
+    delete _eventHandler;
 }
 
 std::wstring ClrPlugin::filename() const {
@@ -47,4 +56,8 @@ void ClrPlugin::setMainCallback(MainMethod callback) {
 
 MainMethod ClrPlugin::mainCallback() const {
     return _mainCallback;
+}
+
+EventHandler *ClrPlugin::eventHandler() const {
+    return _eventHandler;
 }
