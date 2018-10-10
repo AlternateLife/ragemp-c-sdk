@@ -28,6 +28,10 @@
 
 #include "entity.h"
 
+#include <cstring>
+
+#include <iostream>
+
 uint32_t Entity_GetId(rage::IEntity *entity) {
     return entity->GetId();
 }
@@ -48,16 +52,16 @@ void Entity_SetDimension(rage::IEntity *entity, uint32_t dimension) {
     entity->SetDimension(dimension);
 }
 
-const rage::vector3 &Entity_GetPosition(rage::IEntity *entity) {
-    return entity->GetPosition();
+const rage::vector3 *Entity_GetPosition(rage::IEntity *entity) {
+    return &entity->GetPosition();
 }
 
 void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
     entity->SetPosition(position);
 }
 
-const rage::vector3 &Entity_GetRotation(rage::IEntity *entity) {
-    return entity->GetRotation();
+const rage::vector3 *Entity_GetRotation(rage::IEntity *entity) {
+    return &entity->GetRotation();
 }
 
 void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation) {
@@ -72,8 +76,8 @@ void Entity_SetModel(rage::IEntity *entity, uint32_t model) {
     entity->SetModel(model);
 }
 
-const rage::vector3 &Entity_GetVelocity(rage::IEntity *entity) {
-    return entity->GetVelocity();
+const rage::vector3 *Entity_GetVelocity(rage::IEntity *entity) {
+    return &entity->GetVelocity();
 }
 
 uint32_t Entity_GetAlpha(rage::IEntity *entity) {
