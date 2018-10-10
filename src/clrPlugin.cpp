@@ -1,7 +1,7 @@
 /*
- * File: clrHost.h
+ * File: clrPlugin.cpp
  * Author: MarkAtk
- * Date: 09.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,37 +26,25 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "clrPlugin.h"
 
-#include <coreclr/mscoree.h>
+ClrPlugin::ClrPlugin(std::wstring &filename, std::wstring &path) {
+    _filename = filename;
+    _path = path;
+}
 
-#include <vector>
+std::wstring ClrPlugin::filename() const {
+    return _filename;
+}
 
-class ClrPlugin;
+std::wstring ClrPlugin::path() const {
+    return _path;
+}
 
-class ClrHost {
-private:
-    ICLRRuntimeHost2 *_runtimeHost;
-    DWORD _domainId;
+void ClrPlugin::setMainCallback(MainMethod callback) {
+    _mainCallback = callback;
+}
 
-    std::vector<ClrPlugin *> _plugins;
-
-public:
-    ClrHost();
-    virtual ~ClrHost();
-
-    bool load();
-    void unload();
-
-    std::vector<ClrPlugin *> plugins() const;
-
-private:
-    bool getRuntime();
-    bool createAppDomain();
-    wchar_t *getTrustedAssemblies();
-
-    void getPlugins();
-    bool getDelegate(const wchar_t *filename, wchar_t *methodName, void **callback);
-
-    std::wstring getFilenameWithoutExtension(wchar_t *filename);
-};
+MainMethod ClrPlugin::mainCallback() const {
+    return _mainCallback;
+}

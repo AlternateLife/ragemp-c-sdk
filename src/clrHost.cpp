@@ -28,16 +28,18 @@
 
 #include "clrHost.h"
 
+#include "clrPlugin.h"
+
 #include <iostream>
 
-#define DOTNET_DIR_PATH "./dotnet/"
 #define RUNTIME_DIR_PATH "./dotnet/runtime/"
-#define DOTNET_PLUGIN_DIR_PATH "./dotnet/plugins/"
+#define PLUGIN_DIR_PATH "./dotnet/plugins/"
+
+#define PLUGIN_CLASS_NAME L"RageMP.Net.PluginWrapper"
 
 ClrHost::ClrHost() {
     _runtimeHost = 0;
     _domainId = 0;
-    _mainCallback = 0;
 }
 
 ClrHost::~ClrHost() {
@@ -53,12 +55,29 @@ bool ClrHost::load() {
         return false;
     }
 
-    getDelegate(L"Main", (void **)&_mainCallback);
+    getPlugins();
+
+    for (auto &plugin : _plugins) {
+        MainMethod callback;
+        if (getDelegate(plugin->filename().c_str(), L"Main", (void **)&callback) == false) {
+            continue;
+        }
+
+        plugin->setMainCallback(callback);
+
+        std::wcout << "[.NET] Plugin " << plugin->filename() << " loaded" << std::endl;
+    }
 
     return true;
 }
 
 void ClrHost::unload() {
+    for (auto &plugin : _plugins) {
+        delete plugin;
+    }
+
+    _plugins.clear();
+
     if (_runtimeHost == 0) {
         return;
     }
@@ -75,8 +94,8 @@ void ClrHost::unload() {
     _runtimeHost = 0;
 }
 
-MainMethod ClrHost::mainCallback() const {
-    return _mainCallback;
+std::vector<ClrPlugin *> ClrHost::plugins() const {
+    return _plugins;
 }
 
 bool ClrHost::getRuntime() {
@@ -86,7 +105,7 @@ bool ClrHost::getRuntime() {
 
     HMODULE hModule = LoadLibraryEx(coreClrPath, NULL, 0);
     if (hModule == NULL) {
-        std::cerr << "Unable to find CoreCLR dll" << std::endl;
+        std::cerr << "[.NET] Unable to find CoreCLR dll" << std::endl;
 
         return false;
     }
@@ -94,14 +113,14 @@ bool ClrHost::getRuntime() {
     // get runtime host
     auto fnGetCLRRuntimeHost = (FnGetCLRRuntimeHost)::GetProcAddress(hModule, "GetCLRRuntimeHost");
     if (fnGetCLRRuntimeHost == NULL) {
-        std::cerr << "Runtime host function not found" << std::endl;
+        std::cerr << "[.NET] Runtime host function not found" << std::endl;
 
         return false;
     }
 
     HRESULT result = fnGetCLRRuntimeHost(IID_ICLRRuntimeHost2, (IUnknown **)&_runtimeHost);
     if (FAILED(result)) {
-        std::cerr << "Failed to get runtime instance" << std::endl;
+        std::cerr << "[.NET] Failed to get runtime instance" << std::endl;
 
         return false;
     }
@@ -114,14 +133,14 @@ bool ClrHost::getRuntime() {
     );
 
     if (FAILED(result)) {
-        std::cerr << "Failed to set runtime startup flags" << std::endl;
+        std::cerr << "[.NET] Failed to set runtime startup flags" << std::endl;
 
         return false;
     }
 
     result = _runtimeHost->Start();
     if (FAILED(result)) {
-        std::cerr << "Failed to start Core CLR host" << std::endl;
+        std::cerr << "[.NET] Failed to start Core CLR host" << std::endl;
 
         return false;
     }
@@ -136,13 +155,13 @@ bool ClrHost::createAppDomain() {
     wchar_t *trustedAssemblies = getTrustedAssemblies();
 
     wchar_t appPaths[MAX_PATH];
-    GetFullPathNameW(L"" DOTNET_PLUGIN_DIR_PATH, MAX_PATH, appPaths, NULL);
+    GetFullPathNameW(L"" PLUGIN_DIR_PATH, MAX_PATH, appPaths, NULL);
 
     wchar_t appNiPaths[MAX_PATH];
     wcscpy_s(appNiPaths, MAX_PATH, appPaths);
 
     wchar_t nativeDllPaths[2 * MAX_PATH];
-    wcscpy_s(nativeDllPaths, 2 * MAX_PATH, L"" DOTNET_PLUGIN_DIR_PATH);
+    wcscpy_s(nativeDllPaths, 2 * MAX_PATH, L"" PLUGIN_DIR_PATH);
     wcscat_s(nativeDllPaths, 2 * MAX_PATH, L";");
     wcscat_s(nativeDllPaths, 2 * MAX_PATH, L"" RUNTIME_DIR_PATH);
 
@@ -181,7 +200,7 @@ bool ClrHost::createAppDomain() {
     );
 
     if (FAILED(result)) {
-        std::cerr << "Unable to create app domain" << std::endl;
+        std::cerr << "[.NET] Unable to create app domain" << std::endl;
 
         return false;
     }
@@ -243,19 +262,63 @@ wchar_t *ClrHost::getTrustedAssemblies() {
     return assemblies;
 }
 
-bool ClrHost::getDelegate(wchar_t *methodName, void **callback) {
+void ClrHost::getPlugins() {
+    _plugins.clear();
+
+    wchar_t rootPath[MAX_PATH];
+    GetFullPathNameW(L".", MAX_PATH, rootPath, NULL);
+
+    std::wstring pluginDirPath = rootPath;
+    pluginDirPath += L"/";
+    pluginDirPath += L"" PLUGIN_DIR_PATH;
+
+    std::wstring searchPath = pluginDirPath;
+    searchPath += L"*.dll";
+
+    WIN32_FIND_DATAW findData;
+    HANDLE fileHandle = FindFirstFileW(searchPath.c_str(), &findData);
+
+    if (fileHandle == INVALID_HANDLE_VALUE) {
+        return;
+    }
+
+    do {
+        std::wstring filePath = pluginDirPath;
+        filePath += findData.cFileName;
+
+        std::wstring filename = getFilenameWithoutExtension(findData.cFileName);
+
+        auto plugin = new ClrPlugin(filename, filePath);
+
+        _plugins.push_back(plugin);
+    } while (FindNextFileW(fileHandle, &findData));
+
+    FindClose(fileHandle);
+}
+
+bool ClrHost::getDelegate(const wchar_t *filename, wchar_t *methodName, void **callback) {
     if (_runtimeHost == 0 || _domainId == 0) {
-        std::cerr << "Core CLR host not loaded" << std::endl;
+        std::cerr << "[.NET] Core CLR host not loaded" << std::endl;
 
         return false;
     }
 
-    HRESULT result = _runtimeHost->CreateDelegate(_domainId, L"RageMP-Wrapper", L"RageMP.Net.PluginWrapper", methodName, (INT_PTR *)callback);
+    HRESULT result = _runtimeHost->CreateDelegate(_domainId, filename, PLUGIN_CLASS_NAME, methodName, (INT_PTR *)callback);
     if (FAILED(result)) {
-        std::wcerr << "Unable to get delegate for " << methodName << std::endl;
+        std::wcerr << "[.NET] Unable to get '" << methodName << "' from '" << filename << "'" << std::endl;
 
         return false;
     }
 
     return true;
+}
+
+std::wstring ClrHost::getFilenameWithoutExtension(wchar_t *filename) {
+    std::wstring name(filename);
+    size_t pos = name.rfind(L".");
+    if (pos == std::wstring::npos) {
+        return name;
+    }
+
+    return name.substr(0, pos);
 }

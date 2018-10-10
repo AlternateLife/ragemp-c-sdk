@@ -32,6 +32,7 @@
 
 #include "eventHandler.h"
 #include "clrHost.h"
+#include "clrPlugin.h"
 
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
     auto clrHost = new ClrHost();
@@ -42,7 +43,11 @@ RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
     auto eventHandler = new EventHandler();
     mp->AddEventHandler(eventHandler);
 
-    clrHost->mainCallback()();
+    for (auto &plugin : clrHost->plugins()) {
+        if (plugin->mainCallback() != 0) {
+            plugin->mainCallback()();
+        }
+    }
 
     return new rage::IPlugin();
 }

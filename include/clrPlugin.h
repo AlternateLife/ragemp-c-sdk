@@ -1,7 +1,7 @@
 /*
- * File: clrHost.h
+ * File: clrPlugin.h
  * Author: MarkAtk
- * Date: 09.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -28,35 +28,24 @@
 
 #pragma once
 
-#include <coreclr/mscoree.h>
+#include <string>
 
-#include <vector>
+typedef void (* MainMethod)();
 
-class ClrPlugin;
-
-class ClrHost {
+class ClrPlugin {
 private:
-    ICLRRuntimeHost2 *_runtimeHost;
-    DWORD _domainId;
+    std::wstring _filename;
+    std::wstring _path;
 
-    std::vector<ClrPlugin *> _plugins;
+    MainMethod _mainCallback;
 
 public:
-    ClrHost();
-    virtual ~ClrHost();
+    ClrPlugin(std::wstring &filename, std::wstring &path);
+    virtual ~ClrPlugin() = default;
 
-    bool load();
-    void unload();
+    std::wstring filename() const;
+    std::wstring path() const;
 
-    std::vector<ClrPlugin *> plugins() const;
-
-private:
-    bool getRuntime();
-    bool createAppDomain();
-    wchar_t *getTrustedAssemblies();
-
-    void getPlugins();
-    bool getDelegate(const wchar_t *filename, wchar_t *methodName, void **callback);
-
-    std::wstring getFilenameWithoutExtension(wchar_t *filename);
+    void setMainCallback(MainMethod callback);
+    MainMethod mainCallback() const;
 };
