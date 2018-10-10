@@ -1,5 +1,5 @@
 /*
- * File: clrPlugin.h
+ * File: world.cpp
  * Author: MarkAtk
  * Date: 10.10.2018
  *
@@ -26,28 +26,50 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "world.h"
 
-#include <string>
+const rage::time_t *World_GetTime(rage::IWorld *world) {
+    return &world->GetTime();
+}
 
-#include <ragemp-cppsdk/rage.hpp>
+void World_SetTime(rage::IWorld *world, const rage::time_t &time) {
+    world->SetTime(time);
+}
 
-typedef void (* MainMethod)(rage::IMultiplayer *);
+const char *World_GetWeather(rage::IWorld *world) {
+    return world->GetWeather().c_str();
+}
 
-class ClrPlugin {
-private:
-    std::wstring _filename;
-    std::wstring _path;
+void World_SetWeather(rage::IWorld *world, const char *weather) {
+    world->SetWeather(weather);
+}
 
-    MainMethod _mainCallback;
+void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time) {
+    world->SetWeatherTransition(weather, time);
+}
 
-public:
-    ClrPlugin(std::wstring &filename, std::wstring &path);
-    virtual ~ClrPlugin() = default;
+void World_RequestIpl(rage::IWorld *world, const char *ipl) {
+    world->RequestIpl(ipl);
+}
 
-    std::wstring filename() const;
-    std::wstring path() const;
+void World_RemoveIpl(rage::IWorld *world, const char *ipl) {
+    world->RemoveIpl(ipl);
+}
 
-    void setMainCallback(MainMethod callback);
-    MainMethod mainCallback() const;
-};
+bool World_AreTrafficLightsLocked(rage::IWorld *world) {
+    return world->AreTrafficLightsLocked();
+}
+
+void World_LockTrafficLights(rage::IWorld *world, bool toggle) {
+    world->LockTrafficLights(toggle);
+}
+
+int World_GetTrafficLightsState(rage::IWorld *world) {
+    return world->GetTrafficLightsState();
+}
+
+void World_SetTrafficLightsState(rage::IWorld *world, int state) {
+    world->SetTrafficLightsState(state);
+}
+
+

@@ -1,7 +1,7 @@
 /*
- * File: rage.cpp
+ * File: world.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,28 +26,26 @@
  * SOFTWARE.
  */
 
-#include "rage.h"
+#pragma once
 
 #include <ragemp-cppsdk/rage.hpp>
 
-#include "eventHandler.h"
-#include "clrHost.h"
-#include "clrPlugin.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    auto clrHost = new ClrHost();
-    if (clrHost->load() == false) {
-        return nullptr;
-    }
+const rage::time_t *World_GetTime(rage::IWorld *world);
+void World_SetTime(rage::IWorld *world, const rage::time_t &time);
+const char *World_GetWeather(rage::IWorld *world);
+void World_SetWeather(rage::IWorld *world, const char *weather);
+void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time);
+void World_RequestIpl(rage::IWorld *world, const char *ipl);
+void World_RemoveIpl(rage::IWorld *world, const char *ipl);
+bool World_AreTrafficLightsLocked(rage::IWorld *world);
+void World_LockTrafficLights(rage::IWorld *world, bool toggle);
+int World_GetTrafficLightsState(rage::IWorld *world);
+void World_SetTrafficLightsState(rage::IWorld *world, int state);
 
-    auto eventHandler = new EventHandler();
-    mp->AddEventHandler(eventHandler);
-
-    for (auto &plugin : clrHost->plugins()) {
-        if (plugin->mainCallback() != 0) {
-            plugin->mainCallback()(mp);
-        }
-    }
-
-    return new rage::IPlugin();
+#ifdef __cplusplus
 }
+#endif
