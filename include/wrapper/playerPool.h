@@ -1,7 +1,7 @@
 /*
- * File: rage.cpp
+ * File: playerPool.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,29 +26,32 @@
  * SOFTWARE.
  */
 
-#include "rage.h"
+#pragma once
 
 #include <ragemp-cppsdk/rage.hpp>
 
-#include "eventHandler.h"
-#include "clrHost.h"
-#include "clrPlugin.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include <iostream>
+RAGE_API void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message);
+RAGE_API void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 &position, float range, uint32_t dimension);
+RAGE_API void PlayerPool_BroadcastInDimension(rage::IPlayerPool *pool, const char *message, uint32_t dimension);
+//_Call
+//_CallInRange
+//_CallInDimension
+//_CallFor
+//_Invoke
+//_InvokeInRange
+//_InvokeInDimension
+//_InvokeFor
+//Call
+//CallInRange
+//CallInDimension
+//Invoke
+//InvokeInRange
+//InvokeInDimension
 
-RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    auto clrHost = new ClrHost();
-    if (clrHost->load() == false) {
-        return nullptr;
-    }
-
-    for (auto &plugin : clrHost->plugins()) {
-        mp->AddEventHandler(plugin->eventHandler());
-
-        if (plugin->mainCallback() != nullptr) {
-            plugin->mainCallback()(mp);
-        }
-    }
-
-    return new rage::IPlugin();
+#ifdef __cplusplus
 }
+#endif

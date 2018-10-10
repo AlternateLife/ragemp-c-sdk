@@ -1,7 +1,7 @@
 /*
- * File: rage.cpp
+ * File: playerPool.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,29 +26,31 @@
  * SOFTWARE.
  */
 
-#include "rage.h"
+#include "wrapper/playerPool.h"
 
-#include <ragemp-cppsdk/rage.hpp>
-
-#include "eventHandler.h"
-#include "clrHost.h"
-#include "clrPlugin.h"
-
-#include <iostream>
-
-RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    auto clrHost = new ClrHost();
-    if (clrHost->load() == false) {
-        return nullptr;
-    }
-
-    for (auto &plugin : clrHost->plugins()) {
-        mp->AddEventHandler(plugin->eventHandler());
-
-        if (plugin->mainCallback() != nullptr) {
-            plugin->mainCallback()(mp);
-        }
-    }
-
-    return new rage::IPlugin();
+void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message) {
+    pool->Broadcast(message);
 }
+
+void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 &position, float range, uint32_t dimension) {
+    pool->BroadcastInRange(message, position, range, dimension);
+}
+
+void PlayerPool_BroadcastInDimension(rage::IPlayerPool *pool, const char *message, uint32_t dimension) {
+    pool->BroadcastInDimension(message, dimension);
+}
+
+//_Call
+//_CallInRange
+//_CallInDimension
+//_CallFor
+//_Invoke
+//_InvokeInRange
+//_InvokeInDimension
+//_InvokeFor
+//Call
+//CallInRange
+//CallInDimension
+//Invoke
+//InvokeInRange
+//InvokeInDimension
