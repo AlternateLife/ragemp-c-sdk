@@ -39,13 +39,13 @@ RAGE_API uint32_t Entity_GetType(rage::IEntity *entity);
 RAGE_API void Entity_Destroy(rage::IEntity *entity);
 RAGE_API uint32_t Entity_GetDimension(rage::IEntity *entity);
 RAGE_API void Entity_SetDimension(rage::IEntity *entity, uint32_t dimension);
-// GetPosition
-// SetPosition
-// GetRotation
-// SetRotation
+//RAGE_API const rage::vector3 &Entity_GetPosition(rage::IEntity *entity);
+RAGE_API void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position);
+//RAGE_API const rage::vector3 &Entity_GetRotation(rage::IEntity *entity);
+RAGE_API void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation);
 RAGE_API uint32_t Entity_GetModel(rage::IEntity *entity);
 RAGE_API void Entity_SetModel(rage::IEntity *entity, uint32_t model);
-// GetVelocity
+//RAGE_API const rage::vector3 &Entity_GetVelocity(rage::IEntity *entity);
 RAGE_API uint32_t Entity_GetAlpha(rage::IEntity *entity);
 RAGE_API void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha);
 // GetVariable

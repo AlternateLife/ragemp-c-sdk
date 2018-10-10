@@ -48,10 +48,21 @@ void Entity_SetDimension(rage::IEntity *entity, uint32_t dimension) {
     entity->SetDimension(dimension);
 }
 
-// GetPosition
-// SetPosition
-// GetRotation
-// SetRotation
+const rage::vector3 &Entity_GetPosition(rage::IEntity *entity) {
+    return entity->GetPosition();
+}
+
+void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
+    entity->SetPosition(position);
+}
+
+const rage::vector3 &Entity_GetRotation(rage::IEntity *entity) {
+    return entity->GetRotation();
+}
+
+void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation) {
+    entity->SetRotation(rotation);
+}
 
 uint32_t Entity_GetModel(rage::IEntity *entity) {
     return entity->GetModel();
@@ -61,7 +72,9 @@ void Entity_SetModel(rage::IEntity *entity, uint32_t model) {
     entity->SetModel(model);
 }
 
-// GetVelocity
+const rage::vector3 &Entity_GetVelocity(rage::IEntity *entity) {
+    return entity->GetVelocity();
+}
 
 uint32_t Entity_GetAlpha(rage::IEntity *entity) {
     return entity->GetAlpha();

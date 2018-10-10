@@ -250,7 +250,7 @@ bool ClrHost::getDelegate(wchar_t *methodName, void **callback) {
         return false;
     }
 
-    HRESULT result = _runtimeHost->CreateDelegate(_domainId, L"RageMP.Net", L"RageMP.Net.PluginWrapper", methodName, (INT_PTR *)callback);
+    HRESULT result = _runtimeHost->CreateDelegate(_domainId, L"RageMP-Wrapper", L"RageMP.Net.PluginWrapper", methodName, (INT_PTR *)callback);
     if (FAILED(result)) {
         std::wcerr << "Unable to get delegate for " << methodName << std::endl;
 
