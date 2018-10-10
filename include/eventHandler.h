@@ -79,8 +79,8 @@ typedef enum {
     EVENT_TYPE_TICK
 } eventType_t;
 
-__declspec(dllexport) void RegisterEventHandler(eventType_t type, void *callback);
-__declspec(dllexport) void UnregisterEventHandler(eventType_t type);
+RAGE_API void RegisterEventHandler(eventType_t type, void *callback);
+RAGE_API void UnregisterEventHandler(eventType_t type);
 
 #ifdef __cplusplus
 }

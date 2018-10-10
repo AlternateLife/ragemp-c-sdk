@@ -38,9 +38,9 @@ RAGE_API void Player_Kick(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_Ban(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_OutputChatBox(rage::IPlayer *player, const char *text);
 RAGE_API void Player_Notify(rage::IPlayer *player, const char *text);
-// _Call
-// _CallHash
-// _Invoke
+RAGE_API void Player__Call(rage::IPlayer *player, const char *eventName, const rage::arg_t *arguments, size_t count);
+RAGE_API void Player__CallHash(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count);
+RAGE_API void Player__Invoke(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count);
 RAGE_API void Player_Spawn(rage::IPlayer *player, const rage::vector3 &position, float heading);
 RAGE_API void Player_PlayAnimation(rage::IPlayer *player, const char *dictionary, const char *name, float speed, int flags);
 RAGE_API void Player_PlayScenario(rage::IPlayer *player, const char *scenario);
