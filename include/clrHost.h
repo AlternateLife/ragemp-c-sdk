@@ -34,11 +34,20 @@
 
 #include <coreclr/coreclrhost.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 class ClrPlugin;
 
 class ClrHost {
 private:
+#ifdef _WIN32
+    HMODULE _coreClrLib;
+#else
     void *_coreClrLib;
+#endif
+
     coreclr_initialize_ptr _initializeCoreCLR;
     coreclr_shutdown_2_ptr _shutdownCoreCLR;
     coreclr_create_delegate_ptr _createDelegate;
@@ -59,7 +68,6 @@ public:
 
 private:
     bool loadCoreClr();
-    bool getRuntime();
     bool createAppDomain();
     void getPlugins();
 
@@ -67,5 +75,5 @@ private:
     bool getDelegate(std::string filename, std::string methodName, void **callback);
 
     std::string getAbsolutePath(std::string relativePath);
-    std::string getFilenameWithoutExtension(std::string &filename);
+    std::string getFilenameWithoutExtension(std::string filename);
 };
