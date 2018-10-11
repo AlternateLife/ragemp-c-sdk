@@ -30,7 +30,7 @@
 
 #include "eventHandler.h"
 
-ClrPlugin::ClrPlugin(std::wstring &filename, std::wstring &path) {
+ClrPlugin::ClrPlugin(std::string &filename, std::string &path) {
     _filename = filename;
     _path = path;
     _mainCallback = nullptr;
@@ -42,11 +42,11 @@ ClrPlugin::~ClrPlugin() {
     delete _eventHandler;
 }
 
-std::wstring ClrPlugin::filename() const {
+std::string ClrPlugin::filename() const {
     return _filename;
 }
 
-std::wstring ClrPlugin::path() const {
+std::string ClrPlugin::path() const {
     return _path;
 }
 

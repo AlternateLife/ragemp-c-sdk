@@ -30,7 +30,10 @@
 
 #include <string>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wempty-body"
 #include <ragemp-cppsdk/rage.hpp>
+#pragma clang diagnostic pop
 
 typedef void (* MainMethod)(rage::IMultiplayer *);
 
@@ -38,18 +41,18 @@ class EventHandler;
 
 class ClrPlugin {
 private:
-    std::wstring _filename;
-    std::wstring _path;
+    std::string _filename;
+    std::string _path;
 
     MainMethod _mainCallback;
     EventHandler *_eventHandler;
 
 public:
-    ClrPlugin(std::wstring &filename, std::wstring &path);
+    ClrPlugin(std::string &filename, std::string &path);
     virtual ~ClrPlugin();
 
-    std::wstring filename() const;
-    std::wstring path() const;
+    std::string filename() const;
+    std::string path() const;
 
     void setMainCallback(MainMethod callback);
     MainMethod mainCallback() const;

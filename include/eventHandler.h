@@ -28,7 +28,10 @@
 
 #pragma once
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wempty-body"
 #include <ragemp-cppsdk/rage.hpp>
+#pragma clang diagnostic pop
 
 #include <map>
 
