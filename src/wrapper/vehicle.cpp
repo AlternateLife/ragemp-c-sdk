@@ -203,11 +203,11 @@ bool Vehicle_IsStreamed(rage::IVehicle *vehicle, rage::IPlayer *player) {
     return vehicle->IsStreamed(player);
 }
 
-void Vehicle_GetStreamed(rage::IVehicle *vehicle, rage::IPlayer ***players, uint32_t *count) {
+void Vehicle_GetStreamed(rage::IVehicle *vehicle, rage::IPlayer ***players, size_t *count) {
     auto streamedVector = vehicle->GetStreamed();
 
     *players = (rage::IPlayer **)malloc(streamedVector.size() * sizeof(rage::IPlayer *));
-    *count = (uint32_t)streamedVector.size();
+    *count = streamedVector.size();
 
     for (int i = 0; i < streamedVector.size(); i++) {
         *players[i] = streamedVector[i];

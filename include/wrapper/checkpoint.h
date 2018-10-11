@@ -42,8 +42,8 @@ RAGE_API float Checkpoint_GetRadius(rage::ICheckpoint *checkpoint);
 RAGE_API void Checkpoint_SetRadius(rage::ICheckpoint *checkpoint, float radius);
 RAGE_API bool Checkpoint_IsVisible(rage::ICheckpoint *checkpoint);
 RAGE_API void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle);
-RAGE_API void Checkpoint_ShowFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, int count);
-RAGE_API void Checkpoint_HideFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, int count);
+RAGE_API void Checkpoint_ShowFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count);
+RAGE_API void Checkpoint_HideFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count);
 
 #ifdef __cplusplus
 }

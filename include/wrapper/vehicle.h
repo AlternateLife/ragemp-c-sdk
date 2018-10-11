@@ -76,7 +76,7 @@ RAGE_API uint32_t Vehicle_GetMaterialType(rage::IVehicle *vehicle);
 RAGE_API const char *Vehicle_GetNumberPlate(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_SetNumberPlate(rage::IVehicle *vehicle, const char *numberPlate);
 RAGE_API bool Vehicle_IsStreamed(rage::IVehicle *vehicle, rage::IPlayer *player);
-RAGE_API void Vehicle_GetStreamed(rage::IVehicle *vehicle, rage::IPlayer ***players, uint32_t *count);
+RAGE_API void Vehicle_GetStreamed(rage::IVehicle *vehicle, rage::IPlayer ***players, size_t *count);
 RAGE_API uint32_t Vehicle_GetLivery(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_SetLivery(rage::IVehicle *vehicle, uint32_t livery);
 RAGE_API uint32_t Vehicle_GetWheelColor(rage::IVehicle *vehicle);

@@ -62,10 +62,10 @@ void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
     marker->SetVisible(toggle);
 }
 
-void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, int count) {
+void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
     marker->ShowFor(getPlayerVector(players, count));
 }
 
-void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, int count) {
+void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
     marker->HideFor(getPlayerVector(players, count));
 }

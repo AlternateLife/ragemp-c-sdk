@@ -42,8 +42,8 @@ RAGE_API float Marker_GetScale(rage::IMarker *marker);
 RAGE_API void Marker_SetScale(rage::IMarker *marker, float scale);
 RAGE_API bool Marker_IsVisible(rage::IMarker *marker);
 RAGE_API void Marker_SetVisible(rage::IMarker *marker, bool toggle);
-RAGE_API void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, int count);
-RAGE_API void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, int count);
+RAGE_API void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, size_t count);
+RAGE_API void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, size_t count);
 
 #ifdef __cplusplus
 }
