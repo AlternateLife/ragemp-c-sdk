@@ -30,9 +30,7 @@
 
 #include <ragemp-cppsdk/rage.hpp>
 
-#include <stdio.h>
-
-#include "wrapper/player.h"
+#include <map>
 
 #ifdef __cplusplus
 extern "C" {
@@ -78,6 +76,8 @@ typedef enum {
 
     EVENT_TYPE_TICK
 } eventType_t;
+
+extern std::map<eventType_t, void *> _callbacks;
 
 RAGE_API void RegisterEventHandler(eventType_t type, void *callback);
 RAGE_API void UnregisterEventHandler(eventType_t type);

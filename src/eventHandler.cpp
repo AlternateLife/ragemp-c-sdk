@@ -28,7 +28,6 @@
 
 #include "eventHandler.h"
 
-#include <map>
 #include <iostream>
 
 std::map<eventType_t, void *> _callbacks;
