@@ -219,7 +219,6 @@ bool ClrHost::createAppDomain() {
 
 void ClrHost::getPlugins() {
     std::string pluginDirectory = getAbsolutePath(PLUGIN_DIR_PATH);
-    pluginDirectory += "/";
 
 #ifndef _WIN32
     auto directory = opendir(pluginDirectory.c_str());
@@ -313,7 +312,6 @@ std::set<std::string> ClrHost::getTrustedAssemblies() {
     const char * const tpaExtensions[] = { ".ni.dll", ".dll", ".ni.exe", ".exe", ".winmd" };
 
     std::string runtimeDirectory = getAbsolutePath(RUNTIME_DIR_PATH);
-    runtimeDirectory += "/";
 
 #ifndef _WIN32
     auto directory = opendir(runtimeDirectory.c_str());
@@ -332,6 +330,7 @@ std::set<std::string> ClrHost::getTrustedAssemblies() {
 
 #ifdef _WIN32
         std::string searchPath = runtimeDirectory;
+        searchPath += "*";
         searchPath += ext;
 
         WIN32_FIND_DATA findData;
@@ -345,14 +344,12 @@ std::set<std::string> ClrHost::getTrustedAssemblies() {
             std::string filePath = runtimeDirectory;
             filePath += findData.cFileName;
 
-            std::string filenameWithoutExt = getFilenameWithoutExtension(findData.cFileName);
-
             // Ensure assemblies are unique in the list
-            if (assemblies.find(filenameWithoutExt) != assemblies.end()) {
+            if (assemblies.find(filePath) != assemblies.end()) {
                 continue;
             }
 
-            assemblies.insert(filenameWithoutExt);
+            assemblies.insert(filePath);
         } while (FindNextFile(fileHandle, &findData));
 
         FindClose(fileHandle);
@@ -445,6 +442,8 @@ std::string ClrHost::getAbsolutePath(std::string relativePath) {
         // no absolute path found
         absolutePath[0] = '\0';
     }
+
+    strcat_s(absolutePath, PATH_MAX, "/");
 #endif
 
     return std::string(absolutePath);
