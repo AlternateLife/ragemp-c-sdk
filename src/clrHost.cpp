@@ -129,10 +129,11 @@ std::vector<ClrPlugin *> ClrHost::plugins() const {
 }
 
 bool ClrHost::loadCoreClr() {
-    std::string coreClrDllPath(RUNTIME_DIR_PATH);
-    coreClrDllPath += "coreclr.dll";
+    std::string coreClrDllPath = getAbsolutePath(RUNTIME_DIR_PATH);
 
 #ifdef _WIN32
+    coreClrDllPath += "/coreclr.dll";
+
     HMODULE hModule = LoadLibraryEx(coreClrPath, NULL, 0);
     if (hModule == NULL) {
         std::cerr << "[.NET] Unable to find CoreCLR dll" << std::endl;
@@ -175,9 +176,15 @@ bool ClrHost::loadCoreClr() {
         return false;
     }
 #else
+#ifdef __APPLE__
+    coreClrDllPath += "/libcoreclr.dylib";
+#else
+    coreClrDllPath += "/libcoreclr.so";
+#endif
+
     void *coreClrLib = dlopen(coreClrDllPath.c_str(), RTLD_NOW | RTLD_LOCAL);
     if (coreClrLib == nullptr) {
-        std::cerr << "[.NET] Unable to find CoreCLR dll" << std::endl;
+        std::cerr << "[.NET] Unable to find CoreCLR dll: " << dlerror() << std::endl;
 
         return false;
     }
