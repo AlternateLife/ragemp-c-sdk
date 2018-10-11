@@ -28,17 +28,7 @@
 
 #include "wrapper/playerPool.h"
 
-#include <vector>
-
-static std::vector<rage::IPlayer *> getPlayerVector(rage::IPlayer **players, size_t count) {
-    std::vector<rage::IPlayer *> list(count);
-
-    for (int i = 0; i < count; i++) {
-        list.push_back(players[i]);
-    }
-
-    return list;
-}
+#include "utils.h"
 
 void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message) {
     pool->Broadcast(message);

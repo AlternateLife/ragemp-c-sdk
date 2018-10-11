@@ -28,6 +28,8 @@
 
 #include "wrapper/blip.h"
 
+#include "utils.h"
+
 float Blip_GetDrawDistance(rage::IBlip *blip) {
     return blip->GetDrawDistance();
 }
@@ -52,8 +54,13 @@ void Blip_SetShortRange(rage::IBlip *blip, bool toggle) {
     blip->SetShortRange(toggle);
 }
 
-//RouteFor
-//UnrouteFor
+void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, int count, uint32_t color, float scale) {
+    blip->RouteFor(getPlayerVector(players, count), color, scale);
+}
+
+void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, int count) {
+    blip->UnrouteFor(getPlayerVector(players, count));
+}
 
 uint32_t Blip_GetColor(rage::IBlip *blip) {
     return blip->GetColour();

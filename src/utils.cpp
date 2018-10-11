@@ -1,7 +1,7 @@
 /*
- * File: blip.h
+ * File: utils.cpp
  * Author: MarkAtk
- * Date: 10.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,31 +26,14 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "utils.h"
 
-#include <ragemp-cppsdk/rage.hpp>
+std::vector<rage::IPlayer *> getPlayerVector(rage::IPlayer **players, size_t count) {
+    std::vector<rage::IPlayer *> list(count);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    for (int i = 0; i < count; i++) {
+        list.push_back(players[i]);
+    }
 
-RAGE_API float Blip_GetDrawDistance(rage::IBlip *blip);
-RAGE_API void Blip_SetDrawDistance(rage::IBlip *blip, float distance);
-RAGE_API int32_t Blip_GetRotation(rage::IBlip *blip);
-RAGE_API void Blip_SetRotation(rage::IBlip *blip, int32_t rotation);
-RAGE_API bool Blip_IsShortRange(rage::IBlip *blip);
-RAGE_API void Blip_SetShortRange(rage::IBlip *blip, bool toggle);
-RAGE_API void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, int count, uint32_t color, float scale);
-RAGE_API void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, int count);
-RAGE_API uint32_t Blip_GetColor(rage::IBlip *blip);
-RAGE_API void Blip_SetColor(rage::IBlip *blip, uint32_t color);
-//GetAlpha comment out in rage headers
-//SetAlpha comment out in rage headers
-RAGE_API float Blip_GetScale(rage::IBlip *blip);
-RAGE_API void Blip_SetScale(rage::IBlip *blip, float scale);
-RAGE_API const char *Blip_GetName(rage::IBlip *blip);
-RAGE_API void Blip_SetName(rage::IBlip *blip, const char *name);
-
-#ifdef __cplusplus
+    return list;
 }
-#endif
