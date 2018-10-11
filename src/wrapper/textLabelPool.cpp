@@ -1,7 +1,7 @@
 /*
- * File: rage.h
+ * File: textLabelPool.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,27 +26,9 @@
  * SOFTWARE.
  */
 
-#pragma once
-
-#include "wrapper/multiplayer.h"
-#include "wrapper/config.h"
-#include "wrapper/world.h"
-
-#include "wrapper/entity.h"
-#include "wrapper/blip.h"
-#include "wrapper/colshape.h"
-#include "wrapper/checkpoint.h"
-#include "wrapper/marker.h"
-#include "wrapper/player.h"
-#include "wrapper/textLabel.h"
-#include "wrapper/vehicle.h"
-
-#include "wrapper/pool.h"
-#include "wrapper/blipPool.h"
-#include "wrapper/checkpointPool.h"
-#include "wrapper/colshapePool.h"
-#include "wrapper/markerPool.h"
-#include "wrapper/objectPool.h"
-#include "wrapper/playerPool.h"
 #include "wrapper/textLabelPool.h"
-#include "wrapper/vehiclePool.h"
+
+rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font, const rage::rgba_t &color,
+        float drawDistance, bool los, uint32_t dimension) {
+    return pool->New(position, text, font, color, drawDistance, los, dimension);
+}
