@@ -131,7 +131,9 @@ void Vehicle_Explode(rage::IVehicle *vehicle) {
     vehicle->Explode();
 }
 
-//void Vehicle_Spawn(rage::IVehicle *vehicle, pos, float heading)
+void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 &position, float heading) {
+    vehicle->Spawn(position, heading);
+}
 
 uint32_t Vehicle_GetMod(rage::IVehicle *vehicle, uint32_t id) {
     return vehicle->GetMod(id);
@@ -153,13 +155,17 @@ void Vehicle_SetNeonsColor(rage::IVehicle *vehicle, uint32_t red, uint32_t green
     vehicle->SetNeonsColour(red, green, blue);
 }
 
-// GetNeonsColor
+const rage::rgb_t *Vehicle_GetNeonsColor(rage::IVehicle *vehicle) {
+    return &vehicle->GetNeonsColour();
+}
 
 void Vehicle_Repair(rage::IVehicle *vehicle) {
     vehicle->Repair();
 }
 
-// GetColorRGB
+const rage::rgb_t *Vehicle_GetColorRGB(rage::IVehicle *vehicle, uint32_t id) {
+    return &vehicle->GetColourRGB(id);
+}
 
 uint32_t Vehicle_GetColor(rage::IVehicle *vehicle, uint32_t id) {
     return vehicle->GetColour(id);
@@ -169,13 +175,17 @@ uint32_t Vehicle_GetPaint(rage::IVehicle *vehicle, uint32_t id) {
     return vehicle->GetPaint(id);
 }
 
-// SetColorRGB
+void Vehicle_SetColorRGB(rage::IVehicle *vehicle, const rage::rgb_t &primary, const rage::rgb_t &secondary) {
+    vehicle->SetColourRGB(primary, secondary);
+}
 
 void Vehicle_SetColor(rage::IVehicle *vehicle, uint32_t primary, uint32_t secondary) {
     vehicle->SetColour(primary, secondary);
 }
 
-// SetPaint
+void Vehicle_SetPaint(rage::IVehicle *vehicle, const rage::paintInfo_t &primary, const rage::paintInfo_t &secondary) {
+    vehicle->SetPaint(primary, secondary);
+}
 
 uint32_t Vehicle_GetMaterialType(rage::IVehicle *vehicle) {
     return (uint32_t)vehicle->GetMaterialType();
@@ -197,7 +207,7 @@ void Vehicle_GetStreamed(rage::IVehicle *vehicle, rage::IPlayer ***players, uint
     auto streamedVector = vehicle->GetStreamed();
 
     *players = (rage::IPlayer **)malloc(streamedVector.size() * sizeof(rage::IPlayer *));
-    *count = streamedVector.size();
+    *count = (uint32_t)streamedVector.size();
 
     for (int i = 0; i < streamedVector.size(); i++) {
         *players[i] = streamedVector[i];
@@ -280,7 +290,9 @@ float Vehicle_GetMovableState(rage::IVehicle *vehicle) {
     return vehicle->GetMovableState();
 }
 
-// GetQuaternion
+const rage::quat_t *Vehicle_GetQuaternion(rage::IVehicle *vehicle) {
+    return &vehicle->GetQuaternion();
+}
 
 float Vehicle_GetHeading(rage::IVehicle *vehicle) {
     return vehicle->GetHeading();

@@ -115,8 +115,6 @@ RAGE_API bool Player_IsStreamed(rage::IPlayer *player, rage::IPlayer *other);
 RAGE_API const char *Player_GetSerial(rage::IPlayer *player);
 RAGE_API const char *Player_GetSocialClubName(rage::IPlayer *player);
 RAGE_API void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius);
-// Call
-// Invoke
 
 #ifdef __cplusplus
 }

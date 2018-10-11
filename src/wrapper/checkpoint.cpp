@@ -28,7 +28,11 @@
 
 #include "wrapper/checkpoint.h"
 
-//GetColor
+#include "utils.h"
+
+const rage::rgba_t *Checkpoint_GetColor(rage::ICheckpoint *checkpoint) {
+    return &checkpoint->GetColour();
+}
 
 void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
     checkpoint->SetColour(red, green, blue, alpha);
@@ -58,5 +62,10 @@ void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle) {
     checkpoint->SetVisible(toggle);
 }
 
-//ShowFor
-//HideFor
+void Checkpoint_ShowFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, int count) {
+    checkpoint->ShowFor(getPlayerVector(players, count));
+}
+
+void Checkpoint_HideFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, int count) {
+    checkpoint->HideFor(getPlayerVector(players, count));
+}

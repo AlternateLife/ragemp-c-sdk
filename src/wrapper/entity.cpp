@@ -88,7 +88,16 @@ void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha) {
     entity->SetAlpha(alpha);
 }
 
-// GetVariable
-// SetVariable
+const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
+    return &entity->GetVariable(key);
+}
+
+void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t &argument) {
+    entity->SetVariable(key, argument);
+}
+
 // SetVariables
-// HasVariable
+
+bool Entity_HasVariable(rage::IEntity *entity, const char *key) {
+    return entity->HasVariable(key);
+}

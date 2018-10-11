@@ -48,10 +48,10 @@ RAGE_API void Entity_SetModel(rage::IEntity *entity, uint32_t model);
 RAGE_API const rage::vector3 *Entity_GetVelocity(rage::IEntity *entity);
 RAGE_API uint32_t Entity_GetAlpha(rage::IEntity *entity);
 RAGE_API void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha);
-// GetVariable
-// SetVariable
+RAGE_API const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key);
+RAGE_API void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t &argument);
 // SetVariables
-// HasVariable
+RAGE_API bool Entity_HasVariable(rage::IEntity *entity, const char *key);
 
 #ifdef __cplusplus
 }

@@ -46,7 +46,6 @@ RAGE_API const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplaye
 RAGE_API const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer);
 RAGE_API const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer);
 
-
 #ifdef __cplusplus
 }
 #endif

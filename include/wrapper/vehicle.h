@@ -52,26 +52,26 @@ RAGE_API float Vehicle_GetGasPedalState(rage::IVehicle *vehicle);
 RAGE_API float Vehicle_GetEngineHealth(rage::IVehicle *vehicle);
 RAGE_API float Vehicle_GetBodyHealth(rage::IVehicle *vehicle);
 RAGE_API rage::IPlayer *Vehicle_GetOccupant(rage::IVehicle *vehicle, uint32_t seat);
-RAGE_API void Vehicle_GetOccupants(rage::IVehicle *vehicle, rage::IPlayer **players, uint32_t *count);
+//RAGE_API void Vehicle_GetOccupants(rage::IVehicle *vehicle, rage::IPlayer **players, uint32_t *count);
 RAGE_API void Vehicle_SetOccupant(rage::IVehicle *vehicle, uint32_t seat, rage::IPlayer *player);
 RAGE_API bool Vehicle_IsLocked(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_Lock(rage::IVehicle *vehicle, bool toggle);
 RAGE_API bool Vehicle_IsDead(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_Explode(rage::IVehicle *vehicle);
-//RAGE_API void Vehicle_Spawn(rage::IVehicle *vehicle, pos, float heading);
+RAGE_API void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 &position, float heading);
 RAGE_API uint32_t Vehicle_GetMod(rage::IVehicle *vehicle, uint32_t id);
 RAGE_API void Vehicle_SetMod(rage::IVehicle *vehicle, uint32_t id, uint32_t mod);
 RAGE_API bool Vehicle_AreNeonsEnabled(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_EnableNeons(rage::IVehicle *vehicle, bool toggle);
 RAGE_API void Vehicle_SetNeonsColor(rage::IVehicle *vehicle, uint32_t red, uint32_t green, uint32_t blue);
-// GetNeonsColor
+RAGE_API const rage::rgb_t *Vehicle_GetNeonsColor(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_Repair(rage::IVehicle *vehicle);
-// GetColorRGB
+RAGE_API const rage::rgb_t *Vehicle_GetColorRGB(rage::IVehicle *vehicle, uint32_t id);
 RAGE_API uint32_t Vehicle_GetColor(rage::IVehicle *vehicle, uint32_t id);
 RAGE_API uint32_t Vehicle_GetPaint(rage::IVehicle *vehicle, uint32_t id);
-// SetColorRGB
+RAGE_API void Vehicle_SetColorRGB(rage::IVehicle *vehicle, const rage::rgb_t &primary, const rage::rgb_t &secondary);
 RAGE_API void Vehicle_SetColor(rage::IVehicle *vehicle, uint32_t primary, uint32_t secondary);
-// SetPaint
+RAGE_API void Vehicle_SetPaint(rage::IVehicle *vehicle, const rage::paintInfo_t &primary, const rage::paintInfo_t &secondary);
 RAGE_API uint32_t Vehicle_GetMaterialType(rage::IVehicle *vehicle);
 RAGE_API const char *Vehicle_GetNumberPlate(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_SetNumberPlate(rage::IVehicle *vehicle, const char *numberPlate);
@@ -96,7 +96,7 @@ RAGE_API void Vehicle_SetTrimColor(rage::IVehicle *vehicle, uint32_t color);
 RAGE_API bool Vehicle_GetExtra(rage::IVehicle *vehicle, uint32_t id);
 RAGE_API void Vehicle_SetExtra(rage::IVehicle *vehicle, uint32_t id, bool state);
 RAGE_API float Vehicle_GetMovableState(rage::IVehicle *vehicle);
-// GetQuaternion
+RAGE_API const rage::quat_t *Vehicle_GetQuaternion(rage::IVehicle *vehicle);
 RAGE_API float Vehicle_GetHeading(rage::IVehicle *vehicle);
 RAGE_API rage::IVehicle *Vehicle_GetTrailer(rage::IVehicle *vehicle);
 RAGE_API rage::IVehicle *Vehicle_GetTraileredBy(rage::IVehicle *vehicle);

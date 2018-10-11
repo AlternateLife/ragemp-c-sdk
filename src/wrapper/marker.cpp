@@ -27,8 +27,12 @@
  */
 
 #include "wrapper/marker.h"
+
+#include "utils.h"
  
-//GetColor
+const rage::rgba_t *Marker_GetColor(rage::IMarker *marker) {
+    return &marker->GetColour();
+}
 
 void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
     marker->SetColour(red, green, blue, alpha);
@@ -58,5 +62,10 @@ void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
     marker->SetVisible(toggle);
 }
 
-//ShowFor
-//HideFor
+void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, int count) {
+    marker->ShowFor(getPlayerVector(players, count));
+}
+
+void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, int count) {
+    marker->HideFor(getPlayerVector(players, count));
+}
