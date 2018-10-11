@@ -28,6 +28,18 @@
 
 #include "wrapper/playerPool.h"
 
+#include <vector>
+
+static std::vector<rage::IPlayer *> getPlayerVector(rage::IPlayer **players, size_t count) {
+    std::vector<rage::IPlayer *> list(count);
+
+    for (int i = 0; i < count; i++) {
+        list.push_back(players[i]);
+    }
+
+    return list;
+}
+
 void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message) {
     pool->Broadcast(message);
 }
@@ -40,17 +52,38 @@ void PlayerPool_BroadcastInDimension(rage::IPlayerPool *pool, const char *messag
     pool->BroadcastInDimension(message, dimension);
 }
 
-//_Call
-//_CallInRange
-//_CallInDimension
-//_CallFor
-//_Invoke
-//_InvokeInRange
-//_InvokeInDimension
-//_InvokeFor
-//Call
-//CallInRange
-//CallInDimension
-//Invoke
-//InvokeInRange
-//InvokeInDimension
+void PlayerPool__Call(rage::IPlayerPool *pool, const char *eventName, const rage::arg_t *arguments, size_t count) {
+    pool->_Call(eventName, arguments, count);
+}
+
+void PlayerPool__CallInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, const char *eventName,
+                                      const rage::arg_t *arguments, size_t count) {
+    pool->_CallInRange(position, range, dimension, eventName, arguments, count);
+}
+
+void PlayerPool__CallInDimension(rage::IPlayerPool *pool, uint32_t dimension, const char *eventName, const rage::arg_t *arguments, size_t count) {
+    pool->_CallInDimension(dimension, eventName, arguments, count);
+}
+
+void PlayerPool__CallFor(rage::IPlayerPool *pool, rage::IPlayer **players, int playerCount, const char *eventName, const rage::arg_t *arguments,
+        size_t count) {
+    pool->_CallFor(getPlayerVector(players, playerCount), eventName, arguments, count);
+}
+
+void PlayerPool__Invoke(rage::IPlayerPool *pool, uint64_t hash, const rage::arg_t *arguments, size_t count) {
+    pool->_Invoke(hash, arguments, count);
+}
+
+void PlayerPool__InvokeInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, uint64_t hash, const
+rage::arg_t *arguments, size_t count) {
+    pool->_InvokeInRange(position, range, dimension, hash, arguments, count);
+}
+
+void PlayerPool___InvokeInDimension(rage::IPlayerPool *pool, uint32_t dimension, uint64_t hash, const rage::arg_t *arguments, size_t count) {
+    pool->_InvokeInDimension(dimension, hash, arguments, count);
+}
+
+void PlayerPool__InvokeFor(rage::IPlayerPool *pool, rage::IPlayer **players, int playerCount, uint64_t hash, const rage::arg_t *arguments,
+                                    size_t count) {
+    pool->_InvokeFor(getPlayerVector(players, playerCount), hash, arguments, count);
+}

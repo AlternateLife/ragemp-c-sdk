@@ -37,20 +37,18 @@ extern "C" {
 RAGE_API void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message);
 RAGE_API void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 &position, float range, uint32_t dimension);
 RAGE_API void PlayerPool_BroadcastInDimension(rage::IPlayerPool *pool, const char *message, uint32_t dimension);
-//_Call
-//_CallInRange
-//_CallInDimension
-//_CallFor
-//_Invoke
-//_InvokeInRange
-//_InvokeInDimension
-//_InvokeFor
-//Call
-//CallInRange
-//CallInDimension
-//Invoke
-//InvokeInRange
-//InvokeInDimension
+RAGE_API void PlayerPool__Call(rage::IPlayerPool *pool, const char *eventName, const rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool__CallInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, const char *eventName,
+        const rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool__CallInDimension(rage::IPlayerPool *pool, uint32_t dimension, const char *eventName, const rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool__CallFor(rage::IPlayerPool *pool, rage::IPlayer **players, int playerCount, const char *eventName, const rage::arg_t *arguments,
+        size_t count);
+RAGE_API void PlayerPool__Invoke(rage::IPlayerPool *pool, uint64_t hash, const rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool__InvokeInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, uint64_t hash, const
+        rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool___InvokeInDimension(rage::IPlayerPool *pool, uint32_t dimension, uint64_t hash, const rage::arg_t *arguments, size_t count);
+RAGE_API void PlayerPool__InvokeFor(rage::IPlayerPool *pool, rage::IPlayer **players, int playerCount, uint64_t hash, const rage::arg_t *arguments,
+        size_t count);
 
 #ifdef __cplusplus
 }
