@@ -34,17 +34,17 @@
 extern "C" {
 #endif
 
-const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer);
-const rage::IVehiclePool *Multiplayer_GetVehiclePool(rage::IMultiplayer *multiplayer);
-const rage::IColshapePool *Multiplayer_GetColshapePool(rage::IMultiplayer *multiplayer);
-const rage::ICheckpointPool *Multiplayer_GetCheckpointPool(rage::IMultiplayer *multiplayer);
-const rage::IMarkerPool *Multiplayer_GetMarkerPool(rage::IMultiplayer *multiplayer);
-const rage::IBlipPool *Multiplayer_GetBlipPool(rage::IMultiplayer *multiplayer);
-const rage::IPickupPool *Multiplayer_GetPickupPool(rage::IMultiplayer *multiplayer);
-const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplayer);
-const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplayer *multiplayer);
-const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer);
-const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IVehiclePool *Multiplayer_GetVehiclePool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IColshapePool *Multiplayer_GetColshapePool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::ICheckpointPool *Multiplayer_GetCheckpointPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IMarkerPool *Multiplayer_GetMarkerPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IBlipPool *Multiplayer_GetBlipPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IPickupPool *Multiplayer_GetPickupPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer);
 
 
 #ifdef __cplusplus

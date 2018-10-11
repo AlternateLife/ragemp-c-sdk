@@ -34,17 +34,17 @@
 extern "C" {
 #endif
 
-const rage::time_t *World_GetTime(rage::IWorld *world);
-void World_SetTime(rage::IWorld *world, const rage::time_t &time);
-const char *World_GetWeather(rage::IWorld *world);
-void World_SetWeather(rage::IWorld *world, const char *weather);
-void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time);
-void World_RequestIpl(rage::IWorld *world, const char *ipl);
-void World_RemoveIpl(rage::IWorld *world, const char *ipl);
-bool World_AreTrafficLightsLocked(rage::IWorld *world);
-void World_LockTrafficLights(rage::IWorld *world, bool toggle);
-int World_GetTrafficLightsState(rage::IWorld *world);
-void World_SetTrafficLightsState(rage::IWorld *world, int state);
+RAGE_API const rage::time_t *World_GetTime(rage::IWorld *world);
+RAGE_API void World_SetTime(rage::IWorld *world, const rage::time_t &time);
+RAGE_API const char *World_GetWeather(rage::IWorld *world);
+RAGE_API void World_SetWeather(rage::IWorld *world, const char *weather);
+RAGE_API void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time);
+RAGE_API void World_RequestIpl(rage::IWorld *world, const char *ipl);
+RAGE_API void World_RemoveIpl(rage::IWorld *world, const char *ipl);
+RAGE_API bool World_AreTrafficLightsLocked(rage::IWorld *world);
+RAGE_API void World_LockTrafficLights(rage::IWorld *world, bool toggle);
+RAGE_API int World_GetTrafficLightsState(rage::IWorld *world);
+RAGE_API void World_SetTrafficLightsState(rage::IWorld *world, int state);
 
 #ifdef __cplusplus
 }
