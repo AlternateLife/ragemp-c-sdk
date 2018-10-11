@@ -32,14 +32,34 @@
 
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <stdlib.h>
+#include <dlfcn.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#endif
+
 #define RUNTIME_DIR_PATH "./dotnet/runtime/"
 #define PLUGIN_DIR_PATH "./dotnet/plugins/"
 
-#define PLUGIN_CLASS_NAME L"RageMP.Net.PluginWrapper"
+#define PLUGIN_CLASS_NAME "RageMP.Net.PluginWrapper"
+
+#ifdef _WIN32
+#define LIST_SEPARATOR ";"
+#else
+#define LIST_SEPARATOR ":"
+#endif
 
 ClrHost::ClrHost() {
-    _runtimeHost = 0;
+    _runtimeHost = nullptr;
     _domainId = 0;
+
+    _coreClrLib = nullptr;
+    _initializeCoreCLR = nullptr;
+    _shutdownCoreCLR = nullptr;
+    _createDelegate = nullptr;
 }
 
 ClrHost::~ClrHost() {
@@ -47,11 +67,11 @@ ClrHost::~ClrHost() {
 }
 
 bool ClrHost::load() {
-    if (_runtimeHost == 0 && getRuntime() == false) {
+    if (_coreClrLib == nullptr && loadCoreClr() == false) {
         return false;
     }
 
-    if (_domainId == 0 && createAppDomain() == false) {
+    if ((_runtimeHost == 0 || _domainId == 0) && createAppDomain() == false) {
         return false;
     }
 
@@ -59,13 +79,13 @@ bool ClrHost::load() {
 
     for (auto &plugin : _plugins) {
         MainMethod callback;
-        if (getDelegate(plugin->filename().c_str(), L"Main", (void **)&callback) == false) {
+        if (getDelegate(plugin->filename(), "Main", (void **)&callback) == false) {
             continue;
         }
 
         plugin->setMainCallback(callback);
 
-        std::wcout << "[.NET] Plugin " << plugin->filename() << " loaded" << std::endl;
+        std::cout << "[.NET] Plugin " << plugin->filename() << " loaded" << std::endl;
     }
 
     return true;
@@ -78,6 +98,7 @@ void ClrHost::unload() {
 
     _plugins.clear();
 
+#ifdef _WIN32
     if (_runtimeHost == 0) {
         return;
     }
@@ -92,17 +113,26 @@ void ClrHost::unload() {
     _runtimeHost->Release();
 
     _runtimeHost = 0;
+#else
+
+
+    if (_coreClrLib != nullptr) {
+        dlclose(_coreClrLib);
+
+        _coreClrLib = nullptr;
+    }
+#endif
 }
 
 std::vector<ClrPlugin *> ClrHost::plugins() const {
     return _plugins;
 }
 
-bool ClrHost::getRuntime() {
-    char *coreClrPath = new char[MAX_PATH];
-    strcpy_s(coreClrPath, MAX_PATH, RUNTIME_DIR_PATH);
-    strcat_s(coreClrPath, MAX_PATH, "coreclr.dll");
+bool ClrHost::loadCoreClr() {
+    std::string coreClrDllPath(RUNTIME_DIR_PATH);
+    coreClrDllPath += "coreclr.dll";
 
+#ifdef _WIN32
     HMODULE hModule = LoadLibraryEx(coreClrPath, NULL, 0);
     if (hModule == NULL) {
         std::cerr << "[.NET] Unable to find CoreCLR dll" << std::endl;
@@ -110,7 +140,7 @@ bool ClrHost::getRuntime() {
         return false;
     }
 
-    // get runtime host
+    // TODO: get new methods
     auto fnGetCLRRuntimeHost = (FnGetCLRRuntimeHost)::GetProcAddress(hModule, "GetCLRRuntimeHost");
     if (fnGetCLRRuntimeHost == NULL) {
         std::cerr << "[.NET] Runtime host function not found" << std::endl;
@@ -118,7 +148,7 @@ bool ClrHost::getRuntime() {
         return false;
     }
 
-    HRESULT result = fnGetCLRRuntimeHost(IID_ICLRRuntimeHost2, (IUnknown **)&_runtimeHost);
+    auto result = fnGetCLRRuntimeHost(IID_ICLRRuntimeHost2, (IUnknown **)&_runtimeHost);
     if (FAILED(result)) {
         std::cerr << "[.NET] Failed to get runtime instance" << std::endl;
 
@@ -144,62 +174,73 @@ bool ClrHost::getRuntime() {
 
         return false;
     }
+#else
+    void *coreClrLib = dlopen(coreClrDllPath.c_str(), RTLD_NOW | RTLD_LOCAL);
+    if (coreClrLib == nullptr) {
+        std::cerr << "[.NET] Unable to find CoreCLR dll" << std::endl;
+
+        return false;
+    }
+
+    _initializeCoreCLR = (coreclr_initialize_ptr)dlsym(coreClrLib, "coreclr_initialize");
+    _shutdownCoreCLR = (coreclr_shutdown_2_ptr)dlsym(coreClrLib, "coreclr_shutdown_2");
+    _createDelegate = (coreclr_create_delegate_ptr)dlsym(coreClrLib, "coreclr_create_delegate");
+
+    if (_initializeCoreCLR == nullptr || _shutdownCoreCLR == nullptr || _createDelegate == nullptr) {
+        std::cerr << "[.NET] Unable to find CoreCLR dll methods" << std::endl;
+
+        return false;
+    }
+#endif
 
     return true;
 }
 
 bool ClrHost::createAppDomain() {
-    DWORD appDomainFlags = APPDOMAIN_ENABLE_PLATFORM_SPECIFIC_APPS | APPDOMAIN_ENABLE_PINVOKE_AND_CLASSIC_COMINTEROP |
-            APPDOMAIN_DISABLE_TRANSPARENCY_ENFORCEMENT;
+    std::string tpaList = "";
 
-    wchar_t *trustedAssemblies = getTrustedAssemblies();
+    for (auto &tpa : getTrustedAssemblies()) {
+        tpaList += tpa;
+        tpaList += LIST_SEPARATOR;
+    }
 
-    wchar_t appPaths[MAX_PATH];
-    GetFullPathNameW(L"" PLUGIN_DIR_PATH, MAX_PATH, appPaths, NULL);
+    auto appPath = getAbsolutePath(PLUGIN_DIR_PATH);
 
-    wchar_t appNiPaths[MAX_PATH];
-    wcscpy_s(appNiPaths, MAX_PATH, appPaths);
+    auto nativeDllPaths = appPath;
+    nativeDllPaths += LIST_SEPARATOR;
+    nativeDllPaths += getAbsolutePath(RUNTIME_DIR_PATH);
 
-    wchar_t nativeDllPaths[2 * MAX_PATH];
-    wcscpy_s(nativeDllPaths, 2 * MAX_PATH, L"" PLUGIN_DIR_PATH);
-    wcscat_s(nativeDllPaths, 2 * MAX_PATH, L";");
-    wcscat_s(nativeDllPaths, 2 * MAX_PATH, L"" RUNTIME_DIR_PATH);
+    auto rootDirectory = getAbsolutePath(".");
 
-    wchar_t platformResourceRoots[MAX_PATH];
-    wcscpy_s(platformResourceRoots, MAX_PATH, appPaths);
-
-    wchar_t *appDomainCompatSwitch = L"UseLatestBehaviorWhenTFMNotSpecified";
-
-    const wchar_t *propertyKeys[] = {
-        L"TRUSTED_PLATFORM_ASSEMBLIES",
-        L"APP_PATHS",
-        L"APP_NI_PATHS",
-        L"NATIVE_DLL_SEARCH_DIRECTORIES",
-        L"PLATFORM_RESOURCE_ROOTS",
-        L"AppDomainCompatSwitch"
+    const char *propertyKeys[] = {
+        "TRUSTED_PLATFORM_ASSEMBLIES",
+        "APP_PATHS",
+        "APP_NI_PATHS",
+        "NATIVE_DLL_SEARCH_DIRECTORIES",
+        "System.GC.Server",
+        "System.Globalization.Invariant",
     };
 
-    const wchar_t *propertyValues[] = {
-        trustedAssemblies,
-        appPaths,
-        appNiPaths,
-        nativeDllPaths,
-        platformResourceRoots,
-        appDomainCompatSwitch
+    const char *propertyValues[] = {
+        tpaList.c_str(),
+        appPath.c_str(),
+        appPath.c_str(),
+        nativeDllPaths.c_str(),
+        "true",
+        "true",
     };
 
-    HRESULT result = _runtimeHost->CreateAppDomainWithManager(
-        L"RageMP Host Domain",
-        appDomainFlags,
-        NULL,
-        NULL,
-        sizeof(propertyKeys) / sizeof(wchar_t *),
+    int result = _initializeCoreCLR(
+        rootDirectory.c_str(), 
+        "RageMP Host Domain", 
+        sizeof(propertyKeys) / sizeof(propertyKeys[0]), 
         propertyKeys,
         propertyValues,
+        &_runtimeHost,
         &_domainId
     );
 
-    if (FAILED(result)) {
+    if (result < 0) {
         std::cerr << "[.NET] Unable to create app domain" << std::endl;
 
         return false;
@@ -208,18 +249,118 @@ bool ClrHost::createAppDomain() {
     return true;
 }
 
-wchar_t *ClrHost::getTrustedAssemblies() {
-    size_t assemblyCount = 100 * MAX_PATH;
-    auto assemblies = new wchar_t[assemblyCount];
+void ClrHost::getPlugins() {
+    std::string pluginDirectory = getAbsolutePath(PLUGIN_DIR_PATH);
 
-    wcscpy_s(assemblies, assemblyCount, L"");
+#ifndef _WIN32
+    auto directory = opendir(pluginDirectory.c_str());
+    if (directory == nullptr) {
+        std::cerr << "[.NET] Runtime directory not found" << std::endl;
 
-    wchar_t rootPath[MAX_PATH];
-    GetFullPathNameW(L".", MAX_PATH, rootPath, NULL);
+        return;
+    }
 
-    wchar_t *extensions[] = { L"*.dll", L"*.exe", L".winmd" };
+    struct dirent* entry;
+#endif
 
-    for (int i = 0; i < _countof(extensions); i++) {
+    _plugins.clear();
+
+#ifdef _WIN32
+    std::wstring searchPath = pluginDirectory;
+    searchPath += "*.dll";
+
+    WIN32_FIND_DATA findData;
+    HANDLE fileHandle = FindFirstFile(searchPath.c_str(), &findData);
+
+    if (fileHandle == INVALID_HANDLE_VALUE) {
+        return;
+    }
+
+    do {
+        std::string filePath = pluginDirPath;
+        filePath += findData.cFileName;
+
+        std::string filename = getFilenameWithoutExtension(findData.cFileName);
+#else
+    while ((entry = readdir(directory)) != nullptr) {
+        switch (entry->d_type) {
+            case DT_REG:
+                break;
+
+            // Handle symlinks and file systems that do not support d_type
+            case DT_LNK:
+            case DT_UNKNOWN:
+                {
+                    std::string fullFilename;
+
+                    fullFilename.append(pluginDirectory);
+                    fullFilename.append(entry->d_name);
+
+                    struct stat sb;
+                    if (stat(fullFilename.c_str(), &sb) == -1) {
+                        continue;
+                    }
+
+                    if (!S_ISREG(sb.st_mode)) {
+                        continue;
+                    }
+                }
+                break;
+
+            default:
+                continue;
+        }
+
+        std::string filename(entry->d_name);
+        std::string filePath(pluginDirectory);
+        filePath += filename;
+
+        // Check if the extension matches the one we are looking for
+        int extPos = filename.length() - 4;
+        if (extPos <= 0 || filename.compare(extPos, 4, ".dll") != 0) {
+            continue;
+        }
+
+        filename = filename.substr(0, extPos);
+#endif
+
+        auto plugin = new ClrPlugin(filename, filePath);
+
+        _plugins.push_back(plugin);
+#ifdef _WIN32
+    } while (FindNextFile(fileHandle, &findData));
+
+    FindClose(fileHandle);
+#else
+    }
+
+    closedir(directory);
+#endif
+}
+
+std::set<std::string> ClrHost::getTrustedAssemblies() {
+    std::set<std::string> assemblies;
+
+    const char * const tpaExtensions[] = { ".ni.dll", ".dll", ".ni.exe", ".exe", ".winmd" };
+
+    std::string runtimeDirectory = getAbsolutePath(RUNTIME_DIR_PATH);
+
+#ifndef _WIN32
+    auto directory = opendir(runtimeDirectory.c_str());
+    if (directory == nullptr) {
+        std::cerr << "[.NET] Runtime directory not found" << std::endl;
+
+        return assemblies;
+    }
+
+    struct dirent* entry;
+#endif
+
+    for (int extIndex = 0; extIndex < sizeof(tpaExtensions) / sizeof(tpaExtensions[0]); extIndex++) {
+        const char* ext = tpaExtensions[extIndex];
+        int extLength = strlen(ext);
+
+#ifdef _WIN32
         wchar_t searchPath[MAX_PATH];
         wcscpy_s(searchPath, MAX_PATH, rootPath);
         wcscat_s(searchPath, MAX_PATH, L"/");
@@ -257,55 +398,77 @@ wchar_t *ClrHost::getTrustedAssemblies() {
         } while (FindNextFileW(fileHandle, &findData));
 
         FindClose(fileHandle);
+#else
+        while ((entry = readdir(directory)) != nullptr) {
+            switch (entry->d_type) {
+                case DT_REG:
+                    break;
+
+                // Handle symlinks and file systems that do not support d_type
+                case DT_LNK:
+                case DT_UNKNOWN:
+                    {
+                        std::string fullFilename;
+
+                        fullFilename.append(runtimeDirectory);
+                        fullFilename.append("/");
+                        fullFilename.append(entry->d_name);
+
+                        struct stat sb;
+                        if (stat(fullFilename.c_str(), &sb) == -1) {
+                            continue;
+                        }
+
+                        if (!S_ISREG(sb.st_mode)) {
+                            continue;
+                        }
+                    }
+                    break;
+
+                default:
+                    continue;
+            }
+
+            std::string filename(entry->d_name);
+
+            // Check if the extension matches the one we are looking for
+            int extPos = filename.length() - extLength;
+            if (extPos <= 0 || filename.compare(extPos, extLength, ext) != 0) {
+                continue;
+            }
+
+            std::string filenameWithoutExt(filename.substr(0, extPos));
+
+            // Ensure assemblies are unique in the list
+            if (assemblies.find(filenameWithoutExt) != assemblies.end()) {
+                continue;
+            }
+
+            assemblies.insert(filenameWithoutExt);
+        }
+
+        // rewind directory to search for next extension
+        rewinddir(directory);
+#endif
     }
+
+#ifndef _WIN32
+    closedir(directory);
+#endif
 
     return assemblies;
 }
 
-void ClrHost::getPlugins() {
-    _plugins.clear();
-
-    wchar_t rootPath[MAX_PATH];
-    GetFullPathNameW(L".", MAX_PATH, rootPath, NULL);
-
-    std::wstring pluginDirPath = rootPath;
-    pluginDirPath += L"/";
-    pluginDirPath += L"" PLUGIN_DIR_PATH;
-
-    std::wstring searchPath = pluginDirPath;
-    searchPath += L"*.dll";
-
-    WIN32_FIND_DATAW findData;
-    HANDLE fileHandle = FindFirstFileW(searchPath.c_str(), &findData);
-
-    if (fileHandle == INVALID_HANDLE_VALUE) {
-        return;
-    }
-
-    do {
-        std::wstring filePath = pluginDirPath;
-        filePath += findData.cFileName;
-
-        std::wstring filename = getFilenameWithoutExtension(findData.cFileName);
-
-        auto plugin = new ClrPlugin(filename, filePath);
-
-        _plugins.push_back(plugin);
-    } while (FindNextFileW(fileHandle, &findData));
-
-    FindClose(fileHandle);
-}
-
-bool ClrHost::getDelegate(const wchar_t *filename, wchar_t *methodName, void **callback) {
+bool ClrHost::getDelegate(std::string filename, std::string methodName, void **callback) {
     if (_runtimeHost == 0 || _domainId == 0) {
         std::cerr << "[.NET] Core CLR host not loaded" << std::endl;
 
         return false;
     }
 
-    HRESULT result = _runtimeHost->CreateDelegate(_domainId, filename, PLUGIN_CLASS_NAME, methodName, (INT_PTR *)callback);
-    if (FAILED(result)) {
-        std::wcerr << "[.NET] Unable to get '" << methodName << "' from '" << filename << "'" << std::endl;
+    int result = _createDelegate(_runtimeHost, _domainId, filename.c_str(), PLUGIN_CLASS_NAME, methodName.c_str(), callback);
+    if (result < 0) {
+        std::cerr << "[.NET] Unable to get '" << methodName << "' from '" << filename << "'" << std::endl;
 
         return false;
     }
@@ -313,12 +476,27 @@ bool ClrHost::getDelegate(const wchar_t *filename, wchar_t *methodName, void **c
     return true;
 }
 
-std::wstring ClrHost::getFilenameWithoutExtension(wchar_t *filename) {
-    std::wstring name(filename);
-    size_t pos = name.rfind(L".");
-    if (pos == std::wstring::npos) {
-        return name;
+std::string ClrHost::getAbsolutePath(std::string relativePath) {
+#ifdef _WIN32
+    char absolutePath[MAX_PATH];
+    GetFullPathName(relativePath.c_str(), MAX_PATH, absolutePath, NULL);
+#else
+    char absolutePath[PATH_MAX];
+
+    if (realpath(relativePath.c_str(), absolutePath) == nullptr) {
+        // no absolute path found
+        absolutePath[0] = '\0';
+    }
+#endif
+
+    return std::string(absolutePath);
+}
+
+std::string ClrHost::getFilenameWithoutExtension(std::string &filename) {
+    auto pos = filename.rfind(".");
+    if (pos == std::string::npos) {
+        return filename;
     }
 
-    return name.substr(0, pos);
+    return filename.substr(0, pos);
 }
