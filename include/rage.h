@@ -50,3 +50,5 @@
 #include "playerPool.h"
 #include "textLabelPool.h"
 #include "vehiclePool.h"
+
+void SetupPlugin(rage::IMultiplayer *multiplayer);

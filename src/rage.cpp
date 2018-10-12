@@ -44,5 +44,7 @@ static EventHandler eventHandler;
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
     mp->AddEventHandler(&eventHandler);
 
+    SetupPlugin(mp);
+
     return new rage::IPlugin();
 }
