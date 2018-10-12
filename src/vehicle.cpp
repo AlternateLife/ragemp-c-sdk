@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/vehicle.h"
+#include "vehicle.h"
 
 bool Vehicle_IsSirenActive(rage::IVehicle *vehicle) {
     return vehicle->IsSirenActive();

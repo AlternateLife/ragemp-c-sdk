@@ -1,7 +1,7 @@
 /*
- * File: objectPool.cpp
+ * File: vehiclePool.cpp
  * Author: MarkAtk
- * Date: 11.10.2018
+ * Date: 09.10.2018
  *
  * MIT License
  *
@@ -26,8 +26,9 @@
  * SOFTWARE.
  */
 
-#include "wrapper/objectPool.h"
+#include "vehiclePool.h"
 
-rage::IObject *ObjectPool_New(rage::IObjectPool *pool, uint32_t model, const rage::vector3 &position, const rage::vector3 &rotation, uint32_t dimension) {
-    return pool->New(model, position, rotation, dimension);
+rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 &position, float heading, const char *numberPlate,
+                                uint32_t alpha, bool locked, bool engine, uint32_t dimension) {
+    return vehiclePool->New(model, position, heading, numberPlate, alpha, locked, engine, dimension);
 }

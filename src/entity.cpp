@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/entity.h"
+#include "entity.h"
 
 #include <cstring>
 

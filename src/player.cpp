@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/player.h"
+#include "player.h"
 
 #include <ragemp-cppsdk/rage.hpp>
 

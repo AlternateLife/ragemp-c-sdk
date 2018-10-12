@@ -1,7 +1,7 @@
 /*
- * File: checkpointPool.cpp
+ * File: textLabel.cpp
  * Author: MarkAtk
- * Date: 11.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,9 +26,46 @@
  * SOFTWARE.
  */
 
-#include "wrapper/checkpointPool.h"
+#include "textLabel.h"
 
-rage::ICheckpoint *CheckpointPool_New(rage::ICheckpointPool *pool, uint32_t type, const rage::vector3 &position, const rage::vector3 &nextPosition,
-        float radius, const rage::rgba_t &color, bool visible, uint32_t dimension) {
-    return pool->New(type, position, nextPosition, radius, color, visible, dimension);
+const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
+    return &textLabel->GetColor();
 }
+
+void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t &color) {
+    textLabel->SetColor(color);
+}
+
+const char *TextLabel_GetText(rage::ITextLabel *textLabel) {
+    return textLabel->GetText().c_str();
+}
+
+void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text) {
+    textLabel->SetText(text);
+}
+
+bool TextLabel_GetLOS(rage::ITextLabel *textLabel) {
+    return textLabel->GetLOS();
+}
+
+void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle) {
+    textLabel->SetLOS(toggle);
+}
+
+float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel) {
+    return textLabel->GetDrawDistance();
+}
+
+void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance) {
+    textLabel->SetDrawDistance(distance);
+}
+
+uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel) {
+    return textLabel->GetFont();
+}
+
+void TextLabel_SetFont(rage::ITextLabel *textLabel, uint32_t font) {
+    textLabel->SetFont(font);
+}
+
+

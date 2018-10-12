@@ -1,5 +1,5 @@
 /*
- * File: blipPool.cpp
+ * File: textLabelPool.cpp
  * Author: MarkAtk
  * Date: 11.10.2018
  *
@@ -26,9 +26,9 @@
  * SOFTWARE.
  */
 
-#include "wrapper/blipPool.h"
+#include "textLabelPool.h"
 
-rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 &position, float scale, uint32_t color, const char *name,
-        uint32_t alpha, float drawDistance, bool shortRange, int32_t rotation, uint32_t dimension) {
-    return pool->New(sprite, position, scale, color, name, alpha, drawDistance, shortRange, rotation, dimension);
+rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font, const rage::rgba_t &color,
+        float drawDistance, bool los, uint32_t dimension) {
+    return pool->New(position, text, font, color, drawDistance, los, dimension);
 }

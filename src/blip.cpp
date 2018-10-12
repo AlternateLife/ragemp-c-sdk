@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/blip.h"
+#include "blip.h"
 
 #include "utils.h"
 

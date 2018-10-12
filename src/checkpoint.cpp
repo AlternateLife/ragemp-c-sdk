@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/checkpoint.h"
+#include "checkpoint.h"
 
 #include "utils.h"
 

@@ -1,7 +1,7 @@
 /*
- * File: pool.cpp
+ * File: markerPool.cpp
  * Author: MarkAtk
- * Date: 10.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,19 +26,9 @@
  * SOFTWARE.
  */
 
-#include "wrapper/pool.h"
+#include "markerPool.h"
 
-rage::IEntity *Pool_GetAt(rage::IPool<rage::IEntity> *pool, uint32_t id) {
-    return pool->GetAt(id);
+rage::IMarker *MarkerPool_New(rage::IMarkerPool *pool, uint32_t model, const rage::vector3 &position, const rage::vector3 &rotation,
+        const rage::vector3 &direction, float scale, const rage::rgba_t &color, bool visible, uint32_t dimension) {
+    return pool->New(model, position, rotation, direction, scale, color, visible, dimension);
 }
-
-uint32_t Pool_GetLength(rage::IPool<rage::IEntity> *pool) {
-    return pool->Length();
-}
-
-uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool) {
-    return pool->Count();
-}
-
-// GetInRange
-// GetInDimension

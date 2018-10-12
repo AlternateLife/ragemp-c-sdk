@@ -1,7 +1,7 @@
 /*
- * File: vehiclePool.cpp
+ * File: checkpointPool.cpp
  * Author: MarkAtk
- * Date: 09.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,9 +26,9 @@
  * SOFTWARE.
  */
 
-#include "wrapper/vehiclePool.h"
+#include "checkpointPool.h"
 
-rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 &position, float heading, const char *numberPlate,
-                                uint32_t alpha, bool locked, bool engine, uint32_t dimension) {
-    return vehiclePool->New(model, position, heading, numberPlate, alpha, locked, engine, dimension);
+rage::ICheckpoint *CheckpointPool_New(rage::ICheckpointPool *pool, uint32_t type, const rage::vector3 &position, const rage::vector3 &nextPosition,
+        float radius, const rage::rgba_t &color, bool visible, uint32_t dimension) {
+    return pool->New(type, position, nextPosition, radius, color, visible, dimension);
 }

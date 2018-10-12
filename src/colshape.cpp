@@ -1,5 +1,5 @@
 /*
- * File: marker.cpp
+ * File: colshape.cpp
  * Author: MarkAtk
  * Date: 10.10.2018
  *
@@ -26,46 +26,12 @@
  * SOFTWARE.
  */
 
-#include "wrapper/marker.h"
+#include "colshape.h"
 
-#include "utils.h"
- 
-const rage::rgba_t *Marker_GetColor(rage::IMarker *marker) {
-    return &marker->GetColour();
+bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position) {
+    return colshape->IsPointWithin(position);
 }
 
-void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
-    marker->SetColour(red, green, blue, alpha);
-}
-
-const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
-    return &marker->GetDirection();
-}
-
-void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {
-    marker->SetDirection(direction);
-}
-
-float Marker_GetScale(rage::IMarker *marker) {
-    return marker->GetScale();
-}
-
-void Marker_SetScale(rage::IMarker *marker, float radius) {
-    marker->SetScale(radius);
-}
-
-bool Marker_IsVisible(rage::IMarker *marker) {
-    return marker->IsVisible();
-}
-
-void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
-    marker->SetVisible(toggle);
-}
-
-void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
-    marker->ShowFor(getPlayerVector(players, count));
-}
-
-void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
-    marker->HideFor(getPlayerVector(players, count));
+uint32_t Colshape_GetShapeType(rage::IColshape *colshape) {
+    return (uint32_t)colshape->GetShapeType();
 }

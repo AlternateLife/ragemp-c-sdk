@@ -1,7 +1,7 @@
 /*
- * File: config.cpp
+ * File: blipPool.cpp
  * Author: MarkAtk
- * Date: 10.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,12 +26,9 @@
  * SOFTWARE.
  */
 
-#include "wrapper/config.h"
+#include "blipPool.h"
 
-int Config_GetInt(rage::IConfig *config, const char *key, int defaultValue) {
-    return config->GetInt(key, defaultValue);
-}
-
-const char *Config_GetString(rage::IConfig *config, const char *key, const char *defaultValue) {
-    return config->GetString(key, defaultValue).c_str();
+rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 &position, float scale, uint32_t color, const char *name,
+        uint32_t alpha, float drawDistance, bool shortRange, int32_t rotation, uint32_t dimension) {
+    return pool->New(sprite, position, scale, color, name, alpha, drawDistance, shortRange, rotation, dimension);
 }

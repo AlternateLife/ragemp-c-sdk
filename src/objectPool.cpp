@@ -1,5 +1,5 @@
 /*
- * File: textLabelPool.cpp
+ * File: objectPool.cpp
  * Author: MarkAtk
  * Date: 11.10.2018
  *
@@ -26,9 +26,8 @@
  * SOFTWARE.
  */
 
-#include "wrapper/textLabelPool.h"
+#include "objectPool.h"
 
-rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font, const rage::rgba_t &color,
-        float drawDistance, bool los, uint32_t dimension) {
-    return pool->New(position, text, font, color, drawDistance, los, dimension);
+rage::IObject *ObjectPool_New(rage::IObjectPool *pool, uint32_t model, const rage::vector3 &position, const rage::vector3 &rotation, uint32_t dimension) {
+    return pool->New(model, position, rotation, dimension);
 }

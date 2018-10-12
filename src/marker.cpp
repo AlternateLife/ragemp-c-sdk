@@ -1,5 +1,5 @@
 /*
- * File: textLabel.cpp
+ * File: marker.cpp
  * Author: MarkAtk
  * Date: 10.10.2018
  *
@@ -26,46 +26,46 @@
  * SOFTWARE.
  */
 
-#include "wrapper/textLabel.h"
+#include "marker.h"
 
-const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
-    return &textLabel->GetColor();
+#include "utils.h"
+ 
+const rage::rgba_t *Marker_GetColor(rage::IMarker *marker) {
+    return &marker->GetColour();
 }
 
-void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t &color) {
-    textLabel->SetColor(color);
+void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
+    marker->SetColour(red, green, blue, alpha);
 }
 
-const char *TextLabel_GetText(rage::ITextLabel *textLabel) {
-    return textLabel->GetText().c_str();
+const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
+    return &marker->GetDirection();
 }
 
-void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text) {
-    textLabel->SetText(text);
+void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {
+    marker->SetDirection(direction);
 }
 
-bool TextLabel_GetLOS(rage::ITextLabel *textLabel) {
-    return textLabel->GetLOS();
+float Marker_GetScale(rage::IMarker *marker) {
+    return marker->GetScale();
 }
 
-void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle) {
-    textLabel->SetLOS(toggle);
+void Marker_SetScale(rage::IMarker *marker, float radius) {
+    marker->SetScale(radius);
 }
 
-float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel) {
-    return textLabel->GetDrawDistance();
+bool Marker_IsVisible(rage::IMarker *marker) {
+    return marker->IsVisible();
 }
 
-void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance) {
-    textLabel->SetDrawDistance(distance);
+void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
+    marker->SetVisible(toggle);
 }
 
-uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel) {
-    return textLabel->GetFont();
+void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
+    marker->ShowFor(getPlayerVector(players, count));
 }
 
-void TextLabel_SetFont(rage::ITextLabel *textLabel, uint32_t font) {
-    textLabel->SetFont(font);
+void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
+    marker->HideFor(getPlayerVector(players, count));
 }
-
-

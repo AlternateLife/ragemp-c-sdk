@@ -1,7 +1,7 @@
 /*
- * File: colshapePool.cpp
+ * File: world.cpp
  * Author: MarkAtk
- * Date: 11.10.2018
+ * Date: 10.10.2018
  *
  * MIT License
  *
@@ -26,25 +26,50 @@
  * SOFTWARE.
  */
 
-#include "wrapper/colshapePool.h"
+#include "world.h"
 
-rage::IColshape *ColshapePool_NewCircle(rage::IColshapePool *pool, const rage::vector2 &position, float radius, uint32_t dimension) {
-    return pool->NewCircle(position, radius, dimension);
+const rage::time_t *World_GetTime(rage::IWorld *world) {
+    return &world->GetTime();
 }
 
-rage::IColshape *ColshapePool_NewSphere(rage::IColshapePool *pool, const rage::vector3 &position, float radius, uint32_t dimension) {
-    return pool->NewSphere(position, radius, dimension);
+void World_SetTime(rage::IWorld *world, const rage::time_t &time) {
+    world->SetTime(time);
 }
 
-rage::IColshape *ColshapePool_NewTube(rage::IColshapePool *pool, const rage::vector3 &position, float radius, float height, uint32_t dimension) {
-    return pool->NewTube(position, radius, height, dimension);
+const char *World_GetWeather(rage::IWorld *world) {
+    return world->GetWeather().c_str();
 }
 
-rage::IColshape *ColshapePool_NewRectangle(rage::IColshapePool *pool, const rage::vector2 &position, const rage::vector2 &size, uint32_t dimension) {
-    return pool->NewRectangle(position, size, dimension);
+void World_SetWeather(rage::IWorld *world, const char *weather) {
+    world->SetWeather(weather);
 }
 
-rage::IColshape *ColshapePool_NewCube(rage::IColshapePool *pool, const rage::vector3 &position, const rage::vector3 &size, uint32_t dimension) {
-    return pool->NewCube(position, size, dimension);
+void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time) {
+    world->SetWeatherTransition(weather, time);
 }
+
+void World_RequestIpl(rage::IWorld *world, const char *ipl) {
+    world->RequestIpl(ipl);
+}
+
+void World_RemoveIpl(rage::IWorld *world, const char *ipl) {
+    world->RemoveIpl(ipl);
+}
+
+bool World_AreTrafficLightsLocked(rage::IWorld *world) {
+    return world->AreTrafficLightsLocked();
+}
+
+void World_LockTrafficLights(rage::IWorld *world, bool toggle) {
+    world->LockTrafficLights(toggle);
+}
+
+int World_GetTrafficLightsState(rage::IWorld *world) {
+    return world->GetTrafficLightsState();
+}
+
+void World_SetTrafficLightsState(rage::IWorld *world, int state) {
+    world->SetTrafficLightsState(state);
+}
+
 

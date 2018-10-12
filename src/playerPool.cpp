@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "wrapper/playerPool.h"
+#include "playerPool.h"
 
 #include "utils.h"
 

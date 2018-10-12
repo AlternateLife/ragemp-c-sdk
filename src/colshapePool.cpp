@@ -1,7 +1,7 @@
 /*
- * File: colshape.cpp
+ * File: colshapePool.cpp
  * Author: MarkAtk
- * Date: 10.10.2018
+ * Date: 11.10.2018
  *
  * MIT License
  *
@@ -26,12 +26,25 @@
  * SOFTWARE.
  */
 
-#include "wrapper/colshape.h"
+#include "colshapePool.h"
 
-bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position) {
-    return colshape->IsPointWithin(position);
+rage::IColshape *ColshapePool_NewCircle(rage::IColshapePool *pool, const rage::vector2 &position, float radius, uint32_t dimension) {
+    return pool->NewCircle(position, radius, dimension);
 }
 
-uint32_t Colshape_GetShapeType(rage::IColshape *colshape) {
-    return (uint32_t)colshape->GetShapeType();
+rage::IColshape *ColshapePool_NewSphere(rage::IColshapePool *pool, const rage::vector3 &position, float radius, uint32_t dimension) {
+    return pool->NewSphere(position, radius, dimension);
 }
+
+rage::IColshape *ColshapePool_NewTube(rage::IColshapePool *pool, const rage::vector3 &position, float radius, float height, uint32_t dimension) {
+    return pool->NewTube(position, radius, height, dimension);
+}
+
+rage::IColshape *ColshapePool_NewRectangle(rage::IColshapePool *pool, const rage::vector2 &position, const rage::vector2 &size, uint32_t dimension) {
+    return pool->NewRectangle(position, size, dimension);
+}
+
+rage::IColshape *ColshapePool_NewCube(rage::IColshapePool *pool, const rage::vector3 &position, const rage::vector3 &size, uint32_t dimension) {
+    return pool->NewCube(position, size, dimension);
+}
+

@@ -28,11 +28,16 @@
 
 #include "rage.h"
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wempty-body"
+#endif
 #include <ragemp-cppsdk/rage.hpp>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 #include "eventHandler.h"
-
-#include <iostream>
 
 static EventHandler eventHandler;
 
