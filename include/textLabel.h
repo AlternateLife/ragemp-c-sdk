@@ -42,7 +42,7 @@ extern "C" {
 #endif
 
 RAGE_API const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel);
-RAGE_API void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t &color);
+RAGE_API void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t color);
 RAGE_API const char *TextLabel_GetText(rage::ITextLabel *textLabel);
 RAGE_API void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text);
 RAGE_API bool TextLabel_GetLOS(rage::ITextLabel *textLabel);

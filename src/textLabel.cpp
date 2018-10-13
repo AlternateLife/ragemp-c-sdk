@@ -32,7 +32,7 @@ const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
     return &textLabel->GetColor();
 }
 
-void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t &color) {
+void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t color) {
     textLabel->SetColor(color);
 }
 
