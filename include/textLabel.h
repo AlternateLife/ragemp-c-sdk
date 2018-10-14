@@ -46,7 +46,7 @@ RAGE_API void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t
 RAGE_API const char *TextLabel_GetText(rage::ITextLabel *textLabel);
 RAGE_API void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text);
 RAGE_API bool TextLabel_GetLOS(rage::ITextLabel *textLabel);
-RAGE_API void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle);
+RAGE_API void TextLabel_SetLOS(rage::ITextLabel *textLabel, bool toggle);
 RAGE_API float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel);
 RAGE_API void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance);
 RAGE_API uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel);

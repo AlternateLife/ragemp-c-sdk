@@ -64,7 +64,7 @@ const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplay
     return &multiplayer->GetObjectPool();
 }
 
-const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplayer *multiplayer) {
+const rage::ITextLabelPool *Multiplayer_GetLabelPool(rage::IMultiplayer *multiplayer) {
     return &multiplayer->GetLabelPool();
 }
 

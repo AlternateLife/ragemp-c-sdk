@@ -48,7 +48,7 @@ bool TextLabel_GetLOS(rage::ITextLabel *textLabel) {
     return textLabel->GetLOS();
 }
 
-void TextLabel_SetLos(rage::ITextLabel *textLabel, bool toggle) {
+void TextLabel_SetLOS(rage::ITextLabel *textLabel, bool toggle) {
     textLabel->SetLOS(toggle);
 }
 

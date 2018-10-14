@@ -52,7 +52,7 @@ RAGE_API const rage::IMarkerPool *Multiplayer_GetMarkerPool(rage::IMultiplayer *
 RAGE_API const rage::IBlipPool *Multiplayer_GetBlipPool(rage::IMultiplayer *multiplayer);
 RAGE_API const rage::IPickupPool *Multiplayer_GetPickupPool(rage::IMultiplayer *multiplayer);
 RAGE_API const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplayer);
-RAGE_API const rage::ITextLabelPool *Multiplayer_GetLabelPPool(rage::IMultiplayer *multiplayer);
+RAGE_API const rage::ITextLabelPool *Multiplayer_GetLabelPool(rage::IMultiplayer *multiplayer);
 RAGE_API const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer);
 RAGE_API const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer);
 
