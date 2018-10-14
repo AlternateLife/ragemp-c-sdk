@@ -28,6 +28,8 @@
 
 #include "pool.h"
 
+#include "utils.h"
+
 rage::IEntity *Pool_GetAt(rage::IPool<rage::IEntity> *pool, uint32_t id) {
     return pool->GetAt(id);
 }
@@ -40,5 +42,10 @@ uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool) {
     return pool->Count();
 }
 
-// GetInRange
-// GetInDimension
+void Pool_GetInRange(rage::IPool<rage::IEntity> *pool, const rage::vector3 &position, float range, uint32_t dimension, rage::IEntity ***entities, size_t *count) {
+    getArrayFromVector(pool->GetInRange(position, range, dimension), entities, count);
+}
+
+void Pool_GetInDimension(rage::IPool<rage::IEntity> *pool, uint32_t dimension, rage::IEntity ***entities, size_t *count) {
+    getArrayFromVector(pool->GetInDimension(dimension), entities, count);
+}

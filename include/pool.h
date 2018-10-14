@@ -44,8 +44,9 @@ extern "C" {
 RAGE_API rage::IEntity *Pool_GetAt(rage::IPool<rage::IEntity> *pool, uint32_t id);
 RAGE_API uint32_t Pool_GetLength(rage::IPool<rage::IEntity> *pool);
 RAGE_API uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool);
-// GetInRange
-// GetInDimension
+RAGE_API void Pool_GetInRange(rage::IPool<rage::IEntity> *pool, const rage::vector3 &position, float range, uint32_t dimension, rage::IEntity ***entities,
+        size_t *count);
+RAGE_API void Pool_GetInDimension(rage::IPool<rage::IEntity> *pool, uint32_t dimension, rage::IEntity ***entities, size_t *count);
 
 #ifdef __cplusplus
 }
