@@ -317,7 +317,7 @@ void Player_SetCurrentWeapon(rage::IPlayer *player, uint32_t weapon) {
 }
 
 uint32_t Player_GetCurrentWeaponAmmo(rage::IPlayer *player) {
-    return player->GetCurrentWeapon();
+    return player->GetCurrentWeaponAmmo();
 }
 
 void Player_SetCurrentWeaponAmmo(rage::IPlayer *player, uint32_t ammo) {
