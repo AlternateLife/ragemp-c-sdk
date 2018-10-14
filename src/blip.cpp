@@ -54,11 +54,11 @@ void Blip_SetShortRange(rage::IBlip *blip, bool toggle) {
     blip->SetShortRange(toggle);
 }
 
-void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, int count, uint32_t color, float scale) {
+void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count, uint32_t color, float scale) {
     blip->RouteFor(getVectorFromArray(players, count), color, scale);
 }
 
-void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, int count) {
+void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count) {
     blip->UnrouteFor(getVectorFromArray(players, count));
 }
 

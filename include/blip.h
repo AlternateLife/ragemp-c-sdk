@@ -47,8 +47,8 @@ RAGE_API int32_t Blip_GetRotation(rage::IBlip *blip);
 RAGE_API void Blip_SetRotation(rage::IBlip *blip, int32_t rotation);
 RAGE_API bool Blip_IsShortRange(rage::IBlip *blip);
 RAGE_API void Blip_SetShortRange(rage::IBlip *blip, bool toggle);
-RAGE_API void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, int count, uint32_t color, float scale);
-RAGE_API void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, int count);
+RAGE_API void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count, uint32_t color, float scale);
+RAGE_API void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count);
 RAGE_API uint32_t Blip_GetColor(rage::IBlip *blip);
 RAGE_API void Blip_SetColor(rage::IBlip *blip, uint32_t color);
 //GetAlpha comment out in rage headers
