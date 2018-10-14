@@ -28,6 +28,8 @@
 
 #include "vehicle.h"
 
+#include "utils.h"
+
 bool Vehicle_IsSirenActive(rage::IVehicle *vehicle) {
     return vehicle->IsSirenActive();
 }
@@ -96,22 +98,15 @@ float Vehicle_GetBodyHealth(rage::IVehicle *vehicle) {
     return vehicle->GetBodyHealth();
 }
 
-rage::IPlayer *Vehicle_GetOccupant(rage::IVehicle *vehicle, uint32_t seat) {
+rage::IPlayer *Vehicle_GetOccupant(rage::IVehicle *vehicle, int32_t seat) {
     return vehicle->GetOccupant(seat);
 }
 
-void Vehicle_GetOccupants(rage::IVehicle *vehicle, rage::IPlayer ***players, uint32_t *count) {
-    auto occupantVector = vehicle->GetOccupants();
-
-    *players = (rage::IPlayer **)malloc(occupantVector.size() * sizeof(rage::IPlayer *));
-    *count = (uint32_t)occupantVector.size();
-
-    for (int i = 0; i < occupantVector.size(); i++) {
-        *players[i] = occupantVector[i];
-    }
+void Vehicle_GetOccupants(rage::IVehicle *vehicle, rage::IPlayer ***players, size_t *count) {
+    getArrayFromVector(vehicle->GetOccupants(), players, count);
 }
 
-void Vehicle_SetOccupant(rage::IVehicle *vehicle, uint32_t seat, rage::IPlayer *player) {
+void Vehicle_SetOccupant(rage::IVehicle *vehicle, int32_t seat, rage::IPlayer *player) {
     vehicle->SetOccupant(seat, player);
 }
 

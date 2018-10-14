@@ -39,4 +39,23 @@
 
 #include <vector>
 
-std::vector<rage::IPlayer *> getPlayerVector(rage::IPlayer **players, size_t count);
+template<class T>
+std::vector<T *> getVectorFromArray(T **arr, size_t count) {
+    std::vector<T *> list(count);
+
+    for (int i = 0; i < count; i++) {
+        list.push_back(arr[i]);
+    }
+
+    return list;
+}
+
+template<class T>
+void getArrayFromVector(std::vector<T *> list, T ***arr, size_t *count) {
+    *arr = (T **)malloc(list.size() * sizeof(T *));
+    *count = (uint32_t)list.size();
+
+    for (int i = 0; i < list.size(); i++) {
+        *arr[i] = list[i];
+    }
+}

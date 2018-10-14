@@ -57,7 +57,7 @@ void PlayerPool__CallInDimension(rage::IPlayerPool *pool, uint32_t dimension, co
 
 void PlayerPool__CallFor(rage::IPlayerPool *pool, rage::IPlayer **players, size_t playerCount, const char *eventName, const rage::arg_t *arguments,
         size_t count) {
-    pool->_CallFor(getPlayerVector(players, playerCount), eventName, arguments, count);
+    pool->_CallFor(getVectorFromArray(players, playerCount), eventName, arguments, count);
 }
 
 void PlayerPool__Invoke(rage::IPlayerPool *pool, uint64_t hash, const rage::arg_t *arguments, size_t count) {
@@ -75,5 +75,5 @@ void PlayerPool__InvokeInDimension(rage::IPlayerPool *pool, uint32_t dimension, 
 
 void PlayerPool__InvokeFor(rage::IPlayerPool *pool, rage::IPlayer **players, size_t playerCount, uint64_t hash, const rage::arg_t *arguments,
                                     size_t count) {
-    pool->_InvokeFor(getPlayerVector(players, playerCount), hash, arguments, count);
+    pool->_InvokeFor(getVectorFromArray(players, playerCount), hash, arguments, count);
 }

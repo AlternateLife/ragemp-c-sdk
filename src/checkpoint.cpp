@@ -63,9 +63,9 @@ void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle) {
 }
 
 void Checkpoint_ShowFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count) {
-    checkpoint->ShowFor(getPlayerVector(players, count));
+    checkpoint->ShowFor(getVectorFromArray(players, count));
 }
 
 void Checkpoint_HideFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count) {
-    checkpoint->HideFor(getPlayerVector(players, count));
+    checkpoint->HideFor(getVectorFromArray(players, count));
 }
