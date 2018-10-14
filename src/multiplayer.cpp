@@ -28,6 +28,10 @@
 
 #include "multiplayer.h"
 
+void Multiplayer_AddRemoteEventHandler(rage::IMultiplayer *multiplayer, const char *eventName, RemoteEventCallback callback) {
+    multiplayer->AddRemoteEventHandler(eventName, callback);
+}
+
 const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer) {
     return &multiplayer->GetPlayerPool();
 }
