@@ -1,11 +1,11 @@
 /*
- * File: utils.h
+ * File: utils.cpp
  * Author: MarkAtk
- * Date: 11.10.2018
+ * Date: 14.10.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 Rage-MP-C-SDK
+ * Copyright (c) 2018 RageMP-CLR-Host
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,49 +26,14 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "utils.h"
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wempty-body"
-#endif
-#include <ragemp-cppsdk/rage.hpp>
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-
-#include <vector>
-
-template<class T>
-std::vector<T> getVectorFromArray(T *arr, size_t count) {
-    std::vector<T> list;
+std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count) {
+    std::vector<std::pair<uint32_t, uint32_t>> list;
 
     for (int i = 0; i < count; i++) {
-        list.push_back(arr[i]);
+    list.emplace_back(keys[i], values[i]);
     }
 
     return list;
 }
-
-template<class T>
-void getArrayFromVector(std::vector<T> list, T **arr, size_t *count) {
-    *arr = (T *)malloc(list.size() * sizeof(T));
-    *count = (uint32_t)list.size();
-
-    for (int i = 0; i < list.size(); i++) {
-        *arr[i] = list[i];
-    }
-}
-
-template<class T, class U>
-std::map<T, U> getMapFromArrays(T *keys, U *values, size_t count) {
-    std::map<T, U> map;
-
-    for (int i = 0; i < count; i++) {
-        map.emplace(keys[i], values[i]);
-    }
-
-    return map;
-}
-
-std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count);

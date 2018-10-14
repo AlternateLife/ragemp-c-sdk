@@ -28,9 +28,7 @@
 
 #include "entity.h"
 
-#include <cstring>
-
-#include <iostream>
+#include "utils.h"
 
 uint32_t Entity_GetId(rage::IEntity *entity) {
     return entity->GetId();
@@ -96,7 +94,15 @@ void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_
     entity->SetVariable(key, argument);
 }
 
-// SetVariables
+RAGE_API void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
+    std::vector<std::pair<const std::string, const rage::arg_t &>> list;
+
+    for (int i = 0; i < count; i++) {
+        list.emplace_back(std::string(keys[i]), values[i]);
+    }
+
+    entity->SetVariables(list);
+}
 
 bool Entity_HasVariable(rage::IEntity *entity, const char *key) {
     return entity->HasVariable(key);

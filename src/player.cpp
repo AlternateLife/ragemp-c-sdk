@@ -28,7 +28,7 @@
 
 #include "player.h"
 
-#include <ragemp-cppsdk/rage.hpp>
+#include "utils.h"
 
 void Player_Kick(rage::IPlayer *player, const char *reason) {
     player->Kick(reason);
@@ -78,11 +78,19 @@ const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint32_t id) {
     return &player->GetClothes(id);
 }
 
-void Player_SetClothes(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes) {
+void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes) {
     player->SetClothes(id, clothes);
 }
 
-// SetClothes
+void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rage::clothData_t *clothes, size_t count) {
+    std::vector<std::pair<uint8_t, const rage::clothData_t>> list;
+
+    for (int i = 0; i < count; i++) {
+        list.emplace_back(keys[i], clothes[i]);
+    }
+
+    player->SetClothes(list);
+}
 
 const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id) {
     return &player->GetProp(id);
@@ -92,8 +100,32 @@ void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &
     player->SetProp(id, prop);
 }
 
-// SetProp
-// SetCustomization
+void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData_t *props, size_t count) {
+    std::vector<std::pair<uint8_t, const rage::propData_t>> list;
+
+    for (int i = 0; i < count; i++) {
+        list.emplace_back(keys[i], props[i]);
+    }
+
+    player->SetProp(list);
+}
+
+void Player_SetCustomization(rage::IPlayer *player, const customizationData_t &data) {
+    auto faceFeatures = getVectorFromArray(data.faceFeatures, data.faceFeatureCount);
+    auto headOverlays = getMapFromArrays(data.headOverlayKeys, data.headOverlayValues, data.headOverlayCount);
+    auto decorations = getUintPairFromArrays(data.decorationKeys, data.decorationValues, data.decorationCount);
+
+    player->SetCustomization(
+        data.gender,
+        data.headBlend,
+        data.eyeColor,
+        data.hairColor,
+        data.highlightColor,
+        faceFeatures,
+        headOverlays,
+        decorations
+    );
+}
 
 uint32_t Player_GetDecoration(rage::IPlayer *player, uint32_t collection) {
     return player->GetDecoration(collection);
@@ -107,7 +139,9 @@ void Player_SetDecoration(rage::IPlayer *player, uint32_t collection, uint32_t o
     player->SetDecoration(collection, overlay);
 }
 
-// SetDecoration
+void Player_SetDecorations(rage::IPlayer *player, uint32_t *keys, uint32_t *values, size_t count) {
+    player->SetDecorations(getUintPairFromArrays(keys, values, count));
+}
 
 void Player_Eval(rage::IPlayer *player, const char *code) {
     player->Eval(code);
@@ -298,19 +332,44 @@ void Player_SetWeaponAmmo(rage::IPlayer *player, uint32_t weapon, uint32_t ammo)
     player->SetWeaponAmmo(weapon, ammo);
 }
 
-// GetWeapons
+void Player_GetWeapons(rage::IPlayer *player, uint32_t **weapons, uint32_t **ammo, size_t *count) {
+    auto map = player->GetWeapons();
+
+    *weapons = (uint32_t *)malloc(map.size() * sizeof(uint32_t));
+    *ammo = (uint32_t *)malloc(map.size() * sizeof(uint32_t));
+    *count = (uint32_t)map.size();
+
+    int i = 0;
+
+    for (auto &keyValue : map) {
+        *weapons[i] = keyValue.first;
+        *ammo[i] = keyValue.second;
+
+        i++;
+    }
+}
 
 void Player_GiveWeapon(rage::IPlayer *player, uint32_t weapon, uint32_t ammo) {
     player->GiveWeapon(weapon, ammo);
 }
 
-// GiveWeapons
+void Player_GiveWeapons(rage::IPlayer *player, uint32_t *weapons, uint32_t *ammo, size_t count) {
+    std::vector<std::pair<uint32_t, uint16_t>> list;
+
+    for (int i = 0; i < count; i++) {
+        list.emplace_back(weapons[i], ammo[i]);
+    }
+
+    player->GiveWeapons(list);
+}
 
 void Player_RemoveWeapon(rage::IPlayer *player, uint32_t weapon) {
     player->RemoveWeapon(weapon);
 }
 
-// RemoveWeapons
+void Player_RemoveWeapons(rage::IPlayer *player, uint32_t *weapons, size_t count) {
+    player->RemoveWeapons(getVectorFromArray(weapons, count));
+}
 
 void Player_RemoveAllWeapons(rage::IPlayer *player) {
     player->RemoveAllWeapons();
@@ -320,7 +379,9 @@ bool Player_IsStreamed(rage::IPlayer *player, rage::IPlayer *other) {
     return player->IsStreamed(other);
 }
 
-// GetStreamed
+void Player_GetStreamed(rage::IPlayer *player, rage::IPlayer ***players, size_t *count) {
+    getArrayFromVector(player->GetStreamed(), players, count);
+}
 
 const char *Player_GetSerial(rage::IPlayer *player) {
     return player->GetSerial().c_str();
@@ -333,6 +394,3 @@ const char *Player_GetSocialClubName(rage::IPlayer *player) {
 void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius) {
     player->RemoveObject(model, position, radius);
 }
-
-// Call
-// Invoke

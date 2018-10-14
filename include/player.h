@@ -41,6 +41,26 @@
 extern "C" {
 #endif
 
+typedef struct {
+    bool gender;
+    const rage::headBlend_t headBlend;
+
+    uint32_t eyeColor;
+    uint32_t hairColor;
+    uint32_t highlightColor;
+
+    float *faceFeatures;
+    size_t faceFeatureCount;
+
+    int *headOverlayKeys;
+    rage::headOverlay_t *headOverlayValues;
+    size_t headOverlayCount;
+
+    uint32_t *decorationKeys;
+    uint32_t *decorationValues;
+    size_t decorationCount;
+} customizationData_t;
+
 RAGE_API void Player_Kick(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_Ban(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_OutputChatBox(rage::IPlayer *player, const char *text);
@@ -53,16 +73,16 @@ RAGE_API void Player_PlayAnimation(rage::IPlayer *player, const char *dictionary
 RAGE_API void Player_PlayScenario(rage::IPlayer *player, const char *scenario);
 RAGE_API void Player_StopAnimation(rage::IPlayer *player);
 RAGE_API const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint32_t id);
-RAGE_API void Player_SetClothes(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes);
-// SetClothes
+RAGE_API void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes);
+RAGE_API void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rage::clothData_t *clothes, size_t count);
 RAGE_API const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id);
 RAGE_API void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &prop);
-// SetProp
-// SetCustomization
+RAGE_API void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData_t *props, size_t count);
+RAGE_API void Player_SetCustomization(rage::IPlayer *player, const customizationData_t &data);
 RAGE_API uint32_t Player_GetDecoration(rage::IPlayer *player, uint32_t collection);
 RAGE_API void Player_RemoveDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
 RAGE_API void Player_SetDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
-// SetDecoration
+RAGE_API void Player_SetDecorations(rage::IPlayer *player, uint32_t *keys, uint32_t *values, size_t count);
 RAGE_API void Player_Eval(rage::IPlayer *player, const char *code);
 RAGE_API const char *Player_GetName(rage::IPlayer *player);
 RAGE_API void Player_SetName(rage::IPlayer *player, const char *name);
@@ -111,14 +131,14 @@ RAGE_API uint32_t Player_GetCurrentWeaponAmmo(rage::IPlayer *player);
 RAGE_API void Player_SetCurrentWeaponAmmo(rage::IPlayer *player, uint32_t ammo);
 RAGE_API uint32_t Player_GetWeaponAmmo(rage::IPlayer *player, uint32_t weapon);
 RAGE_API void Player_SetWeaponAmmo(rage::IPlayer *player, uint32_t weapon, uint32_t ammo);
-// GetWeapons
+RAGE_API void Player_GetWeapons(rage::IPlayer *player, uint32_t **weapons, uint32_t **ammo, size_t *count);
 RAGE_API void Player_GiveWeapon(rage::IPlayer *player, uint32_t weapon, uint32_t ammo);
-// GiveWeapons
+RAGE_API void Player_GiveWeapons(rage::IPlayer *player, uint32_t *weapons, uint32_t *ammo, size_t count);
 RAGE_API void Player_RemoveWeapon(rage::IPlayer *player, uint32_t weapon);
-// RemoveWeapons
+RAGE_API void Player_RemoveWeapons(rage::IPlayer *player, uint32_t *weapons, size_t count);
 RAGE_API void Player_RemoveAllWeapons(rage::IPlayer *player);
 RAGE_API bool Player_IsStreamed(rage::IPlayer *player, rage::IPlayer *other);
-// GetStreamed
+RAGE_API void Player_GetStreamed(rage::IPlayer *player, rage::IPlayer ***players, size_t *count);
 RAGE_API const char *Player_GetSerial(rage::IPlayer *player);
 RAGE_API const char *Player_GetSocialClubName(rage::IPlayer *player);
 RAGE_API void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius);

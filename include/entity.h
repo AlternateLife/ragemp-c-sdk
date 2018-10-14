@@ -57,7 +57,7 @@ RAGE_API uint32_t Entity_GetAlpha(rage::IEntity *entity);
 RAGE_API void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha);
 RAGE_API const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key);
 RAGE_API void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t &argument);
-// SetVariables
+RAGE_API void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count);
 RAGE_API bool Entity_HasVariable(rage::IEntity *entity, const char *key);
 
 #ifdef __cplusplus
