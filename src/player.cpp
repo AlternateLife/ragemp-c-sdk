@@ -110,21 +110,14 @@ void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData
     player->SetProp(list);
 }
 
-void Player_SetCustomization(rage::IPlayer *player, const customizationData_t &data) {
-    auto faceFeatures = getVectorFromArray(data.faceFeatures, data.faceFeatureCount);
-    auto headOverlays = getMapFromArrays(data.headOverlayKeys, data.headOverlayValues, data.headOverlayCount);
-    auto decorations = getUintPairFromArrays(data.decorationKeys, data.decorationValues, data.decorationCount);
+void Player_SetCustomization(rage::IPlayer *player, bool gender, const rage::headBlend_t headBlend, uint32_t eyeColor, uint32_t hairColor,
+        uint32_t highlightColor, float *faceFeatureValues, size_t faceFeatureCount, int *headOverlayKeys, rage::headOverlay_t *headOverlayValues,
+        size_t headOverlayCount, uint32_t *decorationKeys, uint32_t *decorationValues, size_t decorationCount) {
+    auto faceFeatures = getVectorFromArray(faceFeatureValues, faceFeatureCount);
+    auto headOverlays = getMapFromArrays(headOverlayKeys, headOverlayValues, headOverlayCount);
+    auto decorations = getUintPairFromArrays(decorationKeys, decorationValues, decorationCount);
 
-    player->SetCustomization(
-        data.gender,
-        data.headBlend,
-        data.eyeColor,
-        data.hairColor,
-        data.highlightColor,
-        faceFeatures,
-        headOverlays,
-        decorations
-    );
+    player->SetCustomization(gender, headBlend, eyeColor, hairColor, highlightColor, faceFeatures, headOverlays, decorations);
 }
 
 uint32_t Player_GetDecoration(rage::IPlayer *player, uint32_t collection) {

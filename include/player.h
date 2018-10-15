@@ -41,26 +41,6 @@
 extern "C" {
 #endif
 
-typedef struct {
-    bool gender;
-    const rage::headBlend_t headBlend;
-
-    uint32_t eyeColor;
-    uint32_t hairColor;
-    uint32_t highlightColor;
-
-    float *faceFeatures;
-    size_t faceFeatureCount;
-
-    int *headOverlayKeys;
-    rage::headOverlay_t *headOverlayValues;
-    size_t headOverlayCount;
-
-    uint32_t *decorationKeys;
-    uint32_t *decorationValues;
-    size_t decorationCount;
-} customizationData_t;
-
 RAGE_API void Player_Kick(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_Ban(rage::IPlayer *player, const char *reason);
 RAGE_API void Player_OutputChatBox(rage::IPlayer *player, const char *text);
@@ -78,7 +58,9 @@ RAGE_API void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rag
 RAGE_API const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id);
 RAGE_API void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &prop);
 RAGE_API void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData_t *props, size_t count);
-RAGE_API void Player_SetCustomization(rage::IPlayer *player, const customizationData_t &data);
+RAGE_API void Player_SetCustomization(rage::IPlayer *player, bool gender, const rage::headBlend_t headBlend, uint32_t eyeColor, uint32_t hairColor, uint32_t
+        highlightColor, float *faceFeatures, size_t faceFeatureCount, int *headOverlayKeys, rage::headOverlay_t *headOverlayValues, size_t headOverlayCount,
+        uint32_t *decorationKeys, uint32_t *decorationValues, size_t decorationCount);
 RAGE_API uint32_t Player_GetDecoration(rage::IPlayer *player, uint32_t collection);
 RAGE_API void Player_RemoveDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
 RAGE_API void Player_SetDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
