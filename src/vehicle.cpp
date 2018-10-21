@@ -170,7 +170,7 @@ uint32_t Vehicle_GetPaint(rage::IVehicle *vehicle, uint32_t id) {
     return vehicle->GetPaint(id);
 }
 
-void Vehicle_SetColorRGB(rage::IVehicle *vehicle, const rage::rgb_t &primary, const rage::rgb_t &secondary) {
+void Vehicle_SetColorRGB(rage::IVehicle *vehicle, const rage::rgb_t primary, const rage::rgb_t secondary) {
     vehicle->SetColourRGB(primary, secondary);
 }
 
@@ -178,7 +178,7 @@ void Vehicle_SetColor(rage::IVehicle *vehicle, uint32_t primary, uint32_t second
     vehicle->SetColour(primary, secondary);
 }
 
-void Vehicle_SetPaint(rage::IVehicle *vehicle, const rage::paintInfo_t &primary, const rage::paintInfo_t &secondary) {
+void Vehicle_SetPaint(rage::IVehicle *vehicle, const rage::paintInfo_t primary, const rage::paintInfo_t secondary) {
     vehicle->SetPaint(primary, secondary);
 }
 

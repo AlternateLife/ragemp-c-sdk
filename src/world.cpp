@@ -32,7 +32,7 @@ const rage::time_t *World_GetTime(rage::IWorld *world) {
     return &world->GetTime();
 }
 
-void World_SetTime(rage::IWorld *world, const rage::time_t &time) {
+void World_SetTime(rage::IWorld *world, const rage::time_t time) {
     world->SetTime(time);
 }
 

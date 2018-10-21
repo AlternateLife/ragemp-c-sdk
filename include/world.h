@@ -42,7 +42,7 @@ extern "C" {
 #endif
 
 RAGE_API const rage::time_t *World_GetTime(rage::IWorld *world);
-RAGE_API void World_SetTime(rage::IWorld *world, const rage::time_t &time);
+RAGE_API void World_SetTime(rage::IWorld *world, const rage::time_t time);
 RAGE_API const char *World_GetWeather(rage::IWorld *world);
 RAGE_API void World_SetWeather(rage::IWorld *world, const char *weather);
 RAGE_API void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time);

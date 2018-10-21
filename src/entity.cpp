@@ -90,7 +90,7 @@ const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
     return &entity->GetVariable(key);
 }
 
-void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t &argument) {
+void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument) {
     entity->SetVariable(key, argument);
 }
 
