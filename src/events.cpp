@@ -1,5 +1,5 @@
 /*
- * File: eventHandler.cpp
+ * File: events.cpp
  * Author: MarkAtk
  * Date: 09.10.2018
  *
@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-#include "eventHandler.h"
+#include "events.h"
 
 std::map<eventType_t, void *> _callbacks;
 

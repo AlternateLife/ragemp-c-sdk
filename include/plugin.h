@@ -37,7 +37,7 @@
 #pragma clang diagnostic pop
 #endif
 
-#include "eventHandler.h"
+#include "events.h"
 
 class Plugin : public rage::IPlugin, public rage::IEventHandler, public rage::IEntityHandler, public rage::IPlayerHandler, public rage::IVehicleHandler,
         public rage::IColshapeHandler, public rage::ICheckpointHandler, public rage::IBlipHandler, public rage::IStreamerHandler, public rage::ITickHandler {

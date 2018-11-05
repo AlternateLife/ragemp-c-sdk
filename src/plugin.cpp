@@ -141,7 +141,7 @@ void Plugin::OnVehicleHornToggle(rage::IVehicle *vehicle, bool toggle) {
 }
 
 void Plugin::OnTrailerAttached(rage::IVehicle *vehicle, rage::IVehicle *trailer) {
-    executeCallback(EVENT_TYPE_VEHCILE_TRAILER_ATTACHED, vehicle, trailer);
+    executeCallback(EVENT_TYPE_VEHICLE_TRAILER_ATTACHED, vehicle, trailer);
 }
 
 void Plugin::OnVehicleDamage(rage::IVehicle *vehicle, float bodyHealthLoss, float engineHealthLoss) {
