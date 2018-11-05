@@ -26,18 +26,28 @@
  * SOFTWARE.
  */
 
-#include <plugin.h>
+#include "plugin.h"
 
 #include "rage.h"
 
+#include <iostream>
+
 Plugin::Plugin(rage::IMultiplayer *multiplayer) {
+    std::cout << "[C] Loading plugin" << std::endl;
+
     multiplayer->AddEventHandler(this);
 
     SetupPlugin(multiplayer);
+
+    std::cout << "[C] Loaded plugin" << std::endl;
 }
 
 void Plugin::Unload() {
+    std::cout << "[C] Unloading plugin" << std::endl;
+
     CleanupPlugin();
+
+    std::cout << "[C] Unloaded plugin" << std::endl;
 }
 
 rage::IEntityHandler *Plugin::GetEntityHandler() {
