@@ -37,14 +37,14 @@
 #pragma clang diagnostic pop
 #endif
 
-#include "eventHandler.h"
-
-static EventHandler eventHandler;
+#include "plugin.h"
 
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    mp->AddEventHandler(&eventHandler);
+    auto plugin = new Plugin();
+
+    mp->AddEventHandler(plugin);
 
     SetupPlugin(mp);
 
-    return new rage::IPlugin();
+    return plugin;
 }
