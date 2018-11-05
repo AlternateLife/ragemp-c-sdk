@@ -96,7 +96,7 @@ const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id) {
     return &player->GetProp(id);
 }
 
-void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &prop) {
+void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t prop) {
     player->SetProp(id, prop);
 }
 

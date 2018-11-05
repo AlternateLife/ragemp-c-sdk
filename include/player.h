@@ -56,7 +56,7 @@ RAGE_API const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint3
 RAGE_API void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes);
 RAGE_API void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rage::clothData_t *clothes, size_t count);
 RAGE_API const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id);
-RAGE_API void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t &prop);
+RAGE_API void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t prop);
 RAGE_API void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData_t *props, size_t count);
 RAGE_API void Player_SetCustomization(rage::IPlayer *player, bool gender, const rage::headBlend_t headBlend, uint32_t eyeColor, uint32_t hairColor, uint32_t
         highlightColor, float *faceFeatures, size_t faceFeatureCount, int *headOverlayKeys, rage::headOverlay_t *headOverlayValues, size_t headOverlayCount,
