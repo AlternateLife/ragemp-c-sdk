@@ -39,12 +39,6 @@
 
 #include "plugin.h"
 
-RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *mp) {
-    auto plugin = new Plugin();
-
-    mp->AddEventHandler(plugin);
-
-    SetupPlugin(mp);
-
-    return plugin;
+RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *multiplayer) {
+    return new Plugin(multiplayer);
 }

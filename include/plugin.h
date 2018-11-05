@@ -42,6 +42,11 @@
 class Plugin : public rage::IPlugin, public rage::IEventHandler, public rage::IEntityHandler, public rage::IPlayerHandler, public rage::IVehicleHandler,
         public rage::IColshapeHandler, public rage::ICheckpointHandler, public rage::IBlipHandler, public rage::IStreamerHandler, public rage::ITickHandler {
 public:
+    explicit Plugin(rage::IMultiplayer *multiplayer);
+    virtual ~Plugin() = default;
+
+    void Unload() override;
+
     rage::IEntityHandler *GetEntityHandler() override;
     rage::IPlayerHandler *GetPlayerHandler() override;
     rage::IVehicleHandler *GetVehicleHandler() override;

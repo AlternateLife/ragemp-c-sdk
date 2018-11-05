@@ -28,6 +28,18 @@
 
 #include <plugin.h>
 
+#include "rage.h"
+
+Plugin::Plugin(rage::IMultiplayer *multiplayer) {
+    multiplayer->AddEventHandler(this);
+
+    SetupPlugin(multiplayer);
+}
+
+void Plugin::Unload() {
+    CleanupPlugin();
+}
+
 rage::IEntityHandler *Plugin::GetEntityHandler() {
     return this;
 }

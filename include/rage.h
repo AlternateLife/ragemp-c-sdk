@@ -52,3 +52,4 @@
 #include "vehiclePool.h"
 
 void SetupPlugin(rage::IMultiplayer *multiplayer);
+void CleanupPlugin();
