@@ -136,6 +136,22 @@ void Player_SetDecorations(rage::IPlayer *player, uint32_t *keys, uint32_t *valu
     player->SetDecorations(getUintPairFromArrays(keys, values, count));
 }
 
+void Player_ClearDecoration(rage::IPlayer *player) {
+    player->ClearDecorations();
+}
+
+void Player_EnableVoiceTo(rage::IPlayer *player, rage::IPlayer *target) {
+    player->EnableVoiceTo(target);
+}
+
+void Player_DisableVoiceTo(rage::IPlayer *player, rage::IPlayer *target) {
+    player->DisableVoiceTo(target);
+}
+
+void Player_GetVoiceListeners(rage::IPlayer *player, rage::IPlayer ***players, size_t *count) {
+    getArrayFromVector(player->GetVoiceListeners(), players, count);
+}
+
 void Player_Eval(rage::IPlayer *player, const char *code) {
     player->Eval(code);
 }

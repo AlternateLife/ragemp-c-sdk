@@ -65,6 +65,10 @@ RAGE_API uint32_t Player_GetDecoration(rage::IPlayer *player, uint32_t collectio
 RAGE_API void Player_RemoveDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
 RAGE_API void Player_SetDecoration(rage::IPlayer *player, uint32_t collection, uint32_t overlay);
 RAGE_API void Player_SetDecorations(rage::IPlayer *player, uint32_t *keys, uint32_t *values, size_t count);
+RAGE_API void Player_ClearDecorations(rage::IPlayer *player);
+RAGE_API void Player_EnableVoiceTo(rage::IPlayer *player, rage::IPlayer *target);
+RAGE_API void Player_DisableVoiceTo(rage::IPlayer *player, rage::IPlayer *target);
+RAGE_API void Player_GetVoiceListeners(rage::IPlayer *player, rage::IPlayer ***players, size_t *count);
 RAGE_API void Player_Eval(rage::IPlayer *player, const char *code);
 RAGE_API const char *Player_GetName(rage::IPlayer *player);
 RAGE_API void Player_SetName(rage::IPlayer *player, const char *name);
