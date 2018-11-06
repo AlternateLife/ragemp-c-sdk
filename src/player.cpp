@@ -157,7 +157,7 @@ void Player_Eval(rage::IPlayer *player, const char *code) {
 }
 
 const char *Player_GetName(rage::IPlayer *player) {
-    return player->GetName().c_str();
+    return createCopyFromString(player->GetName());
 }
 
 void Player_SetName(rage::IPlayer *player, const char *name) {
@@ -209,11 +209,11 @@ float Player_GetPacketLoss(rage::IPlayer *player) {
 }
 
 const char *Player_GetKickReason(rage::IPlayer *player) {
-    return player->GetKickReason().c_str();
+    return createCopyFromString(player->GetKickReason());
 }
 
 const char *Player_GetIp(rage::IPlayer *player) {
-    return player->GetIp().c_str();
+    return createCopyFromString(player->GetIp());
 }
 
 bool Player_IsJumping(rage::IPlayer *player) {
@@ -393,11 +393,11 @@ void Player_GetStreamed(rage::IPlayer *player, rage::IPlayer ***players, size_t 
 }
 
 const char *Player_GetSerial(rage::IPlayer *player) {
-    return player->GetSerial().c_str();
+    return createCopyFromString(player->GetSerial());
 }
 
 const char *Player_GetSocialClubName(rage::IPlayer *player) {
-    return player->GetSocialClubName().c_str();
+    return createCopyFromString(player->GetSocialClubName());
 }
 
 void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius) {

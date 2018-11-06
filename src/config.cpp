@@ -28,10 +28,12 @@
 
 #include "config.h"
 
+#include "utils.h"
+
 int Config_GetInt(rage::IConfig *config, const char *key, int defaultValue) {
     return config->GetInt(key, defaultValue);
 }
 
 const char *Config_GetString(rage::IConfig *config, const char *key, const char *defaultValue) {
-    return config->GetString(key, defaultValue).c_str();
+    return createCopyFromString(config->GetString(key, defaultValue));
 }

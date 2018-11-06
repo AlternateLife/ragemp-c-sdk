@@ -187,7 +187,7 @@ uint32_t Vehicle_GetMaterialType(rage::IVehicle *vehicle) {
 }
 
 const char *Vehicle_GetNumberPlate(rage::IVehicle *vehicle) {
-    return vehicle->GetNumberPlate().c_str();
+    return createCopyFromString(vehicle->GetNumberPlate());
 }
 
 void Vehicle_SetNumberPlate(rage::IVehicle *vehicle, const char *numberPlate) {

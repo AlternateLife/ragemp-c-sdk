@@ -72,3 +72,5 @@ std::map<T, U> getMapFromArrays(T *keys, U *values, size_t count) {
 }
 
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count);
+
+const char *createCopyFromString(const std::string &str);

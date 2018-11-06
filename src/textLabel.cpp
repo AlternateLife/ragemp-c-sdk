@@ -28,6 +28,8 @@
 
 #include "textLabel.h"
 
+#include "utils.h"
+
 const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
     return &textLabel->GetColor();
 }
@@ -37,7 +39,7 @@ void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t color) {
 }
 
 const char *TextLabel_GetText(rage::ITextLabel *textLabel) {
-    return textLabel->GetText().c_str();
+    return createCopyFromString(textLabel->GetText());
 }
 
 void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text) {

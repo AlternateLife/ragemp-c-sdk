@@ -37,3 +37,11 @@ std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys,
 
     return list;
 }
+
+const char *createCopyFromString(const std::string &str) {
+    auto out = new char[str.length()];
+
+    strcpy_s(out, str.length(), str.c_str());
+
+    return out;
+}

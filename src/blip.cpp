@@ -82,7 +82,7 @@ void Blip_SetScale(rage::IBlip *blip, float scale) {
 }
 
 const char *Blip_GetName(rage::IBlip *blip) {
-    return blip->GetName().c_str();
+    return createCopyFromString(blip->GetName());
 }
 
 void Blip_SetName(rage::IBlip *blip, const char *name) {

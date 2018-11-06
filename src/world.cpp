@@ -28,6 +28,8 @@
 
 #include "world.h"
 
+#include "utils.h"
+
 const rage::time_t *World_GetTime(rage::IWorld *world) {
     return &world->GetTime();
 }
@@ -37,7 +39,7 @@ void World_SetTime(rage::IWorld *world, const rage::time_t time) {
 }
 
 const char *World_GetWeather(rage::IWorld *world) {
-    return world->GetWeather().c_str();
+    return createCopyFromString(world->GetWeather());
 }
 
 void World_SetWeather(rage::IWorld *world, const char *weather) {
