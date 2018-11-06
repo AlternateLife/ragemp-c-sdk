@@ -249,7 +249,7 @@ bool Player_IsInMelee(rage::IPlayer *player) {
 }
 
 const char *Player_GetActionString(rage::IPlayer *player) {
-    return player->GetActionString().c_str();
+    return createCopyFromString(player->GetActionString());
 }
 
 rage::IVehicle *Player_GetVehicle(rage::IPlayer *player) {

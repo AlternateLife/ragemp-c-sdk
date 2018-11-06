@@ -28,20 +28,22 @@
 
 #include "utils.h"
 
+#include <iostream>
+
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count) {
-    std::vector<std::pair<uint32_t, uint32_t>> list;
+    std::vector<std::pair<uint32_t, uint32_t>> list(count);
 
     for (int i = 0; i < count; i++) {
-    list.emplace_back(keys[i], values[i]);
+        list.emplace_back(keys[i], values[i]);
     }
 
     return list;
 }
 
 const char *createCopyFromString(const std::string &str) {
-    auto out = new char[str.length()];
+    auto out = new char[str.length() + 1];
 
-    strcpy_s(out, str.length(), str.c_str());
+    strcpy(out, str.c_str());
 
     return out;
 }

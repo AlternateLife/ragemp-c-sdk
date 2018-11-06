@@ -42,3 +42,11 @@
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *multiplayer) {
     return new Plugin(multiplayer);
 }
+
+void FreeObject(void *pointer) {
+    delete pointer;
+}
+
+void FreeArray(void *array) {
+    delete[] array;
+}
