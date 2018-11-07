@@ -48,12 +48,14 @@ std::vector<T> getVectorFromArray(T *arr, size_t count) {
 
 template<class T>
 void getArrayFromVector(std::vector<T> list, T **arr, size_t *count) {
-    *arr = new T[list.size()];
+    auto array = new T[list.size()];
     *count = (uint32_t)list.size();
 
     for (int i = 0; i < list.size(); i++) {
-        *arr[i] = list[i];
+        array[i] = list[i];
     }
+
+    *arr = array;
 }
 
 template<class T, class U>
