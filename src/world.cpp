@@ -31,7 +31,7 @@
 #include "utils.h"
 
 const rage::time_t *World_GetTime(rage::IWorld *world) {
-    return &world->GetTime();
+    return copyStruct(world->GetTime());
 }
 
 void World_SetTime(rage::IWorld *world, const rage::time_t time) {

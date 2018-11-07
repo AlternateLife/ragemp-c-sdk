@@ -75,7 +75,7 @@ void Player_StopAnimation(rage::IPlayer *player) {
 }
 
 const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint32_t id) {
-    return &player->GetClothes(id);
+    return copyStruct(player->GetClothes(id));
 }
 
 void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes) {
@@ -93,7 +93,7 @@ void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rage::clothD
 }
 
 const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id) {
-    return &player->GetProp(id);
+    return copyStruct(player->GetProp(id));
 }
 
 void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t prop) {
@@ -197,7 +197,7 @@ void Player_SetArmor(rage::IPlayer *player, float armor) {
 }
 
 const rage::vector3 *Player_GetAminingAt(rage::IPlayer *player) {
-    return &player->GetAimingAt();
+    return copyStruct(player->GetAimingAt());
 }
 
 int Player_GetPing(rage::IPlayer *player) {
@@ -297,7 +297,7 @@ void Player_SetFaceFeature(rage::IPlayer *player, uint32_t id, float scale) {
 }
 
 const rage::headBlend_t *Player_GetHeadBlend(rage::IPlayer *player) {
-    return &player->GetHeadBlend();
+    return copyStruct(player->GetHeadBlend());
 }
 
 void Player_SetHeadBlend(rage::IPlayer *player, int shapeFirstId, int shapeSecondId, int shapeThirdId, int skinFirstId, int skinSecondId, int
@@ -310,7 +310,7 @@ void Player_UpdateHeadBlend(rage::IPlayer *player, float shapeMix, float skinMix
 }
 
 const rage::headOverlay_t *Player_GetHeadOverlay(rage::IPlayer *player, uint32_t overlayId) {
-    return &player->GetHeadOverlay(overlayId);
+    return copyStruct(player->GetHeadOverlay(overlayId));
 }
 
 void Player_SetHeadOverlay(rage::IPlayer *player, uint32_t overlayId, const rage::headOverlay_t &overlay) {

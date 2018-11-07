@@ -151,7 +151,7 @@ void Vehicle_SetNeonsColor(rage::IVehicle *vehicle, uint32_t red, uint32_t green
 }
 
 const rage::rgb_t *Vehicle_GetNeonsColor(rage::IVehicle *vehicle) {
-    return &vehicle->GetNeonsColour();
+    return copyStruct(vehicle->GetNeonsColour());
 }
 
 void Vehicle_Repair(rage::IVehicle *vehicle) {
@@ -159,7 +159,7 @@ void Vehicle_Repair(rage::IVehicle *vehicle) {
 }
 
 const rage::rgb_t *Vehicle_GetColorRGB(rage::IVehicle *vehicle, uint32_t id) {
-    return &vehicle->GetColourRGB(id);
+    return copyStruct(vehicle->GetColourRGB(id));
 }
 
 uint32_t Vehicle_GetColor(rage::IVehicle *vehicle, uint32_t id) {
@@ -286,7 +286,7 @@ float Vehicle_GetMovableState(rage::IVehicle *vehicle) {
 }
 
 const rage::quat_t *Vehicle_GetQuaternion(rage::IVehicle *vehicle) {
-    return &vehicle->GetQuaternion();
+    return copyStruct(vehicle->GetQuaternion());
 }
 
 float Vehicle_GetHeading(rage::IVehicle *vehicle) {

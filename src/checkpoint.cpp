@@ -31,7 +31,7 @@
 #include "utils.h"
 
 const rage::rgba_t *Checkpoint_GetColor(rage::ICheckpoint *checkpoint) {
-    return &checkpoint->GetColour();
+    return copyStruct(checkpoint->GetColour());
 }
 
 void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
@@ -39,7 +39,7 @@ void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t g
 }
 
 const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint) {
-    return &checkpoint->GetDirection();
+    return copyStruct(checkpoint->GetDirection());
 }
 
 void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction) {

@@ -31,7 +31,7 @@
 #include "utils.h"
  
 const rage::rgba_t *Marker_GetColor(rage::IMarker *marker) {
-    return &marker->GetColour();
+    return copyStruct(marker->GetColour());
 }
 
 void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
@@ -39,7 +39,7 @@ void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32
 }
 
 const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
-    return &marker->GetDirection();
+    return copyStruct(marker->GetDirection());
 }
 
 void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {

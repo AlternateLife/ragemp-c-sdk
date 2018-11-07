@@ -31,7 +31,7 @@
 #include "utils.h"
 
 const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
-    return &textLabel->GetColor();
+    return copyStruct(textLabel->GetColor());
 }
 
 void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t color) {
