@@ -135,11 +135,11 @@ void Plugin::OnPlayerRemoteEvent(rage::IPlayer *player, uint64_t eventNameHash, 
 }
 
 void Plugin::OnPlayerStartEnterVehicle(rage::IPlayer *player, rage::IVehicle *vehicle, uint8_t seatId) {
-    executeCallback(EVENT_TYPE_PLAYER_START_ENTER_VEHICLE, player, vehicle, seatId);
+    executeCallback(EVENT_TYPE_PLAYER_START_ENTER_VEHICLE, player, vehicle, (int32_t)((int8_t)seatId));
 }
 
 void Plugin::OnPlayerEnterVehicle(rage::IPlayer *player, rage::IVehicle *vehicle, uint8_t seatId) {
-    executeCallback(EVENT_TYPE_PLAYER_ENTER_VEHICLE, player, vehicle, seatId);
+    executeCallback(EVENT_TYPE_PLAYER_ENTER_VEHICLE, player, vehicle, (int32_t)((int8_t)seatId));
 }
 
 void Plugin::OnPlayerStartExitVehicle(rage::IPlayer *player, rage::IVehicle *vehicle) {

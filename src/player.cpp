@@ -30,6 +30,8 @@
 
 #include "utils.h"
 
+#include <iostream>
+
 void Player_Kick(rage::IPlayer *player, const char *reason) {
     player->Kick(reason);
 }
@@ -265,7 +267,7 @@ void Player_RemoveFromVehicle(rage::IPlayer *player) {
 }
 
 int32_t Player_GetSeat(rage::IPlayer *player) {
-    return player->GetSeat();
+    return (int32_t)((int8_t)player->GetSeat());
 }
 
 uint32_t Player_GetEyeColor(rage::IPlayer *player) {
