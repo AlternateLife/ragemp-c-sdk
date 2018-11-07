@@ -41,18 +41,14 @@
 
 template<class T>
 std::vector<T> getVectorFromArray(T *arr, size_t count) {
-    std::vector<T> list;
-
-    for (int i = 0; i < count; i++) {
-        list.push_back(arr[i]);
-    }
+    std::vector<T> list(arr, arr + count);
 
     return list;
 }
 
 template<class T>
 void getArrayFromVector(std::vector<T> list, T **arr, size_t *count) {
-    *arr = (T *)malloc(list.size() * sizeof(T));
+    *arr = new T[list.size()];
     *count = (uint32_t)list.size();
 
     for (int i = 0; i < list.size(); i++) {
@@ -69,6 +65,14 @@ std::map<T, U> getMapFromArrays(T *keys, U *values, size_t count) {
     }
 
     return map;
+}
+
+template<class T>
+T *copyStruct(T &in) {
+    T* out = new T;
+    memcpy_s((void *)out, sizeof(T), &in, sizeof(T));
+
+    return out;
 }
 
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count);

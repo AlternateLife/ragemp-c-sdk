@@ -51,7 +51,7 @@ void Entity_SetDimension(rage::IEntity *entity, uint32_t dimension) {
 }
 
 const rage::vector3 *Entity_GetPosition(rage::IEntity *entity) {
-    return &entity->GetPosition();
+    return copyStruct(entity->GetPosition());
 }
 
 void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
@@ -59,7 +59,7 @@ void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
 }
 
 const rage::vector3 *Entity_GetRotation(rage::IEntity *entity) {
-    return &entity->GetRotation();
+    return copyStruct(entity->GetRotation());
 }
 
 void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation) {
@@ -75,7 +75,7 @@ void Entity_SetModel(rage::IEntity *entity, uint32_t model) {
 }
 
 const rage::vector3 *Entity_GetVelocity(rage::IEntity *entity) {
-    return &entity->GetVelocity();
+    return copyStruct(entity->GetVelocity());
 }
 
 uint32_t Entity_GetAlpha(rage::IEntity *entity) {
@@ -87,7 +87,7 @@ void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha) {
 }
 
 const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
-    return &entity->GetVariable(key);
+    return copyStruct(entity->GetVariable(key));
 }
 
 void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument) {
