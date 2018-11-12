@@ -83,12 +83,12 @@ std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys,
 const char *createCopyFromString(const std::string &str);
 
 template<class T>
-T catchUnhandledException(std::function<T()> func) {
+T catchUnhandledException(std::function<T()> func, const char *fileName, int line) {
     try {
         return func();
     } catch (...) {
         std::ofstream file("c-sdk-exceptions.log");
-        file << "Unhandled exception in " << __FILE__ << ":" << __LINE__ << std::endl;
+        file << "Unhandled exception in " << fileName << ":" << line << std::endl;
         file.close();
 
         auto exp = std::current_exception();
@@ -97,3 +97,5 @@ T catchUnhandledException(std::function<T()> func) {
         }
     }
 }
+
+#define CATCH_UNHANDLED_EXCEPTION(a, b) return catchUnhandledException<a>(b, __FILE__, __LINE__)
