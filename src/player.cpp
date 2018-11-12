@@ -31,6 +31,7 @@
 #include "utils.h"
 
 #include <iostream>
+#include <fstream>
 
 void Player_Kick(rage::IPlayer *player, const char *reason) {
     player->Kick(reason);
@@ -159,11 +160,15 @@ void Player_Eval(rage::IPlayer *player, const char *code) {
 }
 
 const char *Player_GetName(rage::IPlayer *player) {
-    return createCopyFromString(player->GetName());
+    return catchUnhandledException<const char *>([player] () {
+        return createCopyFromString(player->GetName());
+    });
 }
 
 void Player_SetName(rage::IPlayer *player, const char *name) {
-    player->SetName(name);
+    catchUnhandledException<void>([player, name] () {
+        player->SetName(name);
+    });
 }
 
 bool Player_IsAiming(rage::IPlayer *player) {

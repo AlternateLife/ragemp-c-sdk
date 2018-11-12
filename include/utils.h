@@ -38,6 +38,7 @@
 #endif
 
 #include <vector>
+#include <fstream>
 
 template<class T>
 std::vector<T> getVectorFromArray(T *arr, size_t count) {
@@ -80,3 +81,19 @@ T *copyStruct(T &in) {
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count);
 
 const char *createCopyFromString(const std::string &str);
+
+template<class T>
+T catchUnhandledException(std::function<T()> func) {
+    try {
+        return func();
+    } catch (...) {
+        std::ofstream file("c-sdk-exceptions.log");
+        file << "Unhandled exception in " << __FILE__ << ":" << __LINE__ << std::endl;
+        file.close();
+
+        auto exp = std::current_exception();
+        if (exp) {
+            std::rethrow_exception(exp);
+        }
+    }
+}
