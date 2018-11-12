@@ -1,11 +1,11 @@
 /*
- * File: rage.h
+ * File: memory.h
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.11.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 Rage-MP-C-SDK
+ * Copyright (c) 2018 RageMP-CLR-Host
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,30 +28,35 @@
 
 #pragma once
 
-#include "multiplayer.h"
-#include "config.h"
-#include "world.h"
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wempty-body"
+#endif
+#include <ragemp-cppsdk/rage.hpp>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
-#include "entity.h"
-#include "blip.h"
-#include "colshape.h"
-#include "checkpoint.h"
-#include "marker.h"
-#include "player.h"
-#include "textLabel.h"
-#include "vehicle.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "pool.h"
-#include "blipPool.h"
-#include "checkpointPool.h"
-#include "colshapePool.h"
-#include "markerPool.h"
-#include "objectPool.h"
-#include "playerPool.h"
-#include "textLabelPool.h"
-#include "vehiclePool.h"
+RAGE_API void FreeTime(rage::time_t *time);
+RAGE_API void FreeRGBA(rage::rgba_t *color);
+RAGE_API void FreeRGB(rage::rgb_t *color);
+RAGE_API void FreeVector3(rage::vector3 *vector3);
+RAGE_API void FreeQuat(rage::quat_t *quat);
+RAGE_API void FreeVector2(rage::vector2 *vector2);
+RAGE_API void FreeClothData(rage::clothData_t *cloth);
+RAGE_API void FreeHeadBlend(rage::headBlend_t *headBlend);
+RAGE_API void FreePropData(rage::propData_t *prop);
+RAGE_API void FreeArg(rage::arg_t *argument);
+RAGE_API void FreeArgs(rage::args_t *arguments);
+RAGE_API void FreePaintInfo(rage::paintInfo_t *paintInfo);
+RAGE_API void FreeHeadOverlay(rage::headOverlay_t *headOverlay);
 
-#include "memory.h"
+RAGE_API void FreeString(char *string);
 
-void SetupPlugin(rage::IMultiplayer *multiplayer);
-void CleanupPlugin();
+#ifdef __cplusplus
+}
+#endif

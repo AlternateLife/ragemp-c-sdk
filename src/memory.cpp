@@ -1,11 +1,11 @@
 /*
- * File: rage.h
+ * File: memory.cpp
  * Author: MarkAtk
- * Date: 08.10.2018
+ * Date: 09.11.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 Rage-MP-C-SDK
+ * Copyright (c) 2018 RageMP-CLR-Host
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,32 +26,60 @@
  * SOFTWARE.
  */
 
-#pragma once
-
-#include "multiplayer.h"
-#include "config.h"
-#include "world.h"
-
-#include "entity.h"
-#include "blip.h"
-#include "colshape.h"
-#include "checkpoint.h"
-#include "marker.h"
-#include "player.h"
-#include "textLabel.h"
-#include "vehicle.h"
-
-#include "pool.h"
-#include "blipPool.h"
-#include "checkpointPool.h"
-#include "colshapePool.h"
-#include "markerPool.h"
-#include "objectPool.h"
-#include "playerPool.h"
-#include "textLabelPool.h"
-#include "vehiclePool.h"
-
 #include "memory.h"
 
-void SetupPlugin(rage::IMultiplayer *multiplayer);
-void CleanupPlugin();
+void FreeTime(rage::time_t *time) {
+    delete time;
+}
+
+void FreeRGBA(rage::rgba_t *color) {
+    delete color;
+}
+
+void FreeRGB(rage::rgb_t *color) {
+    delete color;
+}
+
+void FreeVector3(rage::vector3 *vector3) {
+    delete vector3;
+}
+
+void FreeQuat(rage::quat_t *quat) {
+    delete quat;
+}
+
+void FreeVector2(rage::vector2 *vector2) {
+    delete vector2;
+}
+
+void FreeClothData(rage::clothData_t *cloth) {
+    delete cloth;
+}
+
+void FreeHeadBlend(rage::headBlend_t *headBlend) {
+    delete headBlend;
+}
+
+void FreePropData(rage::propData_t *prop) {
+    delete prop;
+}
+
+void FreeArg(rage::arg_t *argument) {
+    delete argument;
+}
+
+void FreeArgs(rage::args_t *arguments) {
+    delete arguments;
+}
+
+void FreePaintInfo(rage::paintInfo_t *paintInfo) {
+    delete paintInfo;
+}
+
+void FreeHeadOverlay(rage::headOverlay_t *headOverlay) {
+    delete headOverlay;
+}
+
+void FreeString(char *string) {
+    delete[] string;
+}
