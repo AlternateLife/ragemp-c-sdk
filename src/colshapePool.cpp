@@ -28,23 +28,35 @@
 
 #include "colshapePool.h"
 
+#include "utils.h"
+
 rage::IColshape *ColshapePool_NewCircle(rage::IColshapePool *pool, const rage::vector2 &position, float radius, uint32_t dimension) {
-    return pool->NewCircle(position, radius, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IColshape *, ([pool, position, radius, dimension] () {
+        return pool->NewCircle(position, radius, dimension);
+    }));
 }
 
 rage::IColshape *ColshapePool_NewSphere(rage::IColshapePool *pool, const rage::vector3 &position, float radius, uint32_t dimension) {
-    return pool->NewSphere(position, radius, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IColshape *, ([pool, position, radius, dimension] () {
+        return pool->NewSphere(position, radius, dimension);
+    }));
 }
 
 rage::IColshape *ColshapePool_NewTube(rage::IColshapePool *pool, const rage::vector3 &position, float radius, float height, uint32_t dimension) {
-    return pool->NewTube(position, radius, height, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IColshape *, ([pool, position, radius, height, dimension] () {
+        return pool->NewTube(position, radius, height, dimension);
+    }));
 }
 
 rage::IColshape *ColshapePool_NewRectangle(rage::IColshapePool *pool, const rage::vector2 &position, const rage::vector2 &size, uint32_t dimension) {
-    return pool->NewRectangle(position, size, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IColshape *, ([pool, position, size, dimension] () {
+        return pool->NewRectangle(position, size, dimension);
+    }));
 }
 
 rage::IColshape *ColshapePool_NewCube(rage::IColshapePool *pool, const rage::vector3 &position, const rage::vector3 &size, uint32_t dimension) {
-    return pool->NewCube(position, size, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IColshape *, ([pool, position, size, dimension] () {
+        return pool->NewCube(position, size, dimension);
+    }));
 }
 

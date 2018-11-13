@@ -28,7 +28,11 @@
 
 #include "checkpointPool.h"
 
+#include "utils.h"
+
 rage::ICheckpoint *CheckpointPool_New(rage::ICheckpointPool *pool, uint32_t type, const rage::vector3 &position, const rage::vector3 &nextPosition,
         float radius, const rage::rgba_t color, bool visible, uint32_t dimension) {
-    return pool->New(type, position, nextPosition, radius, color, visible, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::ICheckpoint *, ([pool, type, position, nextPosition, radius, color, visible, dimension] () {
+        return pool->New(type, position, nextPosition, radius, color, visible, dimension);
+    }));
 }

@@ -28,10 +28,16 @@
 
 #include "colshape.h"
 
+#include "utils.h"
+
 bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position) {
-    return colshape->IsPointWithin(position);
+    CATCH_UNHANDLED_EXCEPTION(bool, ([colshape, position] () {
+        return colshape->IsPointWithin(position);
+    }));
 }
 
 uint32_t Colshape_GetShapeType(rage::IColshape *colshape) {
-    return (uint32_t)colshape->GetShapeType();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([colshape] () {
+        return (uint32_t) colshape->GetShapeType();
+    }));
 }

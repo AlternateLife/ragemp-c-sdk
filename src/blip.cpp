@@ -31,60 +31,88 @@
 #include "utils.h"
 
 float Blip_GetDrawDistance(rage::IBlip *blip) {
-    return blip->GetDrawDistance();
+    CATCH_UNHANDLED_EXCEPTION(float, ([blip] () {
+        return blip->GetDrawDistance();
+    }));
 }
 
 void Blip_SetDrawDistance(rage::IBlip *blip, float distance) {
-    blip->SetDrawDistance(distance);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, distance] () {
+        blip->SetDrawDistance(distance);
+    }));
 }
 
 int32_t Blip_GetRotation(rage::IBlip *blip) {
-    return blip->GetBlipRotation();
+    CATCH_UNHANDLED_EXCEPTION(int32_t, ([blip] () {
+        return blip->GetBlipRotation();
+    }));
 }
 
 void Blip_SetRotation(rage::IBlip *blip, int32_t rotation) {
-    blip->SetRotation(rotation);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, rotation] () {
+        blip->SetRotation(rotation);
+    }));
 }
 
 bool Blip_IsShortRange(rage::IBlip *blip) {
-    return blip->IsShortRange();
+    CATCH_UNHANDLED_EXCEPTION(bool, ([blip] () {
+        return blip->IsShortRange();
+    }));
 }
 
 void Blip_SetShortRange(rage::IBlip *blip, bool toggle) {
-    blip->SetShortRange(toggle);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, toggle] () {
+        blip->SetShortRange(toggle);
+    }));
 }
 
 void Blip_RouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count, uint32_t color, float scale) {
-    blip->RouteFor(getVectorFromArray(players, count), color, scale);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, players, count, color, scale] () {
+        blip->RouteFor(getVectorFromArray(players, count), color, scale);
+    }));
 }
 
 void Blip_UnrouteFor(rage::IBlip *blip, rage::IPlayer **players, size_t count) {
-    blip->UnrouteFor(getVectorFromArray(players, count));
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, players, count] () {
+        blip->UnrouteFor(getVectorFromArray(players, count));
+    }));
 }
 
 uint32_t Blip_GetColor(rage::IBlip *blip) {
-    return blip->GetColour();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([blip] () {
+        return blip->GetColour();
+    }));
 }
 
 void Blip_SetColor(rage::IBlip *blip, uint32_t color) {
-    blip->SetColour(color);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, color] () {
+        blip->SetColour(color);
+    }));
 }
 
 //GetAlpha
 //SetAlpha
 
 float Blip_GetScale(rage::IBlip *blip) {
-    return blip->GetScale();
+    CATCH_UNHANDLED_EXCEPTION(float, ([blip] () {
+        return blip->GetScale();
+    }));
 }
 
 void Blip_SetScale(rage::IBlip *blip, float scale) {
-    blip->SetScale(scale);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, scale] () {
+        blip->SetScale(scale);
+    }));
 }
 
 const char *Blip_GetName(rage::IBlip *blip) {
-    return createCopyFromString(blip->GetName());
+    CATCH_UNHANDLED_EXCEPTION(const char *, ([blip] () {
+        return createCopyFromString(blip->GetName());
+    }));
 }
 
 void Blip_SetName(rage::IBlip *blip, const char *name) {
-    blip->SetName(name);
+    CATCH_UNHANDLED_EXCEPTION(void, ([blip, name] () {
+        blip->SetName(name);
+    }));
 }

@@ -28,51 +28,77 @@
 
 #include "multiplayer.h"
 
+#include "utils.h"
+
 void Multiplayer_AddRemoteEventHandler(rage::IMultiplayer *multiplayer, const char *eventName, RemoteEventCallback callback) {
-    multiplayer->AddRemoteEventHandler(eventName, callback);
+    CATCH_UNHANDLED_EXCEPTION(void, ([multiplayer, eventName, callback] () {
+        multiplayer->AddRemoteEventHandler(eventName, callback);
+    }));
 }
 
 const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetPlayerPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IPlayerPool *, ([multiplayer] () {
+        return &multiplayer->GetPlayerPool();
+    }));
 }
 
 const rage::IVehiclePool *Multiplayer_GetVehiclePool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetVehiclePool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IVehiclePool *, ([multiplayer] () {
+        return &multiplayer->GetVehiclePool();
+    }));
 }
 
 const rage::IColshapePool *Multiplayer_GetColshapePool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetColshapePool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IColshapePool *, ([multiplayer] () {
+        return &multiplayer->GetColshapePool();
+    }));
 }
 
 const rage::ICheckpointPool *Multiplayer_GetCheckpointPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetCheckpointPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::ICheckpointPool *, ([multiplayer] () {
+        return &multiplayer->GetCheckpointPool();
+    }));
 }
 
 const rage::IMarkerPool *Multiplayer_GetMarkerPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetMarkerPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IMarkerPool *, ([multiplayer] () {
+        return &multiplayer->GetMarkerPool();
+    }));
 }
 
 const rage::IBlipPool *Multiplayer_GetBlipPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetBlipPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IBlipPool *, ([multiplayer] () {
+        return &multiplayer->GetBlipPool();
+    }));
 }
 
 const rage::IPickupPool *Multiplayer_GetPickupPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetPickupPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IPickupPool *, ([multiplayer] () {
+        return &multiplayer->GetPickupPool();
+    }));
 }
 
 const rage::IObjectPool *Multiplayer_GetObjectPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetObjectPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IObjectPool *, ([multiplayer] () {
+        return &multiplayer->GetObjectPool();
+    }));
 }
 
 const rage::ITextLabelPool *Multiplayer_GetLabelPool(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetLabelPool();
+    CATCH_UNHANDLED_EXCEPTION(const rage::ITextLabelPool *, ([multiplayer] () {
+        return &multiplayer->GetLabelPool();
+    }));
 }
 
 const rage::IWorld *Multiplayer_GetWorld(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetWorld();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IWorld *, ([multiplayer] () {
+        return &multiplayer->GetWorld();
+    }));
 }
 
 const rage::IConfig *Multiplayer_GetConfig(rage::IMultiplayer *multiplayer) {
-    return &multiplayer->GetConfig();
+    CATCH_UNHANDLED_EXCEPTION(const rage::IConfig *, ([multiplayer] () {
+        return &multiplayer->GetConfig();
+    }));
 }
 

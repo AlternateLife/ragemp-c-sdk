@@ -31,79 +31,115 @@
 #include "utils.h"
 
 uint32_t Entity_GetId(rage::IEntity *entity) {
-    return entity->GetId();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([entity] () {
+        return entity->GetId();
+    }));
 }
 
 uint32_t Entity_GetType(rage::IEntity *entity) {
-    return (uint32_t)entity->GetType();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([entity] () {
+        return (uint32_t) entity->GetType();
+    }));
 }
 
 void Entity_Destroy(rage::IEntity *entity) {
-    entity->Destroy();
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity] () {
+        entity->Destroy();
+    }));
 }
 
 uint32_t Entity_GetDimension(rage::IEntity *entity) {
-    return entity->GetDimension();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([entity] () {
+        return entity->GetDimension();
+    }));
 }
 
 void Entity_SetDimension(rage::IEntity *entity, uint32_t dimension) {
-    entity->SetDimension(dimension);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, dimension] () {
+        entity->SetDimension(dimension);
+    }));
 }
 
 const rage::vector3 *Entity_GetPosition(rage::IEntity *entity) {
-    return copyStruct(entity->GetPosition());
+    CATCH_UNHANDLED_EXCEPTION(const rage::vector3 *, ([entity] () {
+        return copyStruct(entity->GetPosition());
+    }));
 }
 
 void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
-    entity->SetPosition(position);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, position] () {
+        entity->SetPosition(position);
+    }));
 }
 
 const rage::vector3 *Entity_GetRotation(rage::IEntity *entity) {
-    return copyStruct(entity->GetRotation());
+    CATCH_UNHANDLED_EXCEPTION(const rage::vector3 *, ([entity] () {
+        return copyStruct(entity->GetRotation());
+    }));
 }
 
 void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation) {
-    entity->SetRotation(rotation);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, rotation] () {
+        entity->SetRotation(rotation);
+    }));
 }
 
 uint32_t Entity_GetModel(rage::IEntity *entity) {
-    return entity->GetModel();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([entity] () {
+        return entity->GetModel();
+    }));
 }
 
 void Entity_SetModel(rage::IEntity *entity, uint32_t model) {
-    entity->SetModel(model);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, model] () {
+        entity->SetModel(model);
+    }));
 }
 
 const rage::vector3 *Entity_GetVelocity(rage::IEntity *entity) {
-    return copyStruct(entity->GetVelocity());
+    CATCH_UNHANDLED_EXCEPTION(const rage::vector3 *, ([entity] () {
+        return copyStruct(entity->GetVelocity());
+    }));
 }
 
 uint32_t Entity_GetAlpha(rage::IEntity *entity) {
-    return entity->GetAlpha();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([entity] () {
+        return entity->GetAlpha();
+    }));
 }
 
 void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha) {
-    entity->SetAlpha(alpha);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, alpha] () {
+        entity->SetAlpha(alpha);
+    }));
 }
 
 const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
-    return copyStruct(entity->GetVariable(key));
+    CATCH_UNHANDLED_EXCEPTION(const rage::arg_t *, ([entity, key] () {
+        return copyStruct(entity->GetVariable(key));
+    }));
 }
 
 void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument) {
-    entity->SetVariable(key, argument);
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, key, argument] () {
+        entity->SetVariable(key, argument);
+    }));
 }
 
-RAGE_API void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
-    std::vector<std::pair<const std::string, const rage::arg_t &>> list;
+void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
+    CATCH_UNHANDLED_EXCEPTION(void, ([entity, keys, values, count] () {
+        std::vector<std::pair<const std::string, const rage::arg_t &>> list;
 
-    for (int i = 0; i < count; i++) {
-        list.emplace_back(std::string(keys[i]), values[i]);
-    }
+        for (int i = 0; i < count; i++) {
+            list.emplace_back(std::string(keys[i]), values[i]);
+        }
 
-    entity->SetVariables(list);
+        entity->SetVariables(list);
+    }));
 }
 
 bool Entity_HasVariable(rage::IEntity *entity, const char *key) {
-    return entity->HasVariable(key);
+    CATCH_UNHANDLED_EXCEPTION(bool, ([entity, key] () {
+        return entity->HasVariable(key);
+    }));
 }

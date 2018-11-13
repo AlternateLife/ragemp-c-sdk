@@ -31,41 +31,61 @@
 #include "utils.h"
  
 const rage::rgba_t *Marker_GetColor(rage::IMarker *marker) {
-    return copyStruct(marker->GetColour());
+    CATCH_UNHANDLED_EXCEPTION(const rage::rgba_t *, ([marker] () {
+        return copyStruct(marker->GetColour());
+    }));
 }
 
 void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
-    marker->SetColour(red, green, blue, alpha);
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, red, green, blue, alpha] () {
+        marker->SetColour(red, green, blue, alpha);
+    }));
 }
 
 const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
-    return copyStruct(marker->GetDirection());
+    CATCH_UNHANDLED_EXCEPTION(const rage::vector3 *, ([marker] () {
+        return copyStruct(marker->GetDirection());
+    }));
 }
 
 void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {
-    marker->SetDirection(direction);
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, direction] () {
+        marker->SetDirection(direction);
+    }));
 }
 
 float Marker_GetScale(rage::IMarker *marker) {
-    return marker->GetScale();
+    CATCH_UNHANDLED_EXCEPTION(float, ([marker] () {
+        return marker->GetScale();
+    }));
 }
 
 void Marker_SetScale(rage::IMarker *marker, float radius) {
-    marker->SetScale(radius);
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, radius] () {
+        marker->SetScale(radius);
+    }));
 }
 
 bool Marker_IsVisible(rage::IMarker *marker) {
-    return marker->IsVisible();
+    CATCH_UNHANDLED_EXCEPTION(bool, ([marker] () {
+        return marker->IsVisible();
+    }));
 }
 
 void Marker_SetVisible(rage::IMarker *marker, bool toggle) {
-    marker->SetVisible(toggle);
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, toggle] () {
+        marker->SetVisible(toggle);
+    }));
 }
 
 void Marker_ShowFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
-    marker->ShowFor(getVectorFromArray(players, count));
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, players, count] () {
+        marker->ShowFor(getVectorFromArray(players, count));
+    }));
 }
 
 void Marker_HideFor(rage::IMarker *marker, rage::IPlayer **players, size_t count) {
-    marker->HideFor(getVectorFromArray(players, count));
+    CATCH_UNHANDLED_EXCEPTION(void, ([marker, players, count] () {
+        marker->HideFor(getVectorFromArray(players, count));
+    }));
 }

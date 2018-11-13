@@ -31,41 +31,61 @@
 #include "utils.h"
 
 const rage::rgba_t *Checkpoint_GetColor(rage::ICheckpoint *checkpoint) {
-    return copyStruct(checkpoint->GetColour());
+    CATCH_UNHANDLED_EXCEPTION(const rage::rgba_t *, ([checkpoint] () {
+        return copyStruct(checkpoint->GetColour());
+    }));
 }
 
 void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
-    checkpoint->SetColour(red, green, blue, alpha);
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, red, green, blue, alpha] () {
+        checkpoint->SetColour(red, green, blue, alpha);
+    }));
 }
 
 const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint) {
-    return copyStruct(checkpoint->GetDirection());
+    CATCH_UNHANDLED_EXCEPTION(const rage::vector3 *, ([checkpoint] () {
+        return copyStruct(checkpoint->GetDirection());
+    }));
 }
 
 void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction) {
-    checkpoint->SetDirection(direction);
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, direction] () {
+        checkpoint->SetDirection(direction);
+    }));
 }
 
 float Checkpoint_GetRadius(rage::ICheckpoint *checkpoint) {
-    return checkpoint->GetRadius();
+    CATCH_UNHANDLED_EXCEPTION(float, ([checkpoint] () {
+        return checkpoint->GetRadius();
+    }));
 }
 
 void Checkpoint_SetRadius(rage::ICheckpoint *checkpoint, float radius) {
-    checkpoint->SetRadius(radius);
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, radius] () {
+        checkpoint->SetRadius(radius);
+    }));
 }
 
 bool Checkpoint_IsVisible(rage::ICheckpoint *checkpoint) {
-    return checkpoint->IsVisible();
+    CATCH_UNHANDLED_EXCEPTION(bool, ([checkpoint] () {
+        return checkpoint->IsVisible();
+    }));
 }
 
 void Checkpoint_SetVisible(rage::ICheckpoint *checkpoint, bool toggle) {
-    checkpoint->SetVisible(toggle);
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, toggle] () {
+        checkpoint->SetVisible(toggle);
+    }));
 }
 
 void Checkpoint_ShowFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count) {
-    checkpoint->ShowFor(getVectorFromArray(players, count));
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, players, count] () {
+        checkpoint->ShowFor(getVectorFromArray(players, count));
+    }));
 }
 
 void Checkpoint_HideFor(rage::ICheckpoint *checkpoint, rage::IPlayer **players, size_t count) {
-    checkpoint->HideFor(getVectorFromArray(players, count));
+    CATCH_UNHANDLED_EXCEPTION(void, ([checkpoint, players, count] () {
+        checkpoint->HideFor(getVectorFromArray(players, count));
+    }));
 }
