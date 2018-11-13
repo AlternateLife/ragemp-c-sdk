@@ -81,14 +81,15 @@ T *copyStruct(T &in) {
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count);
 
 const char *createCopyFromString(const std::string &str);
+std::string getCurrentTimeAsString();
 
 template<class T>
 T catchUnhandledException(std::function<T()> func, const char *fileName, int line) {
     try {
         return func();
     } catch (...) {
-        std::ofstream file("c-sdk-exceptions.log");
-        file << "Unhandled exception in " << fileName << ":" << line << std::endl;
+        std::ofstream file("c-sdk-exceptions.log", std::ios_base::app);
+        file << "[" << getCurrentTimeAsString() << "] Unhandled exception in " << fileName << ":" << line << std::endl;
         file.close();
 
         auto exp = std::current_exception();

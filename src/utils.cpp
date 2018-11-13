@@ -29,6 +29,10 @@
 #include "utils.h"
 
 #include <iostream>
+#include <chrono>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
 std::vector<std::pair<uint32_t, uint32_t>> getUintPairFromArrays(uint32_t *keys, uint32_t *values, size_t count) {
     std::vector<std::pair<uint32_t, uint32_t>> list(count);
@@ -46,4 +50,14 @@ const char *createCopyFromString(const std::string &str) {
     strcpy(out, str.c_str());
 
     return out;
+}
+
+std::string getCurrentTimeAsString() {
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+    std::stringstream stream;
+    stream << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+
+    return stream.str();
 }
