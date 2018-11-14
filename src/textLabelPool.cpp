@@ -28,7 +28,11 @@
 
 #include "textLabelPool.h"
 
+#include "utils.h"
+
 rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font, const rage::rgba_t color,
         float drawDistance, bool los, uint32_t dimension) {
-    return pool->New(position, text, font, color, drawDistance, los, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::ITextLabel *, ([pool, position, text, font, color, drawDistance, los, dimension] {
+        return pool->New(position, text, font, color, drawDistance, los, dimension);
+    }));
 }

@@ -38,15 +38,20 @@
 #endif
 
 #include "plugin.h"
+#include "utils.h"
 
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *multiplayer) {
     return new Plugin(multiplayer);
 }
 
 void FreeObject(void *pointer) {
-    delete pointer;
+    CATCH_UNHANDLED_EXCEPTION(void, ([pointer] () {
+        delete pointer;
+    }));
 }
 
 void FreeArray(void *array) {
-    delete[] array;
+    CATCH_UNHANDLED_EXCEPTION(void, ([array] () {
+        delete[] array;
+    }));
 }

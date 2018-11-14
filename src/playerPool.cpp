@@ -31,49 +31,71 @@
 #include "utils.h"
 
 void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message) {
-    pool->Broadcast(message);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, message] () {
+        pool->Broadcast(message);
+    }));
 }
 
 void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 &position, float range, uint32_t dimension) {
-    pool->BroadcastInRange(message, position, range, dimension);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, message, position, range, dimension] () {
+        pool->BroadcastInRange(message, position, range, dimension);
+    }));
 }
 
 void PlayerPool_BroadcastInDimension(rage::IPlayerPool *pool, const char *message, uint32_t dimension) {
-    pool->BroadcastInDimension(message, dimension);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, message, dimension] () {
+        pool->BroadcastInDimension(message, dimension);
+    }));
 }
 
 void PlayerPool__Call(rage::IPlayerPool *pool, const char *eventName, const rage::arg_t *arguments, size_t count) {
-    pool->_Call(eventName, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, eventName, arguments, count] () {
+        pool->_Call(eventName, arguments, count);
+    }));
 }
 
 void PlayerPool__CallInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, const char *eventName,
                                       const rage::arg_t *arguments, size_t count) {
-    pool->_CallInRange(position, range, dimension, eventName, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, position, range, dimension, eventName, arguments, count] () {
+        pool->_CallInRange(position, range, dimension, eventName, arguments, count);
+    }));
 }
 
 void PlayerPool__CallInDimension(rage::IPlayerPool *pool, uint32_t dimension, const char *eventName, const rage::arg_t *arguments, size_t count) {
-    pool->_CallInDimension(dimension, eventName, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, dimension, eventName, arguments, count] () {
+        pool->_CallInDimension(dimension, eventName, arguments, count);
+    }));
 }
 
 void PlayerPool__CallFor(rage::IPlayerPool *pool, rage::IPlayer **players, size_t playerCount, const char *eventName, const rage::arg_t *arguments,
         size_t count) {
-    pool->_CallFor(getVectorFromArray(players, playerCount), eventName, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, players, playerCount, eventName, arguments, count] () {
+        pool->_CallFor(getVectorFromArray(players, playerCount), eventName, arguments, count);
+    }));
 }
 
 void PlayerPool__Invoke(rage::IPlayerPool *pool, uint64_t hash, const rage::arg_t *arguments, size_t count) {
-    pool->_Invoke(hash, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, hash, arguments, count] () {
+        pool->_Invoke(hash, arguments, count);
+    }));
 }
 
 void PlayerPool__InvokeInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, uint64_t hash, const
 rage::arg_t *arguments, size_t count) {
-    pool->_InvokeInRange(position, range, dimension, hash, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, position, range, dimension, hash, arguments, count] () {
+        pool->_InvokeInRange(position, range, dimension, hash, arguments, count);
+    }));
 }
 
 void PlayerPool__InvokeInDimension(rage::IPlayerPool *pool, uint32_t dimension, uint64_t hash, const rage::arg_t *arguments, size_t count) {
-    pool->_InvokeInDimension(dimension, hash, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, dimension, hash, arguments, count] () {
+        pool->_InvokeInDimension(dimension, hash, arguments, count);
+    }));
 }
 
 void PlayerPool__InvokeFor(rage::IPlayerPool *pool, rage::IPlayer **players, size_t playerCount, uint64_t hash, const rage::arg_t *arguments,
                                     size_t count) {
-    pool->_InvokeFor(getVectorFromArray(players, playerCount), hash, arguments, count);
+    CATCH_UNHANDLED_EXCEPTION(void, ([pool, players, playerCount, hash, arguments, count] () {
+        pool->_InvokeFor(getVectorFromArray(players, playerCount), hash, arguments, count);
+    }));
 }

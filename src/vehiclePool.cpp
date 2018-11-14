@@ -28,7 +28,11 @@
 
 #include "vehiclePool.h"
 
+#include "utils.h"
+
 rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 &position, float heading, const char *numberPlate,
                                 uint32_t alpha, bool locked, bool engine, uint32_t dimension) {
-    return vehiclePool->New(model, position, heading, numberPlate, alpha, locked, engine, dimension);
+    CATCH_UNHANDLED_EXCEPTION(rage::IVehicle *, ([vehiclePool, model, position, heading, numberPlate, alpha, locked, engine, dimension] {
+        return vehiclePool->New(model, position, heading, numberPlate, alpha, locked, engine, dimension);
+    }));
 }

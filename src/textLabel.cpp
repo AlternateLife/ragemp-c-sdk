@@ -31,43 +31,61 @@
 #include "utils.h"
 
 const rage::rgba_t *TextLabel_GetColor(rage::ITextLabel *textLabel) {
-    return copyStruct(textLabel->GetColor());
+    CATCH_UNHANDLED_EXCEPTION(const rage::rgba_t *, ([textLabel] () {
+        return copyStruct(textLabel->GetColor());
+    }));
 }
 
 void TextLabel_SetColor(rage::ITextLabel *textLabel, const rage::rgba_t color) {
-    textLabel->SetColor(color);
+    CATCH_UNHANDLED_EXCEPTION(void, ([textLabel, color] () {
+        textLabel->SetColor(color);
+    }));
 }
 
 const char *TextLabel_GetText(rage::ITextLabel *textLabel) {
-    return createCopyFromString(textLabel->GetText());
+    CATCH_UNHANDLED_EXCEPTION(const char *, ([textLabel] () {
+        return createCopyFromString(textLabel->GetText());
+    }));
 }
 
 void TextLabel_SetText(rage::ITextLabel *textLabel, const char *text) {
-    textLabel->SetText(text);
+    CATCH_UNHANDLED_EXCEPTION(void, ([textLabel, text] () {
+        textLabel->SetText(text);
+    }));
 }
 
 bool TextLabel_GetLOS(rage::ITextLabel *textLabel) {
-    return textLabel->GetLOS();
+    CATCH_UNHANDLED_EXCEPTION(bool, ([textLabel] () {
+        return textLabel->GetLOS();
+    }));
 }
 
 void TextLabel_SetLOS(rage::ITextLabel *textLabel, bool toggle) {
-    textLabel->SetLOS(toggle);
+    CATCH_UNHANDLED_EXCEPTION(void, ([textLabel, toggle] () {
+        textLabel->SetLOS(toggle);
+    }));
 }
 
 float TextLabel_GetDrawDistance(rage::ITextLabel *textLabel) {
-    return textLabel->GetDrawDistance();
+    CATCH_UNHANDLED_EXCEPTION(float, ([textLabel] () {
+        return textLabel->GetDrawDistance();
+    }));
 }
 
 void TextLabel_SetDrawDistance(rage::ITextLabel *textLabel, float distance) {
-    textLabel->SetDrawDistance(distance);
+    CATCH_UNHANDLED_EXCEPTION(void, ([textLabel, distance] () {
+        textLabel->SetDrawDistance(distance);
+    }));
 }
 
 uint32_t TextLabel_GetFont(rage::ITextLabel *textLabel) {
-    return textLabel->GetFont();
+    CATCH_UNHANDLED_EXCEPTION(uint32_t, ([textLabel] () {
+        return textLabel->GetFont();
+    }));
 }
 
 void TextLabel_SetFont(rage::ITextLabel *textLabel, uint32_t font) {
-    textLabel->SetFont(font);
+    CATCH_UNHANDLED_EXCEPTION(void, ([textLabel, font] () {
+        textLabel->SetFont(font);
+    }));
 }
-
-

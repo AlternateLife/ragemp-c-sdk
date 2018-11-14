@@ -31,47 +31,67 @@
 #include "utils.h"
 
 const rage::time_t *World_GetTime(rage::IWorld *world) {
-    return copyStruct(world->GetTime());
+    CATCH_UNHANDLED_EXCEPTION(const rage::time_t *, ([world] {
+        return copyStruct(world->GetTime());
+    }));
 }
 
 void World_SetTime(rage::IWorld *world, const rage::time_t time) {
-    world->SetTime(time);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, time] {
+        world->SetTime(time);
+    }));
 }
 
 const char *World_GetWeather(rage::IWorld *world) {
-    return createCopyFromString(world->GetWeather());
+    CATCH_UNHANDLED_EXCEPTION(const char *, ([world] {
+        return createCopyFromString(world->GetWeather());
+    }));
 }
 
 void World_SetWeather(rage::IWorld *world, const char *weather) {
-    world->SetWeather(weather);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, weather] {
+        world->SetWeather(weather);
+    }));
 }
 
 void World_SetWeatherTransition(rage::IWorld *world, const char *weather, float time) {
-    world->SetWeatherTransition(weather, time);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, weather, time] {
+        world->SetWeatherTransition(weather, time);
+    }));
 }
 
 void World_RequestIpl(rage::IWorld *world, const char *ipl) {
-    world->RequestIpl(ipl);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, ipl] {
+        world->RequestIpl(ipl);
+    }));
 }
 
 void World_RemoveIpl(rage::IWorld *world, const char *ipl) {
-    world->RemoveIpl(ipl);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, ipl] {
+        world->RemoveIpl(ipl);
+    }));
 }
 
 bool World_AreTrafficLightsLocked(rage::IWorld *world) {
-    return world->AreTrafficLightsLocked();
+    CATCH_UNHANDLED_EXCEPTION(bool, ([world] {
+        return world->AreTrafficLightsLocked();
+    }));
 }
 
 void World_LockTrafficLights(rage::IWorld *world, bool toggle) {
-    world->LockTrafficLights(toggle);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, toggle] {
+        world->LockTrafficLights(toggle);
+    }));
 }
 
 int World_GetTrafficLightsState(rage::IWorld *world) {
-    return world->GetTrafficLightsState();
+    CATCH_UNHANDLED_EXCEPTION(int, ([world] {
+        return world->GetTrafficLightsState();
+    }));
 }
 
 void World_SetTrafficLightsState(rage::IWorld *world, int state) {
-    world->SetTrafficLightsState(state);
+    CATCH_UNHANDLED_EXCEPTION(void, ([world, state] {
+        world->SetTrafficLightsState(state);
+    }));
 }
-
-
