@@ -48,15 +48,15 @@ void Player_Notify(rage::IPlayer *player, const char *text) {
     player->Notify(text);
 }
 
-RAGE_API void Player__Call(rage::IPlayer *player, const char *eventName, const rage::arg_t *arguments, size_t count) {
+void Player__Call(rage::IPlayer *player, const char *eventName, const rage::arg_t *arguments, size_t count) {
     player->_Call(eventName, arguments, count);
 }
 
-RAGE_API void Player__CallHash(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count) {
+void Player__CallHash(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count) {
     player->_CallHash(hash, arguments, count);
 }
 
-RAGE_API void Player__Invoke(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count) {
+void Player__Invoke(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arguments, size_t count) {
     player->_Invoke(hash, arguments, count);
 }
 

@@ -94,7 +94,7 @@ void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_
     entity->SetVariable(key, argument);
 }
 
-RAGE_API void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
+void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
     std::vector<std::pair<const std::string, const rage::arg_t &>> list;
 
     for (int i = 0; i < count; i++) {
