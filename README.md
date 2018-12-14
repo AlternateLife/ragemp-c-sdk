@@ -1,6 +1,7 @@
 # Rage-MP C SDK
 
-![Build status](https://teamcity.alternate-life.de/app/rest/builds/buildType:(id:RageMP_C_SDK_Release)/statusIcon)
+![Build status Windows](https://teamcity.alternate-life.de/app/rest/builds/buildType:(id:RageMP_C_SDK_Release)/statusIcon) (Windows)
+![Build Status Linux](https://teamcity.alternate-life.de/app/rest/builds/buildType:(id:RageMP_RagempCSdkLinux_DevelopmentBuild)/statusIcon) (Linux)
 
 AlternateLife Rage-MP C SDK is a C wrapper for the [Rage-MP C++ SDK](https://github.com/ragemultiplayer/ragemp-cppsdk) for [RAGE Multiplayer](https://rage.mp).
 
