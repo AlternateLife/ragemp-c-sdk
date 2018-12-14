@@ -70,9 +70,14 @@ std::map<T, U> getMapFromArrays(T *keys, U *values, size_t count) {
 }
 
 template<class T>
-T *copyStruct(T &in) {
+T *copyStruct(T in) {
     T* out = new T;
+
+#ifdef _WIN32
     memcpy_s((void *)out, sizeof(T), &in, sizeof(T));
+#else
+    memcpy((void *)out, &in, sizeof(T));
+#endif
 
     return out;
 }
