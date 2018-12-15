@@ -44,7 +44,7 @@ extern "C" {
 RAGE_API const rage::rgba_t *Checkpoint_GetColor(rage::ICheckpoint *checkpoint);
 RAGE_API void Checkpoint_SetColor(rage::ICheckpoint *checkpoint, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha);
 RAGE_API const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint);
-RAGE_API void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction);
+RAGE_API void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 direction);
 RAGE_API float Checkpoint_GetRadius(rage::ICheckpoint *checkpoint);
 RAGE_API void Checkpoint_SetRadius(rage::ICheckpoint *checkpoint, float radius);
 RAGE_API bool Checkpoint_IsVisible(rage::ICheckpoint *checkpoint);

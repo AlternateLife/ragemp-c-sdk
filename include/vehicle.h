@@ -65,7 +65,7 @@ RAGE_API bool Vehicle_IsLocked(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_Lock(rage::IVehicle *vehicle, bool toggle);
 RAGE_API bool Vehicle_IsDead(rage::IVehicle *vehicle);
 RAGE_API void Vehicle_Explode(rage::IVehicle *vehicle);
-RAGE_API void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 &position, float heading);
+RAGE_API void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 position, float heading);
 RAGE_API uint32_t Vehicle_GetMod(rage::IVehicle *vehicle, uint32_t id);
 RAGE_API void Vehicle_SetMod(rage::IVehicle *vehicle, uint32_t id, uint32_t mod);
 RAGE_API bool Vehicle_AreNeonsEnabled(rage::IVehicle *vehicle);

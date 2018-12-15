@@ -28,7 +28,7 @@
 
 #include "objectPool.h"
 
-rage::IObject *ObjectPool_New(rage::IObjectPool *pool, uint32_t model, const rage::vector3 &position, const rage::vector3 &rotation, uint32_t dimension) {
+rage::IObject *ObjectPool_New(rage::IObjectPool *pool, uint32_t model, const rage::vector3 position, const rage::vector3 rotation, uint32_t dimension) {
     auto object = pool->New(model, position, rotation, dimension);
     object->SetDimension(dimension);
 

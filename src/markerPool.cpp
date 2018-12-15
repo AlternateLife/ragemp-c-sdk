@@ -28,7 +28,7 @@
 
 #include "markerPool.h"
 
-rage::IMarker *MarkerPool_New(rage::IMarkerPool *pool, uint32_t model, const rage::vector3 &position, const rage::vector3 &rotation,
-        const rage::vector3 &direction, float scale, const rage::rgba_t color, bool visible, uint32_t dimension) {
+rage::IMarker *MarkerPool_New(rage::IMarkerPool *pool, uint32_t model, const rage::vector3 position, const rage::vector3 rotation,
+        const rage::vector3 direction, float scale, const rage::rgba_t color, bool visible, uint32_t dimension) {
     return pool->New(model, position, rotation, direction, scale, color, visible, dimension);
 }

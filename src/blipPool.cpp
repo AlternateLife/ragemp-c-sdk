@@ -28,7 +28,7 @@
 
 #include "blipPool.h"
 
-rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 &position, float scale, uint32_t color, const char *name,
+rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 position, float scale, uint32_t color, const char *name,
         uint32_t alpha, float drawDistance, bool shortRange, int32_t rotation, uint32_t dimension) {
     return pool->New(sprite, position, scale, color, name, alpha, drawDistance, shortRange, rotation, dimension);
 }

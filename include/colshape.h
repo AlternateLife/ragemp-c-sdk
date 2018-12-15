@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-RAGE_API bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position);
+RAGE_API bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 position);
 RAGE_API uint32_t Colshape_GetShapeType(rage::IColshape *colshape);
 
 #ifdef __cplusplus

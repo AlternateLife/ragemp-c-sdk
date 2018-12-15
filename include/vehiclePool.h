@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-RAGE_API rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 &position, float heading, const char *numberPlate,
+RAGE_API rage::IVehicle *VehiclePool_New(rage::IVehiclePool *vehiclePool, uint32_t model, const rage::vector3 position, float heading, const char *numberPlate,
         uint32_t alpha, bool locked, bool engine, uint32_t dimension);
 
 #ifdef __cplusplus

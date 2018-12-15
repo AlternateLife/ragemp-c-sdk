@@ -126,7 +126,7 @@ void Vehicle_Explode(rage::IVehicle *vehicle) {
     vehicle->Explode();
 }
 
-void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 &position, float heading) {
+void Vehicle_Spawn(rage::IVehicle *vehicle, const rage::vector3 position, float heading) {
     vehicle->Spawn(position, heading);
 }
 

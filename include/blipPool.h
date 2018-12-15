@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-RAGE_API rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 &position, float scale, uint32_t color, const char *name,
+RAGE_API rage::IBlip *BlipPool_New(rage::IBlipPool *pool, uint32_t sprite, const rage::vector3 position, float scale, uint32_t color, const char *name,
         uint32_t alpha, float drawDistance, bool shortRange, int32_t rotation, uint32_t dimension);
 
 #ifdef __cplusplus

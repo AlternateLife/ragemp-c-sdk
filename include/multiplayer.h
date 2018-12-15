@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-typedef void (* RemoteEventCallback)(rage::IPlayer *, const rage::args_t &);
+typedef void (* RemoteEventCallback)(rage::IPlayer *, const rage::args_t );
 
 RAGE_API void Multiplayer_AddRemoteEventHandler(rage::IMultiplayer *multiplayer, const char *eventName, RemoteEventCallback callback);
 RAGE_API const rage::IPlayerPool *Multiplayer_GetPlayerPool(rage::IMultiplayer *multiplayer);

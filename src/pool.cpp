@@ -42,7 +42,7 @@ uint32_t Pool_GetCount(rage::IPool<rage::IEntity> *pool) {
     return pool->Count();
 }
 
-void Pool_GetInRange(rage::IPool<rage::IEntity> *pool, const rage::vector3 &position, float range, uint32_t dimension, rage::IEntity ***entities, size_t *count) {
+void Pool_GetInRange(rage::IPool<rage::IEntity> *pool, const rage::vector3 position, float range, uint32_t dimension, rage::IEntity ***entities, size_t *count) {
     getArrayFromVector(pool->GetInRange(position, range, dimension), entities, count);
 }
 

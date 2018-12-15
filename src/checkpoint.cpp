@@ -42,7 +42,7 @@ const rage::vector3 *Checkpoint_GetDirection(rage::ICheckpoint *checkpoint) {
     return copyStruct(checkpoint->GetDirection());
 }
 
-void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 &direction) {
+void Checkpoint_SetDirection(rage::ICheckpoint *checkpoint, const rage::vector3 direction) {
     checkpoint->SetDirection(direction);
 }
 

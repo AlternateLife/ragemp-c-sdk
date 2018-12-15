@@ -42,7 +42,7 @@ const rage::vector3 *Marker_GetDirection(rage::IMarker *marker) {
     return copyStruct(marker->GetDirection());
 }
 
-void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction) {
+void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 direction) {
     marker->SetDirection(direction);
 }
 

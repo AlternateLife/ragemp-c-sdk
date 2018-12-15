@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-RAGE_API rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font,
+RAGE_API rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 position, const char *text, uint32_t font,
         const rage::rgba_t color, float drawDistance, bool los, uint32_t dimension);
 
 #ifdef __cplusplus

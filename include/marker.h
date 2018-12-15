@@ -44,7 +44,7 @@ extern "C" {
 RAGE_API const rage::rgba_t *Marker_GetColor(rage::IMarker *marker);
 RAGE_API void Marker_SetColor(rage::IMarker *marker, uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha);
 RAGE_API const rage::vector3 *Marker_GetDirection(rage::IMarker *marker);
-RAGE_API void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 &direction);
+RAGE_API void Marker_SetDirection(rage::IMarker *marker, const rage::vector3 direction);
 RAGE_API float Marker_GetScale(rage::IMarker *marker);
 RAGE_API void Marker_SetScale(rage::IMarker *marker, float scale);
 RAGE_API bool Marker_IsVisible(rage::IMarker *marker);

@@ -28,7 +28,7 @@
 
 #include "textLabelPool.h"
 
-rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 &position, const char *text, uint32_t font, const rage::rgba_t color,
+rage::ITextLabel *TextLabelPool_New(rage::ITextLabelPool *pool, const rage::vector3 position, const char *text, uint32_t font, const rage::rgba_t color,
         float drawDistance, bool los, uint32_t dimension) {
     return pool->New(position, text, font, color, drawDistance, los, dimension);
 }

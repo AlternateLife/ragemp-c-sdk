@@ -54,7 +54,7 @@ const rage::vector3 *Entity_GetPosition(rage::IEntity *entity) {
     return copyStruct(entity->GetPosition());
 }
 
-void Entity_SetPosition(rage::IEntity *entity, rage::vector3 &position) {
+void Entity_SetPosition(rage::IEntity *entity, rage::vector3 position) {
     entity->SetPosition(position);
 }
 
@@ -62,7 +62,7 @@ const rage::vector3 *Entity_GetRotation(rage::IEntity *entity) {
     return copyStruct(entity->GetRotation());
 }
 
-void Entity_SetRotation(rage::IEntity *entity, rage::vector3 &rotation) {
+void Entity_SetRotation(rage::IEntity *entity, rage::vector3 rotation) {
     entity->SetRotation(rotation);
 }
 

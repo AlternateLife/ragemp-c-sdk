@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-RAGE_API rage::ICheckpoint *CheckpointPool_New(rage::ICheckpointPool *pool, uint32_t type, const rage::vector3 &position, const rage::vector3 &nextPosition,
+RAGE_API rage::ICheckpoint *CheckpointPool_New(rage::ICheckpointPool *pool, uint32_t type, const rage::vector3 position, const rage::vector3 nextPosition,
         float radius, const rage::rgba_t color, bool visible, uint32_t dimension);
 
 #ifdef __cplusplus

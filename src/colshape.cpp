@@ -28,7 +28,7 @@
 
 #include "colshape.h"
 
-bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 &position) {
+bool Colshape_IsPointWithin(rage::IColshape *colshape, const rage::vector3 position) {
     return colshape->IsPointWithin(position);
 }
 

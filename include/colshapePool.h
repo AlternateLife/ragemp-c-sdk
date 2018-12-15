@@ -41,11 +41,11 @@
 extern "C" {
 #endif
 
-RAGE_API rage::IColshape *ColshapePool_NewCircle(rage::IColshapePool *pool, const rage::vector2 &position, float radius, uint32_t dimension);
-RAGE_API rage::IColshape *ColshapePool_NewSphere(rage::IColshapePool *pool, const rage::vector3 &position, float radius, uint32_t dimension);
-RAGE_API rage::IColshape *ColshapePool_NewTube(rage::IColshapePool *pool, const rage::vector3 &position, float radius, float height, uint32_t dimension);
-RAGE_API rage::IColshape *ColshapePool_NewRectangle(rage::IColshapePool *pool, const rage::vector2 &position, const rage::vector2 &size, uint32_t dimension);
-RAGE_API rage::IColshape *ColshapePool_NewCube(rage::IColshapePool *pool, const rage::vector3 &position, const rage::vector3 &size, uint32_t dimension);
+RAGE_API rage::IColshape *ColshapePool_NewCircle(rage::IColshapePool *pool, const rage::vector2 position, float radius, uint32_t dimension);
+RAGE_API rage::IColshape *ColshapePool_NewSphere(rage::IColshapePool *pool, const rage::vector3 position, float radius, uint32_t dimension);
+RAGE_API rage::IColshape *ColshapePool_NewTube(rage::IColshapePool *pool, const rage::vector3 position, float radius, float height, uint32_t dimension);
+RAGE_API rage::IColshape *ColshapePool_NewRectangle(rage::IColshapePool *pool, const rage::vector2 position, const rage::vector2 size, uint32_t dimension);
+RAGE_API rage::IColshape *ColshapePool_NewCube(rage::IColshapePool *pool, const rage::vector3 position, const rage::vector3 size, uint32_t dimension);
 
 #ifdef __cplusplus
 }

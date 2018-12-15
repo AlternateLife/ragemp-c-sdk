@@ -60,7 +60,7 @@ void Player__Invoke(rage::IPlayer *player, uint64_t hash, const rage::arg_t *arg
     player->_Invoke(hash, arguments, count);
 }
 
-void Player_Spawn(rage::IPlayer *player, const rage::vector3 &position, float heading) {
+void Player_Spawn(rage::IPlayer *player, const rage::vector3 position, float heading) {
     player->Spawn(position, heading);
 }
 
@@ -80,14 +80,20 @@ const rage::clothData_t *Player_GetClothes(rage::IPlayer *player, uint32_t id) {
     return copyStruct(player->GetClothes(id));
 }
 
-void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t &clothes) {
+void Player_SetCloth(rage::IPlayer *player, uint32_t id, const rage::clothData_t clothes) {
+    std::cout << "SetCloth (" << (int)id << "): " << (int)clothes.drawableId << " " << (int)clothes.textureId << " " << (int)clothes.paletteId << std::endl;
+
     player->SetClothes(id, clothes);
 }
 
 void Player_SetClothes(rage::IPlayer *player, uint32_t *keys, const rage::clothData_t *clothes, size_t count) {
     std::vector<std::pair<uint8_t, const rage::clothData_t>> list;
 
+    std::cout << "SetClothes: " << std::endl;
+
     for (int i = 0; i < count; i++) {
+        std::cout << "\tCloth (" << (int)keys[i] << "): " << (int)clothes[i].drawableId << " " << (int)clothes[i].textureId << " " << (int)clothes[i].paletteId << std::endl;
+
         list.emplace_back(keys[i], clothes[i]);
     }
 
@@ -99,13 +105,19 @@ const rage::propData_t *Player_GetProp(rage::IPlayer *player, uint32_t id) {
 }
 
 void Player_SetProp(rage::IPlayer *player, uint32_t id, const rage::propData_t prop) {
+    std::cout << "SetProp (" << (int)id << "): " << (int)prop.drawableId << " " << (int)prop.textureId << std::endl;
+
     player->SetProp(id, prop);
 }
 
 void Player_SetProps(rage::IPlayer *player, uint32_t *keys, const rage::propData_t *props, size_t count) {
     std::vector<std::pair<uint8_t, const rage::propData_t>> list;
 
+    std::cout << "SetProps: " << std::endl;
+
     for (int i = 0; i < count; i++) {
+        std::cout << "\tProp (" << (int)keys[i] << "): " << (int)props[i].drawableId << " " << (int)props[i].textureId << std::endl;
+
         list.emplace_back(keys[i], props[i]);
     }
 
@@ -315,7 +327,7 @@ const rage::headOverlay_t *Player_GetHeadOverlay(rage::IPlayer *player, uint32_t
     return copyStruct(player->GetHeadOverlay(overlayId));
 }
 
-void Player_SetHeadOverlay(rage::IPlayer *player, uint32_t overlayId, const rage::headOverlay_t &overlay) {
+void Player_SetHeadOverlay(rage::IPlayer *player, uint32_t overlayId, const rage::headOverlay_t overlay) {
     player->SetHeadOverlay(overlayId, overlay);
 }
 
@@ -402,6 +414,6 @@ const char *Player_GetSocialClubName(rage::IPlayer *player) {
     return createCopyFromString(player->GetSocialClubName());
 }
 
-void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 &position, float radius) {
+void Player_RemoveObject(rage::IPlayer *player, uint32_t model, const rage::vector3 position, float radius) {
     player->RemoveObject(model, position, radius);
 }

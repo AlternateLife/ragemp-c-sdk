@@ -34,7 +34,7 @@ void PlayerPool_Broadcast(rage::IPlayerPool *pool, const char *message) {
     pool->Broadcast(message);
 }
 
-void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 &position, float range, uint32_t dimension) {
+void PlayerPool_BroadcastInRange(rage::IPlayerPool *pool, const char *message, const rage::vector3 position, float range, uint32_t dimension) {
     pool->BroadcastInRange(message, position, range, dimension);
 }
 
@@ -46,7 +46,7 @@ void PlayerPool__Call(rage::IPlayerPool *pool, const char *eventName, const rage
     pool->_Call(eventName, arguments, count);
 }
 
-void PlayerPool__CallInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, const char *eventName,
+void PlayerPool__CallInRange(rage::IPlayerPool *pool, const rage::vector3 position, float range, uint32_t dimension, const char *eventName,
                                       const rage::arg_t *arguments, size_t count) {
     pool->_CallInRange(position, range, dimension, eventName, arguments, count);
 }
@@ -64,7 +64,7 @@ void PlayerPool__Invoke(rage::IPlayerPool *pool, uint64_t hash, const rage::arg_
     pool->_Invoke(hash, arguments, count);
 }
 
-void PlayerPool__InvokeInRange(rage::IPlayerPool *pool, const rage::vector3 &position, float range, uint32_t dimension, uint64_t hash, const
+void PlayerPool__InvokeInRange(rage::IPlayerPool *pool, const rage::vector3 position, float range, uint32_t dimension, uint64_t hash, const
 rage::arg_t *arguments, size_t count) {
     pool->_InvokeInRange(position, range, dimension, hash, arguments, count);
 }
