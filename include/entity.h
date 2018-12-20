@@ -59,6 +59,10 @@ RAGE_API const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char
 RAGE_API void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument);
 RAGE_API void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count);
 RAGE_API bool Entity_HasVariable(rage::IEntity *entity, const char *key);
+RAGE_API const rage::arg_t *Entity_GetVariableHashedKey(rage::IEntity *entity, uint64_t key);
+RAGE_API void Entity_SetVariableHashedKey(rage::IEntity *entity, uint64_t key, const rage::arg_t argument);
+RAGE_API void Entity_SetVariablesHashedKey(rage::IEntity *entity, uint64_t *keys, const rage::arg_t *values, size_t count);
+RAGE_API bool Entity_HasVariableHashedKey(rage::IEntity *entity, uint64_t key);
 
 #ifdef __cplusplus
 }

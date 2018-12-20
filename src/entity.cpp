@@ -119,3 +119,25 @@ bool Entity_HasVariable(rage::IEntity *entity, const char *key) {
 
     return entity->HasVariable(hashedKey);
 }
+
+const rage::arg_t *Entity_GetVariableHashedKey(rage::IEntity *entity, uint64_t key) {
+    return copyStruct(entity->GetVariable(key));
+}
+
+void Entity_SetVariableHashedKey(rage::IEntity *entity, uint64_t key, const rage::arg_t argument) {
+    entity->SetVariable(key, argument);
+}
+
+void Entity_SetVariablesHashedKey(rage::IEntity *entity, uint64_t *keys, const rage::arg_t *values, size_t count) {
+    std::vector<std::pair<uint64_t, const rage::arg_t &>> list;
+
+    for (int i = 0; i < count; i++) {
+        list.emplace_back(keys[i], values[i]);
+    }
+
+    entity->SetVariables(list);
+}
+
+bool Entity_HasVariableHashedKey(rage::IEntity *entity, uint64_t key) {
+    return entity->HasVariable(key);
+}
