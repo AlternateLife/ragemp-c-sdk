@@ -96,10 +96,10 @@ const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
     return copyStruct(entity->GetVariable(hashedKey));
 }
 
-void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument) {
+void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t *argument) {
     auto hashedKey = XXH64(key, strlen(key), 0);
 
-    entity->SetVariable(hashedKey, argument);
+    entity->SetVariable(hashedKey, *argument);
 }
 
 void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
