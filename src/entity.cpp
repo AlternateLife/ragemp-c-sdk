@@ -30,6 +30,10 @@
 
 #include "utils.h"
 
+#define XXH_INLINE_ALL
+
+#include <xxhash/xxhash.h>
+
 uint32_t Entity_GetId(rage::IEntity *entity) {
     return entity->GetId();
 }
@@ -87,23 +91,31 @@ void Entity_SetAlpha(rage::IEntity *entity, uint32_t alpha) {
 }
 
 const rage::arg_t *Entity_GetVariable(rage::IEntity *entity, const char *key) {
-    return copyStruct(entity->GetVariable(key));
+    auto hashedKey = XXH64(key, strlen(key), 0);
+
+    return copyStruct(entity->GetVariable(hashedKey));
 }
 
 void Entity_SetVariable(rage::IEntity *entity, const char *key, const rage::arg_t argument) {
-    entity->SetVariable(key, argument);
+    auto hashedKey = XXH64(key, strlen(key), 0);
+
+    entity->SetVariable(hashedKey, argument);
 }
 
 void Entity_SetVariables(rage::IEntity *entity, const char **keys, const rage::arg_t *values, size_t count) {
-    std::vector<std::pair<const std::string, const rage::arg_t &>> list;
+    std::vector<std::pair<uint64_t, const rage::arg_t &>> list;
 
     for (int i = 0; i < count; i++) {
-        list.emplace_back(std::string(keys[i]), values[i]);
+        auto hashedKey = XXH64(keys[i], strlen(keys[i]), 0);
+
+        list.emplace_back(hashedKey, values[i]);
     }
 
     entity->SetVariables(list);
 }
 
 bool Entity_HasVariable(rage::IEntity *entity, const char *key) {
-    return entity->HasVariable(key);
+    auto hashedKey = XXH64(key, strlen(key), 0);
+
+    return entity->HasVariable(hashedKey);
 }
