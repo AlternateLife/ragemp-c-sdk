@@ -51,12 +51,12 @@
 #include "textLabelPool.h"
 #include "vehiclePool.h"
 
-void SetupPlugin(rage::IMultiplayer *multiplayer);
-void CleanupPlugin();
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void SetupPlugin(rage::IMultiplayer *multiplayer);
+void CleanupPlugin();
 
 RAGE_API void FreeObject(void *pointer);
 RAGE_API void FreeArray(void *array);
