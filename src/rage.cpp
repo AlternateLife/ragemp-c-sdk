@@ -39,9 +39,15 @@
 
 #include "plugin.h"
 
+#ifdef RAGEMP_CUSTOM_INITIALIZE
+RAGE_API rage::IPlugin *RageMP_Initialize(rage::IMultiplayer *multiplayer) {
+    return new Plugin(multiplayer);
+}
+#else
 RAGE_API rage::IPlugin *InitializePlugin(rage::IMultiplayer *multiplayer) {
     return new Plugin(multiplayer);
 }
+#endif
 
 void FreeObject(void *pointer) {
     delete pointer;

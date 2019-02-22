@@ -55,6 +55,10 @@
 extern "C" {
 #endif
 
+#ifdef RAGEMP_CUSTOM_INITIALIZE
+RAGE_API rage::IPlugin *RageMP_Initialize(rage::IMultiplayer *multiplayer);
+#endif
+
 void SetupPlugin(rage::IMultiplayer *multiplayer);
 void CleanupPlugin();
 
