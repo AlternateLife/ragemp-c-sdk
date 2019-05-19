@@ -138,7 +138,7 @@ void Player_SetDecorations(rage::IPlayer *player, uint32_t *keys, uint32_t *valu
     player->SetDecorations(getUintPairFromArrays(keys, values, count));
 }
 
-void Player_ClearDecoration(rage::IPlayer *player) {
+void Player_ClearDecorations(rage::IPlayer *player) {
     player->ClearDecorations();
 }
 
